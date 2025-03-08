@@ -1,0 +1,29 @@
+#kanban-users-list { display: grid; grid-template-columns: repeat(auto-fill, 175px); gap: 10px; }
+
+#kanban-users-list .kanban-user-item { position: relative; }
+
+#kanban-users-list .kanban-user-item label { cursor: pointer; font-size: 14px; font-weight: 600; }
+
+#kanban-users-list .kanban-user-item input { background-image: url(../icons/user-x.svg); background-size: contain; background-repeat: no-repeat; background-position: center left; border: none; width: 25px; height: 25px; -webkit-box-shadow: none; box-shadow: none; }
+
+#kanban-users-list .kanban-user-item input:checked { background-image: url(../icons/user-check.svg); }
+
+#kanban-users-list .kanban-user-item input::before { display: none; }
+
+#project-class-meta-box { display: grid; grid-template-columns: repeat(auto-fill, 100px); gap: 10px; }
+
+#project-class-meta-box p { width: 100px; height: 100px; font-size: 0; }
+
+#project-class-meta-box p input { width: 100%; height: 100%; position: relative; border-radius: 0; }
+
+#project-class-meta-box p input[value="kanban-color-one"] { background-color: #838c91; }
+
+#project-class-meta-box p input[value="kanban-color-two"] { background-color: #487852; }
+
+#project-class-meta-box p input[value="kanban-color-three"] { background-color: #18191b; }
+
+#project-class-meta-box p input:checked:before { all: unset; content: url(../icons/check-light.svg); position: absolute; right: 0; }
+
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYWRtaW4uY3NzIiwic291cmNlcyI6WyJhZG1pbi5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLEFBQUEsa0JBQWtCLENBQUMsRUFDbEIsT0FBTyxFQUFFLElBQUksRUFDYixxQkFBcUIsRUFBRSx3QkFBd0IsRUFDNUMsR0FBRyxFQUFFLElBQUksR0E0Qlo7O0FBL0JELEFBSUMsa0JBSmlCLENBSWpCLGlCQUFpQixDQUFDLEVBQ2pCLFFBQVEsRUFBRSxRQUFRLEdBeUJsQjs7QUE5QkYsQUFNRSxrQkFOZ0IsQ0FJakIsaUJBQWlCLENBRWhCLEtBQUssQ0FBQyxFQUNMLE1BQU0sRUFBRSxPQUFPLEVBQ2YsU0FBUyxFQUFFLElBQUksRUFDZixXQUFXLEVBQUUsR0FBRyxHQUVoQjs7QUFYSCxBQVlFLGtCQVpnQixDQUlqQixpQkFBaUIsQ0FRaEIsS0FBSyxDQUFDLEVBQ0wsZ0JBQWdCLEVBQUUsd0JBQXdCLEVBQzFDLGVBQWUsRUFBRSxPQUFPLEVBQ3hCLGlCQUFpQixFQUFFLFNBQVMsRUFDNUIsbUJBQW1CLEVBQUUsV0FBVyxFQUNoQyxNQUFNLEVBQUUsSUFBSSxFQUNaLEtBQUssRUFBRSxJQUFJLEVBQ1gsTUFBTSxFQUFFLElBQUksRUFDWixVQUFVLEVBQUUsSUFBSSxHQVFoQjs7QUE1QkgsQUFzQkcsa0JBdEJlLENBSWpCLGlCQUFpQixDQVFoQixLQUFLLEFBVUgsUUFBUSxDQUFDLEVBQ1QsZ0JBQWdCLEVBQUUsNEJBQTRCLEdBQzlDOztBQXhCSixBQXlCRyxrQkF6QmUsQ0FJakIsaUJBQWlCLENBUWhCLEtBQUssQUFhSCxRQUFRLENBQUMsRUFDVCxPQUFPLEVBQUUsSUFBSSxHQUNiOztBQU1KLEFBQUEsdUJBQXVCLENBQUMsRUFDdkIsT0FBTyxFQUFFLElBQUksRUFDYixxQkFBcUIsRUFBRSx3QkFBd0IsRUFDL0MsR0FBRyxFQUFFLElBQUksR0E2QlQ7O0FBaENELEFBSUMsdUJBSnNCLENBSXRCLENBQUMsQ0FBQyxFQUNELEtBQUssRUFBRSxLQUFLLEVBQ1osTUFBTSxFQUFFLEtBQUssRUFDYixTQUFTLEVBQUUsQ0FBQyxHQXdCWjs7QUEvQkYsQUFRRSx1QkFScUIsQ0FJdEIsQ0FBQyxDQUlBLEtBQUssQ0FBQyxFQUNMLEtBQUssRUFBRSxJQUFJLEVBQ1gsTUFBTSxFQUFFLElBQUksRUFDWixRQUFRLEVBQUUsUUFBUSxFQUNsQixhQUFhLEVBQUUsQ0FBQyxHQWtCaEI7O0FBOUJILEFBYUcsdUJBYm9CLENBSXRCLENBQUMsQ0FJQSxLQUFLLENBS0gsQUFBQSxLQUFDLENBQU0sa0JBQWtCLEFBQXhCLEVBQTBCLEVBQzNCLGdCQUFnQixFQUFFLE9BQU8sR0FDekI7O0FBZkosQUFnQkcsdUJBaEJvQixDQUl0QixDQUFDLENBSUEsS0FBSyxDQVFILEFBQUEsS0FBQyxDQUFNLGtCQUFrQixBQUF4QixFQUEwQixFQUMzQixnQkFBZ0IsRUFBRSxPQUFPLEdBQ3pCOztBQWxCSixBQW1CRyx1QkFuQm9CLENBSXRCLENBQUMsQ0FJQSxLQUFLLENBV0gsQUFBQSxLQUFDLENBQU0sb0JBQW9CLEFBQTFCLEVBQTRCLEVBQzdCLGdCQUFnQixFQUFFLE9BQU8sR0FDekI7O0FBckJKLEFBdUJJLHVCQXZCbUIsQ0FJdEIsQ0FBQyxDQUlBLEtBQUssQUFjSCxRQUFRLEFBQ1AsT0FBTyxDQUFDLEVBQ1IsR0FBRyxFQUFFLEtBQUssRUFDVixPQUFPLEVBQUUsNkJBQTZCLEVBQ3RDLFFBQVEsRUFBRSxRQUFRLEVBQ2YsS0FBSyxFQUFFLENBQUMsR0FDWCJ9 */
+
+/*# sourceMappingURL=admin.css.map */

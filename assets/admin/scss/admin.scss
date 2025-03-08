@@ -1,0 +1,66 @@
+#kanban-users-list {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 175px);
+    gap: 10px;
+	.kanban-user-item {
+		position: relative;
+		label {
+			cursor: pointer;
+			font-size: 14px;
+			font-weight: 600;
+
+		}
+		input {
+			background-image: url(../icons/user-x.svg);
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center left;
+			border: none;
+			width: 25px;
+			height: 25px;
+			box-shadow: none;
+
+			&:checked {
+				background-image: url(../icons/user-check.svg);
+			}
+			&::before {
+				display: none;
+			}
+		}
+
+	}
+}
+
+#project-class-meta-box {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 100px);
+	gap: 10px;
+	p {
+		width: 100px;
+		height: 100px;
+		font-size: 0;
+		input {
+			width: 100%;
+			height: 100%;
+			position: relative;
+			border-radius: 0;
+			&[value="kanban-color-one"] {
+				background-color: #838c91;
+			}
+			&[value="kanban-color-two"] {
+				background-color: #487852;
+			}
+			&[value="kanban-color-three"] {
+				background-color: #18191b;
+			}
+			&:checked {
+				&:before {
+					all: unset;
+					content: url(../icons/check-light.svg);
+					position: absolute;
+    				right: 0;
+				}
+			}
+		}
+	}
+}

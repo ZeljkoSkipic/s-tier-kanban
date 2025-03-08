@@ -1,0 +1,114 @@
+.card-priority, .card-status {
+    display: none;
+}
+
+.kanban-card {
+	z-index: 0;
+	&:nth-last-child(9) {
+		z-index: 9;
+	}
+	&:nth-last-child(8) {
+		z-index: 8;
+	}
+	&:nth-last-child(7) {
+		z-index: 7;
+	}
+	&:nth-last-child(6) {
+		z-index: 6;
+	}
+	&:nth-last-child(5) {
+		z-index: 5;
+	}
+	&:nth-last-child(4) {
+		z-index: 4;
+	}
+	&:nth-last-child(3) {
+		z-index: 3;
+	}
+	&:nth-last-child(2) {
+		z-index: 2;
+	}
+	&:last-child {
+		z-index: 1;
+	}
+}
+
+.dynamic-select {
+    width: 48%;
+    position: relative;
+    border-radius: 8px;
+    box-sizing: border-box;
+    z-index: 9;
+	svg {
+		height: 13px;
+	}
+    &:nth-of-type(2) {
+        margin-right: auto;
+        .dynamic-select-label {
+            margin-top: -3px;
+        }
+    }
+    &:not(:nth-of-type(2)) {
+        .dynamic-select-label {
+            margin-block: -1.5px;
+        }
+    }
+    &.dropdown-opened {
+        .dynamic-select-current-item {
+            background-color: #F5F6F6;
+            &::after {
+                transform: scale(-1);
+            }
+        }
+    }
+    .dynamic-select-current-item {
+        display: flex;
+        align-items: center;
+        padding: 6px;
+        border: 1px solid #E9ECF0;
+        border-radius: 6px;
+        position: relative;
+
+        &:after {
+            content: "";
+            position: absolute;
+            width: 12px;
+            height: 7px;
+            background-image: url(../assets/icons/dropdown.svg);
+            right: 6px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            transition: .3s all;
+        }
+        .dynamic-select-label {
+            margin-left: 8px;
+            width: calc(100% - 15px);
+            color: #414449;
+			font-size: 13px;
+			display: flex;
+			align-items: center;
+        }
+    }
+    .dynamic-select-dropdown {
+        padding: 4px;
+        box-shadow: 0px 8px 40px 0px #18191B29;
+        margin-top: 4px;
+        position: absolute;
+        background-color: #fff;
+        width: 92%;
+        border-radius: 4px;
+        .dynamic-select-item {
+            padding: 4px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            transition: .3s all;
+            svg {
+                margin-right: 8px;
+            }
+            &:hover {
+                background-color: #F5F6F7;
+            }
+        }
+    }
+}

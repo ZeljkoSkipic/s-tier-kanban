@@ -1,0 +1,13 @@
+#kanban-users-list{display:grid;grid-template-columns:repeat(auto-fill,175px);gap:10px}
+#kanban-users-list .kanban-user-item{position:relative}
+#kanban-users-list .kanban-user-item label{cursor:pointer;font-size:14px;font-weight:600}
+#kanban-users-list .kanban-user-item input{background-image:url(../icons/user-x.svg);background-size:contain;background-repeat:no-repeat;background-position:center left;border:0;width:25px;height:25px;-webkit-box-shadow:none;box-shadow:none}
+#kanban-users-list .kanban-user-item input:checked{background-image:url(../icons/user-check.svg)}
+#kanban-users-list .kanban-user-item input::before{display:none}
+#project-class-meta-box{display:grid;grid-template-columns:repeat(auto-fill,100px);gap:10px}
+#project-class-meta-box p{width:100px;height:100px;font-size:0}
+#project-class-meta-box p input{width:100%;height:100%;position:relative;border-radius:0}
+#project-class-meta-box p input[value="kanban-color-one"]{background-color:#838c91}
+#project-class-meta-box p input[value="kanban-color-two"]{background-color:#487852}
+#project-class-meta-box p input[value="kanban-color-three"]{background-color:#18191b}
+#project-class-meta-box p input:checked:before{all:unset;content:url(../icons/check-light.svg);position:absolute;right:0}
