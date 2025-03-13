@@ -1,0 +1,16 @@
+.toplevel_page_kanban-settings {
+	.wrap form:first-of-type {
+		@include shadow-box;
+		background-color: #f1f5f9;
+		max-width: 768px;
+		tbody, tr, td {
+			all: unset;
+		}
+		tbody {
+			width: 100%;
+		}
+	}
+	input[type="submit"] {
+		@include kan-btn;
+	}
+}

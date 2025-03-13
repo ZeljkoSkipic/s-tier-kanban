@@ -1,0 +1,51 @@
+$shadow-var-1: 0 5px 5px -4px rgba(0,0,0,0.5),inset 0 -3px 4px -1px rgba(0,0,0,0.2) ,0 -2.5px 5px -1px;
+$shadow-var-2: inset 0 3px 4px -1px;
+$shadow-var-3: inset 0 0 5px 1px;
+$shadow-var-4: inset 0 20px 30px 0;
+@mixin st {
+	transition: .2s ease-in-out;
+}
+@mixin box {
+	border-radius: 10px;
+	margin-block: 16px;
+}
+@mixin basic-box {
+	@include box;
+	padding: 15px 25px;
+	background-color: #fff;
+	box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.3);
+}
+
+@mixin shadow-box {
+	@include box;
+	padding: 15px 25px;
+	box-shadow: -8px -8px 15px rgba(255, 255, 255, .7),
+		  10px 10px 10px rgba(0, 0, 0, .2),
+		  inset 8px 8px 15px rgba(255, 255, 255, .7),
+		  inset 10px 10px 10px rgba(0, 0, 0, .2);
+}
+
+@mixin kan-btn {
+	color: #fff;
+/* 	padding: 0.7em 1.7em;
+ */	border-radius: 0.5em;
+	font-size: 14px;
+	background: #2F7AE5;
+	cursor: pointer;
+	border: 1px solid #2F7AE5;
+	transition: all 0.3s;
+	box-shadow: 3px 3px 6px #c5c5c5, 4px 3px 6px #439CEF;
+	&:hover {
+		background-color: #3E88EF;
+		color: #fff;
+		border: 1px solid #439CEF;
+
+	  }
+	&:active, &:focus {
+		box-shadow: 2px 2px 6px #c5c5c5, 2px 2px 6px #439CEF;
+		background-color: #3E88EF;
+		color: #fff;
+		border: 1px solid #439CEF;
+		outline: none;
+	}
+}

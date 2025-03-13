@@ -113,13 +113,6 @@ const comments = (e) => {
     if (response && response.success === true) {
       getComments(cardId);
       editor.clear();
-      Swal.fire({
-        title: "Comment Added!",
-        text: "You have successfully added new comment.",
-        icon: "success",
-        showConfirmButton: false,
-        timer: 1500,
-      });
 
       // Add user to comment list if does not exist
 
@@ -242,12 +235,16 @@ const commentsAction = async (
 
   if (deleteButton) {
     commentDeleted = await Swal.fire({
-      title: "Are you sure?",
+      title: "Delete Comment?",
       text: "Are you sure that you want to delete this comment?",
       icon: "warning",
       showDenyButton: true,
       confirmButtonText: "Delete",
       denyButtonText: "Cancel",
+      customClass: {
+        confirmButton: "del-btn",
+        denyButton: "cancel-btn"
+      }
     });
   }
 

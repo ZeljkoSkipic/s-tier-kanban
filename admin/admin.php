@@ -51,44 +51,159 @@ function stk_add_admin_menu() {
         'All Kanban Projects',          // Page title
         'All Projects',                 // Menu title
         'manage_options',             	// Capability required
-        'edit.php?post_type=project'  	// Use the edit posts screen for the 'project' post type
+        'edit.php?post_type=kanban-project'  	// Use the edit posts screen for the 'project' post type
     );
 	add_submenu_page(
         'kanban-settings', 				// Parent menu (Pages menu)
         'Add New Kanban Project',  		// Page title
         'Add New Project', 				// Menu title
         'edit_pages', 					// Capability
-        'post-new.php?post_type=project', // Direct link to the 'Add New JP Page' screen
+        'post-new.php?post_type=kanban-project', // Direct link to the 'Add New JP Page' screen
         '', 							// Callback function (not needed since it's just a link)
         3 								// Position (Adjust this value as needed)
     );
-	// Add the Columns submenu page
-	/* add_submenu_page(
-        'kanban-settings',             	// Parent slug
-        'Columns',               		// Page title
-        'Columns',                		// Menu title
-        'manage_options',             	// Capability required
-        'edit.php?post_type=kanban_column'     // Use the edit posts screen for the 'project' post type
-    ); */
-	// Add the Cards submenu page
-	/* add_submenu_page(
-        'kanban-settings',				// Parent slug
-        'Cards',                      	// Page title
-        'Cards',                      	// Menu title
-        'manage_options',               // Capability required
-        'edit.php?post_type=kanban_card'     // Use the edit posts screen for the 'project' post type
-    ); */
 }
 
 add_action('admin_menu', 'stk_add_admin_menu');
 
 
+
+// Set parent item active when editing a 'kanban-project' post
+add_filter('parent_file', function ($parent_file) {
+    global $post, $pagenow;
+
+    if ($pagenow === 'post.php' && isset($_GET['post'])) {
+        $post_id = $_GET['post'];
+        $post_type = get_post_type($post_id);
+
+        if ($post_type === 'kanban-project') {
+            return 'kanban-settings'; // Set 'Kanban' as the active parent menu
+        }
+    }
+
+    return $parent_file;
+});
+
+add_filter('submenu_file', function ($submenu_file) {
+    global $post, $pagenow;
+
+    if ($pagenow === 'post.php' && isset($_GET['post'])) {
+        $post_id = $_GET['post'];
+        $post_type = get_post_type($post_id);
+
+        if ($post_type === 'kanban-project') {
+            return 'edit.php?post_type=kanban-project'; // Highlight 'All Projects'
+        }
+    }
+
+    return $submenu_file;
+});
+
+
 function stk_options_page() {
     ?>
     <div class="wrap">
-        <h2>My Plugin Options</h2>
-        <p>Settings and options for My Plugin.</p>
-        <!-- Your options form or other content here -->
+        <h1><?php _e('Kanban Settings', 'kanban'); ?></h1>
+        <form method="post" action="options.php">
+            <?php
+            settings_fields('kanban_settings_group');
+            do_settings_sections('kanban-settings');
+            submit_button();
+            ?>
+        </form>
+        <style>
+            .form-table th {
+                display: none;
+            }
+            .modern .switch-holder {
+                background-color: #f0f0f0; /* Example styling for modern class */
+            }
+        </style>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const modernSwitch = document.getElementById('kanban_default_modern');
+                const formTable = document.querySelector('.form-table');
+
+                function toggleModernClass() {
+                    if (modernSwitch.checked) {
+                        formTable.classList.add('modern');
+                    } else {
+                        formTable.classList.remove('modern');
+                    }
+                }
+
+                // Initial check
+                toggleModernClass();
+
+                // Listen for changes
+                modernSwitch.addEventListener('change', toggleModernClass);
+            });
+        </script>
+    </div>
+    <?php
+}
+
+function kanban_settings_init() {
+    register_setting('kanban_settings_group', 'kanban_default_color_scheme');
+    register_setting('kanban_settings_group', 'kanban_default_modern');
+
+    add_settings_section(
+        'kanban_settings_section',
+        __('Default Color Scheme', 'kanban'),
+        'kanban_settings_section_callback',
+        'kanban-settings'
+    );
+
+	add_settings_field(
+        'kanban_default_modern',
+        __('Modern Color Scheme', 'kanban'),
+        'kanban_default_modern_callback',
+        'kanban-settings',
+        'kanban_settings_section'
+    );
+
+    add_settings_field(
+        'kanban_default_color_scheme',
+        __('Default Color Scheme', 'kanban'),
+        'kanban_default_color_scheme_callback',
+        'kanban-settings',
+        'kanban_settings_section'
+    );
+
+
+}
+add_action('admin_init', 'kanban_settings_init');
+
+function kanban_settings_section_callback() {
+    echo __('Set the default color scheme for new Kanban projects.', 'kanban');
+}
+
+function kanban_default_modern_callback() {
+    $default_modern = get_option('kanban_default_modern', '0');
+    ?>
+    <div class="switch-holder">
+        <div class="switch-label">
+            <?php _e('Color Scheme Type', 'kanban'); ?>
+        </div>
+        <div class="switch-toggle">
+            <input id="kanban_default_modern" type="checkbox" name="kanban_default_modern" value="1" <?php checked($default_modern, '1'); ?>>
+            <label for="kanban_default_modern"></label>
+        </div>
+    </div>
+    <?php
+}
+
+function kanban_default_color_scheme_callback() {
+    $classes = array('kanban-color-one', 'kanban-color-two', 'kanban-color-three', 'kanban-color-four');
+    $default_color_scheme = get_option('kanban_default_color_scheme', 'kanban-color-one');
+    ?>
+    <div id="project-class-meta-box">
+        <?php foreach ($classes as $class) : ?>
+            <p>
+                <input type="radio" name="kanban_default_color_scheme" value="<?php echo esc_attr($class); ?>" <?php checked($default_color_scheme, $class); ?>>
+                <?php echo esc_html(ucfirst(str_replace('-', ' ', $class))); ?>
+            </p>
+        <?php endforeach; ?>
     </div>
     <?php
 }

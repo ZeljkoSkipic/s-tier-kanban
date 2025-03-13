@@ -9,3 +9,4 @@ package-lock.json
 gulpfile.babel.js
 assets/admin/package.json
 package.json
+.DS_Store

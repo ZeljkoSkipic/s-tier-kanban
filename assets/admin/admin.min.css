@@ -1,13 +1,49 @@
-#kanban-users-list{display:grid;grid-template-columns:repeat(auto-fill,175px);gap:10px}
+.post-type-kanban-project input[type="submit"]{color:#fff;border-radius:.5em;font-size:14px;background:#2f7ae5;cursor:pointer;border:1px solid #2f7ae5;-webkit-transition:all .3s;transition:all .3s;-webkit-box-shadow:3px 3px 6px #c5c5c5,4px 3px 6px #439cef;box-shadow:3px 3px 6px #c5c5c5,4px 3px 6px #439cef}
+.post-type-kanban-project input[type="submit"]:hover{background-color:#3e88ef;color:#fff;border:1px solid #439cef}
+.post-type-kanban-project input[type="submit"]:active,.post-type-kanban-project input[type="submit"]:focus{-webkit-box-shadow:2px 2px 6px #c5c5c5,2px 2px 6px #439cef;box-shadow:2px 2px 6px #c5c5c5,2px 2px 6px #439cef;background-color:#3e88ef;color:#fff;border:1px solid #439cef;outline:0}
+.post-type-kanban-project #publishing-action{position:fixed;top:60px;right:20px;width:100%;z-index:99}
+.post-type-kanban-project #publishing-action input[type="submit"]{width:280px}
+.board_settings_section{border-radius:10px;margin-block:16px;padding:15px 25px;-webkit-box-shadow:-8px -8px 15px rgba(255,255,255,0.7),10px 10px 10px rgba(0,0,0,0.2),inset 8px 8px 15px rgba(255,255,255,0.7),inset 10px 10px 10px rgba(0,0,0,0.2);box-shadow:-8px -8px 15px rgba(255,255,255,0.7),10px 10px 10px rgba(0,0,0,0.2),inset 8px 8px 15px rgba(255,255,255,0.7),inset 10px 10px 10px rgba(0,0,0,0.2);background-color:#f1f5f9}
+#project_class_meta_box{border:0;background-color:transparent}
+#project_class_meta_box .inside{padding:0}
+#project_class_meta_box .postbox-header{pointer-events:none}
+#project_class_meta_box .postbox-header h2{font-size:22px}
+#project_class_meta_box .handle-actions{display:none}
+.board_settings_subtitle{font-size:16px;font-weight:500;margin-block:0 16px}
+#board_color_scheme{border-radius:10px;margin-block:16px;padding:15px 25px;background-color:#fff;-webkit-box-shadow:0 0 3px 0 rgba(0,0,0,0.3);box-shadow:0 0 3px 0 rgba(0,0,0,0.3)}
+:not(.modern) .switch-holder{border-radius:10px;margin-block:16px;padding:15px 25px;background-color:#fff;-webkit-box-shadow:0 0 3px 0 rgba(0,0,0,0.3);box-shadow:0 0 3px 0 rgba(0,0,0,0.3)}
+.modern .switch-holder{border-radius:10px;margin-block:16px;padding:15px 25px;-webkit-box-shadow:-8px -8px 15px rgba(255,255,255,0.7),10px 10px 10px rgba(0,0,0,0.2),inset 8px 8px 15px rgba(255,255,255,0.7),inset 10px 10px 10px rgba(0,0,0,0.2);box-shadow:-8px -8px 15px rgba(255,255,255,0.7),10px 10px 10px rgba(0,0,0,0.2),inset 8px 8px 15px rgba(255,255,255,0.7),inset 10px 10px 10px rgba(0,0,0,0.2)}
+.modern #project-class-meta-box p input[value="kanban-color-one"]{background-color:#838c91;-webkit-box-shadow:0 5px 5px -4px rgba(0,0,0,0.5),inset 0 -3px 4px -1px rgba(0,0,0,0.2),0 -2.5px 5px -1px rgba(131,140,145,0.6),inset 0 3px 4px -1px rgba(131,140,145,0.2),inset 0 0 5px 1px rgba(131,140,145,0.8),inset 0 20px 30px 0 rgba(131,140,145,0.2);box-shadow:0 5px 5px -4px rgba(0,0,0,0.5),inset 0 -3px 4px -1px rgba(0,0,0,0.2),0 -2.5px 5px -1px rgba(131,140,145,0.6),inset 0 3px 4px -1px rgba(131,140,145,0.2),inset 0 0 5px 1px rgba(131,140,145,0.8),inset 0 20px 30px 0 rgba(131,140,145,0.2)}
+.modern #project-class-meta-box p input[value="kanban-color-two"]{background-color:#487852;-webkit-box-shadow:0 5px 5px -4px rgba(0,0,0,0.5),inset 0 -3px 4px -1px rgba(0,0,0,0.2),0 -2.5px 5px -1px rgba(72,120,82,0.6),inset 0 3px 4px -1px rgba(72,120,82,0.2),inset 0 0 5px 1px rgba(72,120,82,0.8),inset 0 20px 30px 0 rgba(72,120,82,0.2);box-shadow:0 5px 5px -4px rgba(0,0,0,0.5),inset 0 -3px 4px -1px rgba(0,0,0,0.2),0 -2.5px 5px -1px rgba(72,120,82,0.6),inset 0 3px 4px -1px rgba(72,120,82,0.2),inset 0 0 5px 1px rgba(72,120,82,0.8),inset 0 20px 30px 0 rgba(72,120,82,0.2)}
+.modern #project-class-meta-box p input[value="kanban-color-three"]{background-color:#18191b;-webkit-box-shadow:0 5px 5px -4px rgba(0,0,0,0.5),inset 0 -3px 4px -1px rgba(0,0,0,0.2),0 -2.5px 5px -1px rgba(24,25,27,0.6),inset 0 3px 4px -1px rgba(24,25,27,0.2),inset 0 0 5px 1px rgba(24,25,27,0.8),inset 0 20px 30px 0 rgba(24,25,27,0.2);box-shadow:0 5px 5px -4px rgba(0,0,0,0.5),inset 0 -3px 4px -1px rgba(0,0,0,0.2),0 -2.5px 5px -1px rgba(24,25,27,0.6),inset 0 3px 4px -1px rgba(24,25,27,0.2),inset 0 0 5px 1px rgba(24,25,27,0.8),inset 0 20px 30px 0 rgba(24,25,27,0.2)}
+.modern #project-class-meta-box p input[value="kanban-color-four"]{background-color:#176a86;-webkit-box-shadow:0 5px 5px -4px rgba(0,0,0,0.5),inset 0 -3px 4px -1px rgba(0,0,0,0.2),0 -2.5px 5px -1px rgba(23,106,134,0.6),inset 0 3px 4px -1px rgba(23,106,134,0.2),inset 0 0 5px 1px rgba(23,106,134,0.8),inset 0 20px 30px 0 rgba(23,106,134,0.2);box-shadow:0 5px 5px -4px rgba(0,0,0,0.5),inset 0 -3px 4px -1px rgba(0,0,0,0.2),0 -2.5px 5px -1px rgba(23,106,134,0.6),inset 0 3px 4px -1px rgba(23,106,134,0.2),inset 0 0 5px 1px rgba(23,106,134,0.8),inset 0 20px 30px 0 rgba(23,106,134,0.2)}
+#kanban-users-meta-box{border-radius:10px;margin-block:16px;padding:15px 25px;background-color:#fff;-webkit-box-shadow:0 0 3px 0 rgba(0,0,0,0.3);box-shadow:0 0 3px 0 rgba(0,0,0,0.3)}
+#kanban-users-meta-box #kanban-user-search,#kanban-users-meta-box #kanban-user-role-filter{-webkit-box-shadow:0 0 2px 0 rgba(0,0,0,0.5);box-shadow:0 0 2px 0 rgba(0,0,0,0.5);border:0;width:300px;max-width:48%}
+#kanban-users-list{display:grid;grid-template-columns:repeat(auto-fill,175px);gap:10px;margin-top:12px}
 #kanban-users-list .kanban-user-item{position:relative}
 #kanban-users-list .kanban-user-item label{cursor:pointer;font-size:14px;font-weight:600}
 #kanban-users-list .kanban-user-item input{background-image:url(../icons/user-x.svg);background-size:contain;background-repeat:no-repeat;background-position:center left;border:0;width:25px;height:25px;-webkit-box-shadow:none;box-shadow:none}
 #kanban-users-list .kanban-user-item input:checked{background-image:url(../icons/user-check.svg)}
 #kanban-users-list .kanban-user-item input::before{display:none}
-#project-class-meta-box{display:grid;grid-template-columns:repeat(auto-fill,100px);gap:10px}
+.switch-holder{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between;-webkit-box-align:center;-ms-flex-align:center;align-items:center;max-width:300px;margin-bottom:32px;background-color:#fff;-webkit-transition:.2s ease-in-out;transition:.2s ease-in-out}
+.switch-label{padding:0 20px 0 10px}
+.switch-label i{margin-right:5px}
+.switch-toggle{height:40px}
+.switch-toggle input[type="checkbox"]{position:absolute;opacity:0;z-index:-2}
+.switch-toggle input[type="checkbox"]+label{position:relative;display:inline-block;width:150px;height:40px;border-radius:20px;margin:0;cursor:pointer;-webkit-box-shadow:inset -8px -8px 15px rgba(255,255,255,0.6),inset 10px 10px 10px rgba(0,0,0,0.25);box-shadow:inset -8px -8px 15px rgba(255,255,255,0.6),inset 10px 10px 10px rgba(0,0,0,0.25)}
+.switch-toggle input[type="checkbox"]+label::before{position:absolute;content:'Classic';font-size:13px;text-align:center;line-height:25px;top:8px;left:8px;width:65px;height:25px;border-radius:20px;background-color:#eee;-webkit-transition:.2s ease-in-out;transition:.2s ease-in-out}
+.switch-toggle input[type="checkbox"]:checked+label::before{left:50%;content:'Modern';color:#18191b;background-color:#adf7bd;-webkit-box-shadow:-3px -3px 5px rgba(255,255,255,0.5),3px 3px 5px rgba(0,0,0,0.25);box-shadow:-3px -3px 5px rgba(255,255,255,0.5),3px 3px 5px rgba(0,0,0,0.25)}
+#project-class-meta-box{display:grid;grid-template-columns:repeat(auto-fill,100px);gap:10px;border-radius:10px;margin-block:16px;padding:15px 25px;background-color:#fff;-webkit-box-shadow:0 0 3px 0 rgba(0,0,0,0.3);box-shadow:0 0 3px 0 rgba(0,0,0,0.3)}
 #project-class-meta-box p{width:100px;height:100px;font-size:0}
-#project-class-meta-box p input{width:100%;height:100%;position:relative;border-radius:0}
+#project-class-meta-box p input{width:100%;height:100%;position:relative;border-radius:0;border-radius:12px;border:0;-webkit-box-shadow:none;box-shadow:none;-webkit-transition:.2s ease-in-out;transition:.2s ease-in-out}
 #project-class-meta-box p input[value="kanban-color-one"]{background-color:#838c91}
 #project-class-meta-box p input[value="kanban-color-two"]{background-color:#487852}
 #project-class-meta-box p input[value="kanban-color-three"]{background-color:#18191b}
-#project-class-meta-box p input:checked:before{all:unset;content:url(../icons/check-light.svg);position:absolute;right:0}
+#project-class-meta-box p input[value="kanban-color-four"]{background-color:#176a86}
+#project-class-meta-box p input:checked:before{all:unset;content:url(../icons/check-light.svg);position:absolute;right:4px;top:4px}
+.toplevel_page_kanban-settings .wrap form:first-of-type{border-radius:10px;margin-block:16px;padding:15px 25px;-webkit-box-shadow:-8px -8px 15px rgba(255,255,255,0.7),10px 10px 10px rgba(0,0,0,0.2),inset 8px 8px 15px rgba(255,255,255,0.7),inset 10px 10px 10px rgba(0,0,0,0.2);box-shadow:-8px -8px 15px rgba(255,255,255,0.7),10px 10px 10px rgba(0,0,0,0.2),inset 8px 8px 15px rgba(255,255,255,0.7),inset 10px 10px 10px rgba(0,0,0,0.2);background-color:#f1f5f9;max-width:768px}
+.toplevel_page_kanban-settings .wrap form:first-of-type tbody,.toplevel_page_kanban-settings .wrap form:first-of-type tr,.toplevel_page_kanban-settings .wrap form:first-of-type td{all:unset}
+.toplevel_page_kanban-settings .wrap form:first-of-type tbody{width:100%}
+.toplevel_page_kanban-settings input[type="submit"]{color:#fff;border-radius:.5em;font-size:14px;background:#2f7ae5;cursor:pointer;border:1px solid #2f7ae5;-webkit-transition:all .3s;transition:all .3s;-webkit-box-shadow:3px 3px 6px #c5c5c5,4px 3px 6px #439cef;box-shadow:3px 3px 6px #c5c5c5,4px 3px 6px #439cef}
+.toplevel_page_kanban-settings input[type="submit"]:hover{background-color:#3e88ef;color:#fff;border:1px solid #439cef}
+.toplevel_page_kanban-settings input[type="submit"]:active,.toplevel_page_kanban-settings input[type="submit"]:focus{-webkit-box-shadow:2px 2px 6px #c5c5c5,2px 2px 6px #439cef;box-shadow:2px 2px 6px #c5c5c5,2px 2px 6px #439cef;background-color:#3e88ef;color:#fff;border:1px solid #439cef;outline:0}

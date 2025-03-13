@@ -7,8 +7,7 @@ function register_kanban_post_types() {
 		'show_in_menu' => false,
 		'show_in_admin_bar'   => true,
         'label'  => 'Projects',
-        'supports' => array('title', 'editor', 'thumbnail'),
-		'show_in_rest' => true,
+        'supports' => array('title', 'thumbnail'),
 		'labels' => array(
 			'name' => 'Projects',
 			'singular_name' => 'Project',
@@ -42,7 +41,7 @@ function register_kanban_post_types() {
 		),
     );
 
-    register_post_type('project', $args);
+    register_post_type('kanban-project', $args);
 
     // Register Columns
     $args = array(
@@ -67,14 +66,24 @@ function register_kanban_post_types() {
 
 add_action('init', 'register_kanban_post_types');
 
+// Restrict only Paragraph Block for Projects
+
+function restrict_blocks_for_custom_type($allowed_blocks, $editor_context) {
+    if (!empty($editor_context->post) && $editor_context->post->post_type === 'kanban-project') {
+        return ['core/paragraph']; // Only allow paragraph block
+    }
+    return $allowed_blocks;
+}
+add_filter('allowed_block_types_all', 'restrict_blocks_for_custom_type', 10, 2);
+
 
 // Project Template
 
 function stk_single_template($single_template) {
     global $post;
 
-    if ($post->post_type == 'project') {
-        $plugin_template = plugin_dir_path(__FILE__) . 'single-project.php';
+    if ($post->post_type == 'kanban-project') {
+        $plugin_template = plugin_dir_path(__FILE__) . 'single-kanban-project.php';
         if (file_exists($plugin_template)) {
             return $plugin_template;
         }

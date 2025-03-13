@@ -1,72 +1,61 @@
 document
   .getElementById("add-column-btn")
   .addEventListener("click", function () {
-    var columnName = prompt("Enter column name:", "New Column");
-    if (columnName != null && columnName.trim() !== "") {
-      // Send AJAX request to server to create new column
-      jQuery.ajax({
-        url: myAjax.ajaxurl,
-        type: "POST",
-        data: {
-          action: "stk_add_column", // Action hook name for WP to execute the server-side function
-          columnName: columnName, // Data being sent, including the new column name
-          projectId: jQuery("#kanban-board").data("project-id"), // The ID of the project, assumed to be stored in the data attribute of the Kanban board
-          security: myAjax.security, // Security nonce for verification
-        },
-        success: function (response) {
-          if (response.success) {
-            // Create the column div
-            const column = document.createElement("div");
-            const cardContainer = document.createElement("div");
-            cardContainer.classList.add("kanban-cards-container");
-            column.classList.add("kanban-column");
-            column.setAttribute("data-column-id", response.data.columnId);
-            column.setAttribute("data-column-order", response.data.columnOrder);
+    Swal.fire({
+      input: "text",
+      inputAttributes: {
+        autocapitalize: "off",
+      },
+			inputPlaceholder: "Column Title",
+      showCancelButton: true,
+      confirmButtonText: "Create Column",
+      showLoaderOnConfirm: true,
+      customClass: {
+        confirmButton: "confirm-btn",
+        cancelButton: "cancel-btn",
+				container: "add-column-card",
+      },
+      inputValidator: (value) => {
+        if (!value) {
+          return "Column name is required!";
+        }
+      },
+      preConfirm: async (columnName) => {
+        // Send AJAX request to server to create new column
+        jQuery.ajax({
+          url: myAjax.ajaxurl,
+          type: "POST",
+          data: {
+            action: "stk_add_column", // Action hook name for WP to execute the server-side function
+            columnName: columnName, // Data being sent, including the new column name
+            projectId: jQuery("#kanban-board").data("project-id"), // The ID of the project, assumed to be stored in the data attribute of the Kanban board
+            security: myAjax.security, // Security nonce for verification
+          },
+          success: function (response) {
+            if (response.success) {
+              // Append the new column to the Kanban board
+              const kanbanBoard = document.getElementById("kanban-board");
+              kanbanBoard.insertAdjacentHTML(
+                "beforeend",
+                response.data.columnHtml
+              );
 
-            // Create the h3 element for the column title
-            const columnTitle = document.createElement("h3");
-            columnTitle.textContent = columnName;
-            columnTitle.classList.add("column-title");
-
-            // Create the delete button
-            const deleteBtn = document.createElement("button");
-            deleteBtn.textContent = "Delete Column";
-            deleteBtn.classList.add("delete-column-btn");
-
-            // Add Card button
-            const addButton = document.createElement("button");
-            addButton.className = "add-card-btn";
-            addButton.setAttribute("data-column-id", response.data.columnId);
-            addButton.textContent = "Add a Card";
-
-            // Append the title and delete button to the column
-            column.appendChild(columnTitle);
-            column.appendChild(deleteBtn);
-            column.appendChild(cardContainer);
-            column.appendChild(addButton);
-
-            // Append the new column to the Kanban board
-            const isChildAppnded = document
-              .getElementById("kanban-board")
-              .appendChild(column);
-
-            if (isChildAppnded) {
-              const event = new CustomEvent("columnAdded", {
-                detail: { column: column },
-              });
-              document.dispatchEvent(event);
+              if (kanbanBoard.children.length > 0) {
+                const event = new CustomEvent("columnAdded", {
+                  detail: { columnID: response.data.columnID },
+                });
+                document.dispatchEvent(event);
+              }
+            } else {
+              alert("Error: " + response.data.message);
             }
-          } else {
-            alert("Error: " + response.data.message);
-          }
-        },
-        error: function () {
-          alert("There was an error adding the column. Please try again.");
-        },
-      });
-    } else {
-      alert("Please enter a valid column name.");
-    }
+          },
+          error: function () {
+            alert("There was an error adding the column. Please try again.");
+          },
+        });
+      },
+    });
   });
 
 // Update Column Title
@@ -76,26 +65,26 @@ const updateColumnTitle = (e) => {
     return;
   }
 
-  if (e.type === "click") {
+  const column = e.target.closest(".kanban-column");
+  const isAdmin = column.dataset.userAdmin;
+
+  if (e.type === "click" && isAdmin) {
     e.target.setAttribute("contenteditable", "true");
     e.target.focus();
   }
 
   if (e.type === "focusout" || (e.type === "keydown" && e.keyCode === 13)) {
     e.preventDefault(); // Prevent newline on Enter key for title
-    const column = e.target.closest(".kanban-column");
+
     const columnId = column.dataset.columnId;
-    const newText = e.target.textContent;
+    const columnTitle = e.target.textContent;
     const data = {
-      action: "stk_card_title_description",
+      action: "stk_update_column_title",
       columnId: columnId,
       security: myAjax.security,
+      columnTitle: columnTitle,
     };
 
-    if (e.target.className === "card-title") {
-      if (!newText) e.target.textContent = "Add Title";
-      data.title = newText;
-    }
     // AJAX call to save the updated title
     jQuery.ajax({
       url: myAjax.ajaxurl,
@@ -104,13 +93,6 @@ const updateColumnTitle = (e) => {
       success: function (response) {
         if (!response.success) {
           console.log("Error saving title.");
-        } else {
-          if (card === null) {
-            let card = document.querySelector(`[data-card-id="${cardId}"]`);
-            card.querySelector(".card-title").innerHTML = newText
-              ? newText
-              : "Add Title";
-          }
         }
       },
     });
@@ -119,8 +101,11 @@ const updateColumnTitle = (e) => {
       e.target.blur(); // Remove focus when Enter is pressed
     }
   }
+};
 
-}
+document.addEventListener("click", updateColumnTitle);
+document.addEventListener("focusout", updateColumnTitle);
+document.addEventListener("keydown", updateColumnTitle);
 
 // Delete Column Button
 document
@@ -133,12 +118,16 @@ document
       let columnDeleted = null;
 
       columnDeleted = await Swal.fire({
-        title: "Are you sure?",
+        title: "Delete Column?",
         text: "Are you sure that you want to delete this column?",
         icon: "warning",
         showDenyButton: true,
         confirmButtonText: "Delete",
-        denyButtonText: "Cancel"
+        denyButtonText: "Cancel",
+        customClass: {
+          confirmButton: "del-btn",
+          denyButton: "cancel-btn"
+        }
       });
 
       if (columnId && columnDeleted.isConfirmed) {
@@ -170,53 +159,72 @@ document
 
 document.addEventListener("click", function (event) {
   if (event.target.matches(".add-card-btn")) {
-    const columnId = event.target
-      .closest(".kanban-column")
-      .getAttribute("data-column-id");
-    var cardTitle = prompt("Enter card title:");
-    var cardDescription = ""; // Static value for the card description
+    Swal.fire({
+      input: "text",
+      inputAttributes: {
+        autocapitalize: "off",
+      },
+      showCancelButton: true,
+      confirmButtonText: "Create Card",
+      showLoaderOnConfirm: true,
+			inputPlaceholder: "Card Title",
+      customClass: {
+        confirmButton: "confirm-btn",
+        cancelButton: "cancel-btn",
+				container: "add-column-card",
+      },
+      inputValidator: (value) => {
+        if (!value) {
+          return "Card name is required!";
+        }
+      },
+      preConfirm: async (cardName) => {
+        const columnId = event.target
+          .closest(".kanban-column")
+          .getAttribute("data-column-id");
 
-    if (cardTitle) {
-      // Send AJAX request to create a new card
-      jQuery.ajax({
-        url: myAjax.ajaxurl,
-        type: "POST",
-        data: {
-          action: "stk_add_card",
-          columnId: columnId,
-          title: cardTitle,
-          description: cardDescription,
-          security: myAjax.security,
-        },
-        success: function (response) {
-          if (response.success && response.data && response.data.cardId) {
-            // Append the new card to the column's card container
-            const cardContainer = event.target
-              .closest(".kanban-column")
-              .querySelector(".kanban-cards-container");
+        // Send AJAX request to create a new card
+        jQuery.ajax({
+          url: myAjax.ajaxurl,
+          type: "POST",
+          data: {
+            action: "stk_add_card",
+            columnId: columnId,
+            title: cardName,
+            security: myAjax.security,
+          },
+          success: function (response) {
+            if (response.success && response.data && response.data.cardId) {
+              // Append the new card to the column's card container
+              const cardContainer = event.target
+                .closest(".kanban-column")
+                .querySelector(".kanban-cards-container");
 
+              cardContainer.insertAdjacentHTML(
+                "beforeend",
+                response.data.cardHTML
+              );
 
-            cardContainer.insertAdjacentHTML('beforeend', response.data.cardHTML);
+              const cardAdded = new CustomEvent("cardAdded", {
+                detail: { cardID: response.data.cardId },
+              });
 
-            const cardAdded = new CustomEvent("cardAdded", {
-              detail: { cardID: response.data.cardId },
-            });
-
-            document.dispatchEvent(cardAdded);
-          } else {
-            alert(
-              "Error: " +
-              (response.data && response.data.message
-                ? response.data.message
-                : "Unknown error")
-            );
-          }
-        },
-        error: function () {
-          alert("There was an error adding the card. Please try again.");
-        },
-      });
-    }
+              document.dispatchEvent(cardAdded);
+            } else {
+              alert(
+                "Error: " +
+                  (response.data && response.data.message
+                    ? response.data.message
+                    : "Unknown error")
+              );
+            }
+          },
+          error: function () {
+            alert("There was an error adding the card. Please try again.");
+          },
+        });
+      },
+    });
   }
 });
 
@@ -228,12 +236,16 @@ document.addEventListener("click", async function (event) {
     let cardDeleted = null;
 
     cardDeleted = await Swal.fire({
-      title: "Are you sure?",
+      title: "Delete Card?",
       text: "Are you sure that you want to delete this card?",
       icon: "warning",
       showDenyButton: true,
       confirmButtonText: "Delete",
-      denyButtonText: "Cancel"
+      denyButtonText: "Cancel",
+      customClass: {
+        confirmButton: "del-btn",
+        denyButton: "cancel-btn"
+      }
     });
 
     if (cardId && cardDeleted.isConfirmed) {
@@ -264,9 +276,6 @@ document.addEventListener("click", async function (event) {
 // Update card priority and card status
 
 const updateStatusPriority = (e) => {
-
-
-
   if (
     !e.target.matches(".card-status") &&
     !e.target.matches(".card-priority")
@@ -290,7 +299,9 @@ const updateStatusPriority = (e) => {
         status: status,
         priority: priority,
       },
-      success: function (response) { console.log(response);},
+      success: function (response) {
+        console.log(response);
+      },
       error: function () {
         console.log("There was an error deleting the card. Please try again.");
       },
@@ -307,18 +318,24 @@ const updateCardTitle = (e) => {
     return;
   }
 
-  if (e.type === "click") {
+  const card =
+    e.target.closest(".kanban-card") ??
+    document.querySelector(`[data-card-id="${e.target.dataset.cardId}"]`);
+
+  const isAdmin = card.dataset.userAdmin;
+  const isUserCreation = card.dataset.userCreation;
+
+  if (e.type === "click" && (isAdmin || isUserCreation)) {
     e.target.setAttribute("contenteditable", "true");
     e.target.focus();
   }
 
   if (e.type === "focusout" || (e.type === "keydown" && e.keyCode === 13)) {
     e.preventDefault(); // Prevent newline on Enter key for title
-    const card = e.target.closest(".kanban-card");
     const cardId = card ? card.dataset.cardId : e.target.dataset.cardId;
     const newText = e.target.textContent;
     const data = {
-      action: "stk_card_title_description",
+      action: "stk_card_title",
       cardId: cardId,
       security: myAjax.security,
     };
@@ -336,12 +353,10 @@ const updateCardTitle = (e) => {
         if (!response.success) {
           console.log("Error saving title.");
         } else {
-          if (card === null) {
-            let card = document.querySelector(`[data-card-id="${cardId}"]`);
-            card.querySelector(".card-title").innerHTML = newText
-              ? newText
-              : "Add Title";
-          }
+          let card = document.querySelector(`[data-card-id="${cardId}"]`);
+          card.querySelector(".card-title").innerHTML = newText
+            ? newText
+            : "Add Title";
         }
       },
     });
@@ -356,16 +371,16 @@ document.addEventListener("click", updateCardTitle);
 document.addEventListener("focusout", updateCardTitle);
 document.addEventListener("keydown", updateCardTitle);
 
-
 // Miscellaneous
 
 jQuery(document).ready(function ($) {
-	$( ".side_expander" ).on( "click", function() {
-		$( ".side_hidden, .user_info" ).toggleClass( "side-open" );
-		$( this ).toggleClass( "open" );
-	});
-	$( ".top_expander" ).on( "click", function() {
-		$( ".board-header .bottom" ).slideToggle();
-		$( this ).toggleClass( "open" );
-	});
+  $(".side_expander").on("click", function () {
+    $(".side_hidden").slideToggle();
+    $(".user_info").toggleClass("side-open");
+    $(this).toggleClass("open");
+  });
+  $(".top_expander_wrap").on("click", function () {
+    $(".board-header .bottom").slideToggle();
+    $(".top_expander_wrap").toggleClass("open");
+  });
 });

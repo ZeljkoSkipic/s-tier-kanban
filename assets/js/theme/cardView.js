@@ -1,9 +1,13 @@
 const cardView = (e) => {
 
     // Open Modal
-  
+
     if (e.target.closest(".kanban-card") && !e.target.closest('.dynamic-select') && !e.target.closest(".card-priority") && !e.target.closest(".card-status") && !e.target.closest(".delete-card-btn") && !e.target.closest(".card-title") && !e.target.closest("a")) {
-      const cardID = e.target.closest(".kanban-card").dataset.cardId;
+			const card = e.target.closest(".kanban-card")
+      const cardID = card.dataset.cardId;
+			const isAdmin = card.dataset.userAdmin;
+			const isUserCreation = card.dataset.userCreation;
+
       const commentsSaveButton = document.querySelector(".kanban-comment-save");
       const descriptionSaveButton = document.querySelector(".kanban-description-save");
       const commentForm = document.querySelector(".kanban-card-view");
@@ -13,6 +17,9 @@ const cardView = (e) => {
       const cardViewTitle = document.querySelector(".kanban-card-view").querySelector('.card-title');
       commentsSaveButton.dataset.cardId = cardID;
       descriptionSaveButton.dataset.cardId = cardID;
+			descriptionSaveButton.dataset.userAdmin = isAdmin;
+			descriptionSaveButton.dataset.userCreation = isUserCreation;
+
       cardViewTitle.innerHTML = cardTitle;
       cardViewTitle.dataset.cardId = cardID;
       commentForm.classList.remove("hide");
@@ -25,9 +32,9 @@ const cardView = (e) => {
 
       document.dispatchEvent(modalOpened);
     }
-  
+
     // Close modal
-  
+
     if (
       e.target.matches(".kanban-card-view-close") ||
       e.target.matches(".kanban-card-view")

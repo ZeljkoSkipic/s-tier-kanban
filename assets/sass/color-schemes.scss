@@ -1,0 +1,144 @@
+@mixin bg_base {
+	padding: 5px $inline-padding;
+	border-radius: 8px;
+	display: flex;
+	align-items: center;
+	box-sizing: border-box;
+  }
+.board-header {
+	.top_expander_wrap {
+		@include bg_base;
+	}
+	.top_left {
+		@include bg_base;
+	}
+	.top_expander_wrap {
+		@include bg_base;
+	}
+	.bottom {
+		display: none;
+	}
+	.user_info_top {
+		height: 55px;
+	}
+}
+body:not(.kanban-modern) {
+	  @mixin classic_wrap {
+		background-color: rgba(0,0,0,0.4);
+	  }
+	.board-header  {
+		.top_left {
+			@include classic_wrap;
+		}
+		.top_expander_wrap {
+			@include classic_wrap;
+			transition: .2s all, all .2s .3s;
+			&.open {
+				background-color: rgba(0,0,0, .3);
+				transition: .2s all, border-radius .2s .2s;
+				height: 57.5px;
+				border-radius: 8px 8px 0 0;
+				padding-bottom: 7.5px;
+				margin-bottom: -2.5px;
+			}
+		}
+		.bottom {
+			background-color: rgba(0,0,0,0.3);
+			transform: translateY(3px);
+		}
+	}
+
+	.user_info {
+		background-color: var(--bg-color);
+		.user_info_top {
+			@include bg_base;
+		}
+		&:before {
+			background-color: rgba(0,0,0,0.4);
+		}
+		&.side-open {
+			&::before {
+				background-color: rgba(0,0,0,0.2);
+			}
+		}
+	}
+}
+
+body.kanban-modern {
+	  @mixin modern_wrap {
+		@include bg_base;
+		box-shadow: 0 5px 5px -4px rgba(0, 0, 0, 0.5), inset 0 -3px 4px -1px rgba(0, 0, 0, 0.2), 0 -10px 15px -1px var(--color-06), inset 0 3px 4px -1px var(--color-02), inset 0 0 5px 1px var(--color-08), inset 0 20px 30px 0 var(--color-02);
+		background-color: rgba(0,0,0,0.2)
+	}
+	.expander {
+		background-image: url(../assets/icons/cheveron-down.svg);
+		background-size: 15px;
+		padding: 0;
+		background-position: center top 3.5px;
+		&.open {
+			background-image: url(../assets/icons/cheveron-up.svg);
+		}
+	}
+	.kanban-card-view {
+		backdrop-filter: blur(2.5px);
+
+	}
+	.kanban-card-view-inner {
+		box-shadow: 0 5px 15px -4px rgba(0, 0, 0, 0.5), inset 0 -3px 4px -1px rgba(0, 0, 0, 0.2), 0 -5px 15px -1px rgba(200,200,200,0.6), inset 0 3px 4px -1px rgba(200,200,200,0.2), inset 0 0 5px 1px rgba(200,200,200,0.8), inset 0 20px 30px 0 rgba(200,200,200,0.2);
+	}
+	.kanban-column-inner, .column-title {
+		box-shadow: 0 5px 15px -4px rgba(0, 0, 0, 0.5), inset 0 -3px 4px -1px rgba(0, 0, 0, 0.2), 0 -2.5px 15px -1px rgba(241,241,241,0.6), inset 0 3px 4px -1px rgba(241,241,241,0.2), inset 0 0 5px 1px rgba(241,241,241,0.8), inset 0 20px 30px 0 rgba(241,241,241,0.2);
+	}
+	.kanban-card {
+		box-shadow: 0 5px 15px -4px rgba(0, 0, 0, 0.5), inset 0 -3px 4px -1px rgba(0, 0, 0, 0.2), 0 -5px 15px -1px rgba(255,255,255,0.6), inset 0 3px 4px -1px rgba(255,255,255,0.2), inset 0 0 5px 1px rgba(255,255,255,0.8), inset 0 20px 30px 0 rgba(255,255,255,0.2);
+	}
+	.board-header  {
+		.top_left {
+			@include modern_wrap;
+		}
+		.top_expander_wrap {
+			@include modern_wrap;
+			position: relative;
+			transition: all .2s cubic-bezier(0.23, 1, 0.32, 1);
+			&:active {
+				filter: blur(0.5px);
+				box-shadow: 0 8px 15px -4px rgba(0, 0, 0, 0.4), inset 0 -8px 30px 1px var(--color-09), 0 -10px 15px -1px var(--color-06), inset 0 8px 15px 0 rgba(0, 0, 0, 0.4), inset 0 0 10px 1px var(--color-06);
+			}
+			&.open {
+				filter: blur(0.5px);
+				box-shadow: 0 8px 15px -4px rgba(0, 0, 0, 0.4), inset 0 -8px 30px 1px var(--color-09), 0 -10px 15px -1px var(--color-06), inset 0 8px 15px 0 rgba(0, 0, 0, 0.4), inset 0 0 10px 1px var(--color-06);
+				.expander {
+					background-image: url(../assets/icons/cheveron-up.svg);
+				}
+			}
+		}
+		.bottom {
+			@include modern_wrap;
+			margin-top: 10px;
+			display: none;
+		}
+	}
+
+	.user_info {
+		background: var(--bg-color);
+		.user_info_top {
+			@include bg_base;
+
+		}
+		&:before {
+			box-shadow: 0 5px 5px -4px rgba(0, 0, 0, 0.5), inset 0 -3px 4px -1px rgba(0, 0, 0, 0.2), 0 -10px 15px -1px var(--color-06), inset 0 3px 4px -1px var(--color-02), inset 0 0 5px 1px var(--color-08), inset 0 20px 30px 0 var(--color-02);
+			background-color: rgba(0,0,0,0.2)
+		}
+		&.side-open {
+			.user_info_top {
+				box-shadow: none;
+			}
+			&::before {
+				filter: blur(0.5px);
+				box-shadow: 0 12px 25px -4px rgba(0, 0, 0, 0.4), inset 0 -8px 30px 1px var(--color-09), 0 -10px 15px -1px var(--color-06), inset 0 8px 25px 0 rgba(0, 0, 0, 0.4), inset 0 0 10px 1px var(--color-06);
+				background-color: rgba(0,0,0,0.05)
+			}
+		}
+	}
+
+}

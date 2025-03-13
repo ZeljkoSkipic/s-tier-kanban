@@ -90,7 +90,6 @@ const zipIgnoreGlob = [
 	'!./.git',
 	'!./.svn',
 	'!./gulpfile.babel.js',
-	'!./wpgulp.config.js',
 	'!./.eslintrc.js',
 	'!./.eslintignore',
 	'!./.editorconfig',
@@ -98,10 +97,13 @@ const zipIgnoreGlob = [
 	'!./vscode',
 	'!./package.json',
 	'!./package-lock.json',
-	'!./assets/css/**/*',
 	'!./assets/img/raw/**/*',
 	'!./assets/img/raw',
 	`!${imgSRC}`,
+	'!./assets/gulpfile.babel.js',
+	'!./assets/admin/package.json',
+	'!./assets/admin/package-lock.json',
+	'!./assets/admin/{node_modules,node_modules/**/*}',
 ];
 
 // >>>>> Translation options.

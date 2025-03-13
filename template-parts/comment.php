@@ -13,10 +13,16 @@ $avatar = get_avatar($user_ID);
         </div>
         <p class="kanban-comment-user-name"><?php echo $user->display_name; ?></p>
         <p class="kanban-comment-date"><?php echo $comment_date; ?></p>
+
+	<?php if(is_user_kanban_creation($user_ID) || is_user_kanban_admin()): ?>
+
     <div class="kanban-comment-buttons">
         <a data-comment-id="<?php echo $comment->comment_ID;  ?>" href="#" class="kanban-comment-edit"><?php esc_html_e('Edit', 'kanban'); ?></a>
         <a data-comment-id="<?php echo $comment->comment_ID;  ?>" class="kanban-comment-delete" href="#"><?php esc_html_e('Delete', 'kanban'); ?></a>
     </div>
+
+	<?php endif; ?>
+
     </div>
     <div id="comment_<?php echo $comment->comment_ID; ?>" data-content='<?php echo htmlspecialchars_decode($comment_content); ?>' class="kanban-comment-text"> </div>
     <div style="display: none;" class="kanban-comment-buttons-edit-mode">

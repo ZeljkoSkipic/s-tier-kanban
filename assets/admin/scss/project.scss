@@ -1,0 +1,232 @@
+.post-type-kanban-project {
+	input[type="submit"] {
+		@include kan-btn;
+	}
+	#publishing-action {
+		position: fixed;
+		top: 60px;
+		right: 20px;
+		width: 100%;
+		z-index: 99;
+		input[type="submit"] {
+			width: 280px;
+		}
+	}
+}
+
+.board_settings_section {
+	@include shadow-box;
+	background-color: #f1f5f9;
+}
+
+#project_class_meta_box {
+	border: none;
+	background-color: transparent;
+	.inside {
+		padding: 0;
+	}
+	.postbox-header {
+		pointer-events: none;
+		h2 {
+			font-size: 22px;
+		}
+	}
+	.handle-actions {
+		display: none;
+	}
+}
+
+.board_settings_subtitle {
+	font-size: 16px;
+	font-weight: 500;
+	margin-block: 0 16px;
+}
+
+#board_color_scheme {
+	@include basic-box;
+
+
+}
+
+:not(.modern) {
+	.switch-holder {
+		@include basic-box;
+	}
+}
+
+.modern {
+	.switch-holder {
+		@include shadow-box;
+	}
+	#project-class-meta-box {
+		p {
+			input {
+				&[value="kanban-color-one"] {
+					background-color: #838c91;
+					box-shadow: $shadow-var-1 rgba(131, 140, 145, .6),$shadow-var-2 rgba(131, 140, 145, .2),$shadow-var-3 rgba(131, 140, 145, .8),$shadow-var-4 rgba(131, 140, 145, .2);
+				}
+				&[value="kanban-color-two"] {
+					background-color: #487852;
+					box-shadow: $shadow-var-1 rgba(72, 120, 82, .6),$shadow-var-2 rgba(72, 120, 82, .2),$shadow-var-3 rgba(72, 120, 82, .8),$shadow-var-4 rgba(72, 120, 82, .2);
+				}
+				&[value="kanban-color-three"] {
+					background-color: #18191b;
+					box-shadow: $shadow-var-1 rgba(24, 25, 27, .6),$shadow-var-2 rgba(24, 25, 27, .2),$shadow-var-3 rgba(24, 25, 27, .8),$shadow-var-4 rgba(24, 25, 27, .2);
+
+				}
+				&[value="kanban-color-four"] {
+					background-color: #176a86;
+					box-shadow: $shadow-var-1 rgba(23, 106, 134, .6),$shadow-var-2 rgba(23, 106, 134, .2),$shadow-var-3 rgba(23, 106, 134, .8),$shadow-var-4 rgba(23, 106, 134, .2);
+				}
+			}
+		}
+	}
+}
+
+#kanban-users-meta-box {
+	@include basic-box;
+	#kanban-user-search, #kanban-user-role-filter {
+		box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.5);
+		border: none;
+		width: 300px;
+		max-width: 48%;
+	}
+}
+
+#kanban-users-list {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 175px);
+    gap: 10px;
+	margin-top: 12px;
+	.kanban-user-item {
+		position: relative;
+		label {
+			cursor: pointer;
+			font-size: 14px;
+			font-weight: 600;
+
+		}
+		input {
+			background-image: url(../icons/user-x.svg);
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center left;
+			border: none;
+			width: 25px;
+			height: 25px;
+			box-shadow: none;
+
+			&:checked {
+				background-image: url(../icons/user-check.svg);
+			}
+			&::before {
+				display: none;
+			}
+		}
+
+	}
+}
+
+.switch-holder {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	max-width: 300px;
+	margin-bottom: 32px;
+	background-color: #fff;
+	@include st;
+}
+
+
+.switch-label {
+	padding: 0 20px 0 10px;
+	i {
+		margin-right: 5px;
+	}
+}
+
+.switch-toggle {
+	height: 40px;
+	input[type="checkbox"] {
+		position: absolute;
+		opacity: 0;
+		z-index: -2;
+	}
+	input[type="checkbox"]+label {
+		position: relative;
+		display: inline-block;
+		width: 150px;
+		height: 40px;
+		border-radius: 20px;
+		margin: 0;
+		cursor: pointer;
+		box-shadow: inset -8px -8px 15px rgba(255, 255, 255, .6),
+				inset 10px 10px 10px rgba(0, 0, 0, .25);
+	}
+	input[type="checkbox"]+label::before {
+		position: absolute;
+		content: 'Classic';
+		font-size: 13px;
+		text-align: center;
+		line-height: 25px;
+		top: 8px;
+		left: 8px;
+		width: 65px;
+		height: 25px;
+		border-radius: 20px;
+		background-color: #eeeeee;
+		@include st;
+	}
+	input[type="checkbox"]:checked+label::before {
+		left: 50%;
+		content: 'Modern';
+		color: #18191b;
+		background-color: #adf7bd;
+		box-shadow: -3px -3px 5px rgba(255, 255, 255, .5),
+				3px 3px 5px rgba(0, 0, 0, .25);
+	}
+}
+
+
+#project-class-meta-box {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 100px);
+	gap: 10px;
+	@include basic-box;
+	p {
+		width: 100px;
+		height: 100px;
+		font-size: 0;
+		input {
+			width: 100%;
+			height: 100%;
+			position: relative;
+			border-radius: 0;
+			border-radius: 12px;
+			border: none;
+			box-shadow: none;
+			@include st;
+			&[value="kanban-color-one"] {
+				background-color: #838c91;
+			}
+			&[value="kanban-color-two"] {
+				background-color: #487852;
+			}
+			&[value="kanban-color-three"] {
+				background-color: #18191b;
+			}
+			&[value="kanban-color-four"] {
+				background-color: #176a86;
+			}
+			&:checked {
+				&:before {
+					all: unset;
+					content: url(../icons/check-light.svg);
+					position: absolute;
+    				right: 4px;
+					top: 4px;
+				}
+			}
+		}
+	}
+}
