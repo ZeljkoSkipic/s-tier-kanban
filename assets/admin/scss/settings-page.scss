@@ -2,7 +2,6 @@
 	.wrap form:first-of-type {
 		@include shadow-box;
 		background-color: #f1f5f9;
-		max-width: 768px;
 		tbody, tr, td {
 			all: unset;
 		}
@@ -12,5 +11,40 @@
 	}
 	input[type="submit"] {
 		@include kan-btn;
+	}
+	.kanban-settings-container {
+		display: flex;
+		.kanban-settings-main {
+			width: 70%;
+			max-width: 768px;
+			margin-right: 32px;
+		}
+	}
+}
+
+.kanban-settings-sidebar {
+	width: calc(30% - 32px);
+	max-width: 280px;
+	.kanban-settings-sidebar-box {
+		background-color: #fff;
+		padding: 20px;
+		border-left: 2px solid;
+		box-sizing: border-box;
+		margin-top: 16px;
+		p {
+			margin-block: 0;
+		}
+		a {
+			text-transform: uppercase;
+			font-weight: 500;
+			font-size: 12px;
+			display: block;
+			&:first-of-type {
+				margin-top: 16px;
+			}
+			&:last-of-type {
+				margin-top: 8px;
+			}
+		}
 	}
 }

@@ -171,6 +171,13 @@
 	  }
 
   }
+  .admin-bar {
+	.user_info  {
+		.user_info_inner_wrap {
+			height: calc(100vh - 107px);
+		}
+	}
+  }
   .user_info {
 	flex-direction: column;
 	z-index: 10;
@@ -209,7 +216,6 @@
 	.user_info_inner_wrap {
 		display: none;
 		height: calc(100vh - 70px);
-
 	}
 	.user_info_inner {
 		display: flex;
@@ -319,7 +325,8 @@
 	border-radius: 8px;
 	padding-top: 20px;
 	padding-inline: .6vw calc(200px + 2vw);
-	height: calc(100vh - 60px);
+	height: calc(100vh - 90px);
+	position: relative;
   }
 
   .kanban-column {
@@ -1035,4 +1042,15 @@
 	100% {
 	  background-size: 20% 100%, 20% 100%, 20% 100%;
 	}
+  }
+
+  .s-tier-branding {
+	font-size: 12px;
+	position: absolute;
+	bottom: 5px;
+	left: 5px;
+	color: #fff;
+	opacity: .6;
+	letter-spacing: 1px;
+	z-index: -1;
   }

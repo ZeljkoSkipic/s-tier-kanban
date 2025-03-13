@@ -41,9 +41,17 @@
 #project-class-meta-box p input[value="kanban-color-three"]{background-color:#18191b}
 #project-class-meta-box p input[value="kanban-color-four"]{background-color:#176a86}
 #project-class-meta-box p input:checked:before{all:unset;content:url(../icons/check-light.svg);position:absolute;right:4px;top:4px}
-.toplevel_page_kanban-settings .wrap form:first-of-type{border-radius:10px;margin-block:16px;padding:15px 25px;-webkit-box-shadow:-8px -8px 15px rgba(255,255,255,0.7),10px 10px 10px rgba(0,0,0,0.2),inset 8px 8px 15px rgba(255,255,255,0.7),inset 10px 10px 10px rgba(0,0,0,0.2);box-shadow:-8px -8px 15px rgba(255,255,255,0.7),10px 10px 10px rgba(0,0,0,0.2),inset 8px 8px 15px rgba(255,255,255,0.7),inset 10px 10px 10px rgba(0,0,0,0.2);background-color:#f1f5f9;max-width:768px}
+.toplevel_page_kanban-settings .wrap form:first-of-type{border-radius:10px;margin-block:16px;padding:15px 25px;-webkit-box-shadow:-8px -8px 15px rgba(255,255,255,0.7),10px 10px 10px rgba(0,0,0,0.2),inset 8px 8px 15px rgba(255,255,255,0.7),inset 10px 10px 10px rgba(0,0,0,0.2);box-shadow:-8px -8px 15px rgba(255,255,255,0.7),10px 10px 10px rgba(0,0,0,0.2),inset 8px 8px 15px rgba(255,255,255,0.7),inset 10px 10px 10px rgba(0,0,0,0.2);background-color:#f1f5f9}
 .toplevel_page_kanban-settings .wrap form:first-of-type tbody,.toplevel_page_kanban-settings .wrap form:first-of-type tr,.toplevel_page_kanban-settings .wrap form:first-of-type td{all:unset}
 .toplevel_page_kanban-settings .wrap form:first-of-type tbody{width:100%}
 .toplevel_page_kanban-settings input[type="submit"]{color:#fff;border-radius:.5em;font-size:14px;background:#2f7ae5;cursor:pointer;border:1px solid #2f7ae5;-webkit-transition:all .3s;transition:all .3s;-webkit-box-shadow:3px 3px 6px #c5c5c5,4px 3px 6px #439cef;box-shadow:3px 3px 6px #c5c5c5,4px 3px 6px #439cef}
 .toplevel_page_kanban-settings input[type="submit"]:hover{background-color:#3e88ef;color:#fff;border:1px solid #439cef}
 .toplevel_page_kanban-settings input[type="submit"]:active,.toplevel_page_kanban-settings input[type="submit"]:focus{-webkit-box-shadow:2px 2px 6px #c5c5c5,2px 2px 6px #439cef;box-shadow:2px 2px 6px #c5c5c5,2px 2px 6px #439cef;background-color:#3e88ef;color:#fff;border:1px solid #439cef;outline:0}
+.toplevel_page_kanban-settings .kanban-settings-container{display:-webkit-box;display:-ms-flexbox;display:flex}
+.toplevel_page_kanban-settings .kanban-settings-container .kanban-settings-main{width:70%;max-width:768px;margin-right:32px}
+.kanban-settings-sidebar{width:calc(30% - 32px);max-width:280px}
+.kanban-settings-sidebar .kanban-settings-sidebar-box{background-color:#fff;padding:20px;border-left:2px solid;-webkit-box-sizing:border-box;box-sizing:border-box;margin-top:16px}
+.kanban-settings-sidebar .kanban-settings-sidebar-box p{margin-block:0}
+.kanban-settings-sidebar .kanban-settings-sidebar-box a{text-transform:uppercase;font-weight:500;font-size:12px;display:block}
+.kanban-settings-sidebar .kanban-settings-sidebar-box a:first-of-type{margin-top:16px}
+.kanban-settings-sidebar .kanban-settings-sidebar-box a:last-of-type{margin-top:8px}

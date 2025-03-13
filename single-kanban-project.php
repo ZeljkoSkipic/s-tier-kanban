@@ -151,8 +151,9 @@ while (have_posts()) : the_post(); ?>
 			endwhile; ?>
 		<?php endif; ?>
 		<button id="add-column-btn">New Column</button>
-
+		<?php include plugin_dir_path(__FILE__) . 'template-parts/branding.php'; ?>
 	</div> <!-- Kanban board -->
+
 <?php wp_reset_postdata(); // Important: Reset the $post global to the current post in the main query
 
 endwhile;

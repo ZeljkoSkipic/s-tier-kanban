@@ -30,4 +30,5 @@ $user = wp_get_current_user($user_ID);
 			</div>
 		</form>
 	</div>
+	<?php include plugin_dir_path(__FILE__) . 'branding.php'; ?>
 </div>
