@@ -1,6 +1,6 @@
 document
   .getElementById("add-column-btn")
-  .addEventListener("click", function () {
+  ?.addEventListener("click", function () {
     Swal.fire({
       input: "text",
       inputAttributes: {
@@ -109,8 +109,8 @@ document.addEventListener("keydown", updateColumnTitle);
 
 // Delete Column Button
 document
-  .getElementById("kanban-board")
-  .addEventListener("click", async function (event) {
+  ?.getElementById("kanban-board")
+  ?.addEventListener("click", async function (event) {
     let deleteBtn = event.target.closest(".delete-column-btn");
     if (deleteBtn) {
       let column = deleteBtn.closest(".kanban-column");
@@ -380,7 +380,30 @@ jQuery(document).ready(function ($) {
     $(this).toggleClass("open");
   });
   $(".top_expander_wrap").on("click", function () {
-    $(".board-header .bottom").slideToggle();
+    $(".board-header .bottom").fadeToggle();
     $(".top_expander_wrap").toggleClass("open");
   });
+});
+
+// Fullscreen Button
+document.addEventListener('DOMContentLoaded', function () {
+	const fullscreenBtn = document.getElementById('fullscreen-btn');
+	const body = document.body;
+
+	// Request fullscreen and add 'fs-active' class
+	fullscreenBtn.addEventListener('click', function () {
+			if (!document.fullscreenElement) {
+					document.documentElement.requestFullscreen({ navigationUI: "hide" }).then(() => {
+							body.classList.add('fs-active');
+					}).catch(err => {
+							console.error(`Error attempting to enable full-screen mode: ${err.message}`);
+					});
+			} else {
+					document.exitFullscreen().then(() => {
+							body.classList.remove('fs-active');
+					}).catch(err => {
+							console.error(`Error attempting to exit full-screen mode: ${err.message}`);
+					});
+			}
+	});
 });

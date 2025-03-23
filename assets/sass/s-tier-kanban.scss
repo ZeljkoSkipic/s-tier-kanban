@@ -6,10 +6,16 @@
 	font-style: italic;
 }
 
+
 .single-kanban-project {
 	background-color: var(--bg-color);
 	position: absolute;
 	overflow: auto;
+	&.fs-active {
+		#fullscreen-btn {
+			background-image: url(../assets/icons/minimize.svg);
+		}
+	}
 	.ast-container {
 		all: unset;
 	}
@@ -76,6 +82,7 @@
 	  h1 {
 		font-size: 25px;
 		margin-block: 8px;
+		padding-bottom: 0;
 	  }
 	  .top {
 		display: flex;
@@ -93,11 +100,25 @@
 			margin-right: 24px;
 		  }
 	  }
+	  #fullscreen-btn {
+		all: unset;
+		height: $height;
+		box-sizing: border-box;
+		border-radius: 8px;
+		margin-left: auto;
+		margin-right: 0;
+		cursor: pointer;
+		background-image: url(../assets/icons/maximize.svg);
+		background-position: center right 20px;
+		background-repeat: no-repeat;
+		background-size: 20px;
+		font-size: 14px;
+	  }
 	  .top_expander_wrap {
 		margin-right: 220px;
-		margin-left: auto;
+		margin-left: 20px;
 		height: $height;
-		cursor: pointer;
+		cursor: help;
 		p {
 			font-size: 14px;
 			margin: 0 16px 0 0;
@@ -177,6 +198,31 @@
 			height: calc(100vh - 107px);
 		}
 	}
+	.column-title {
+		background-position: left 8px center;
+		background-repeat: no-repeat;
+		background-image: url(../assets/icons/move.svg);
+		background-size: 0;
+		transition: .2s all;
+		position: relative;
+		&::before {
+			content: "";
+			position: absolute;
+			height: 100%;
+			width: 0;
+			left: 0;
+			top: 0;
+			cursor: grab;
+			transition: .2s all;
+		}
+		&:hover {
+			padding-left: 35px;
+			background-size: 17px;
+			&::before {
+				width: 35px;
+			}
+		}
+	  }
   }
   .user_info {
 	flex-direction: column;
@@ -211,6 +257,7 @@
 		.side_expander {
 			margin-left: auto;
 			flex-shrink: 0;
+			cursor: pointer;
 		}
 	}
 	.user_info_inner_wrap {
@@ -529,7 +576,6 @@
 	  background-color: red;
 	}
   }
-
   .card-title, .column-title {
 	&:focus {
 		@include title-focus;
@@ -601,9 +647,9 @@
 	background-color: transparent;
 	transition: 0.1s ease-in-out;
 	background-size: 16px;
-	&:hover {
+	&:hover, &:focus, &:active {
 		background-color: transparent;
-	  transform: scale(1.1);
+	  	transform: scale(1.1);
 	}
   }
 
@@ -695,7 +741,7 @@
 	.card-title {
 	  font-size: 20px;
 	  background-image: url(../assets/icons/clipboard.svg);
-	  padding: 2px 5px 5px 30px;
+	  padding: 3px 5px 5px 30px;
 	  background-size: 25px;
 	  background-repeat: no-repeat;
 	  background-position: top 2px left;
@@ -705,6 +751,7 @@
 	  box-sizing: border-box;
 	  border: 1px solid transparent;
 	  transition: .2s all;
+	  margin-top: 12px;
 	}
 
 	.card-subtitle {
@@ -723,10 +770,11 @@
 		border-radius: 8px;
 		max-width: 780px;
 		width: 90%;
+		min-height: 425px;
 		max-height: 850px;
 		overflow-y: auto;
 		overflow-x: hidden;
-		padding: 24px 24px 0 24px;
+		padding: 12px 24px 0 24px;
 		box-sizing: border-box;
 		border: 3px solid #E9ECF0;
 		&::-webkit-scrollbar {
@@ -770,9 +818,9 @@
 	}
 
 	.kanban-card-view-description {
-	  margin-block: 32px;
+	  margin-block: 24px;
 	  border-top: 2px solid #f5f6f6;
-	  padding-top: 32px;
+	  padding-top: 24px;
 	}
 	.kanban-card-view-description-editor {
 	  border: 2px solid #f5f6f6;
@@ -978,7 +1026,7 @@
 		padding: 8px;
 		border-radius: 8px;
 		margin-bottom: 3px;
-		padding-bottom: 24px;
+		padding-bottom: 12px;
 		.ce-popover {
 			transform: translateY(calc(-100% - 46px));
 		}
@@ -1046,11 +1094,15 @@
 
   .s-tier-branding {
 	font-size: 12px;
-	position: absolute;
+	position: fixed;
 	bottom: 5px;
 	left: 5px;
 	color: #fff;
 	opacity: .6;
 	letter-spacing: 1px;
-	z-index: -1;
+	z-index: 9;
+	a {
+		color: #fff;
+		text-decoration: underline;
+	}
   }

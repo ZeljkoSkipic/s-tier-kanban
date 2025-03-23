@@ -63,26 +63,32 @@ document.addEventListener(
     );
     const container = column.querySelector(".kanban-cards-container");
 
-    Sortable.create(container, {
-      group: "cards",
-      animation: 150,
-      draggable: ".kanban-card", // Specify draggable items
-      onAdd: (evt) => sortCards(evt),
-      onUpdate: (evt) => sortCards(evt),
-    });
+    if (container) {
+      Sortable.create(container, {
+        group: "cards",
+        animation: 150,
+        draggable: ".kanban-card", // Specify draggable items
+        onAdd: (evt) => sortCards(evt),
+        onUpdate: (evt) => sortCards(evt),
+      });
+    }
   },
   false
 );
 
 // Sort Columns
 
-Sortable.create(document.querySelector("#kanban-board"), {
-  group: "column",
-  animation: 150,
-  draggable: ".kanban-column",
-  onAdd: (evt) => sortColumns(evt),
-  onUpdate: (evt) => sortColumns(evt),
-});
+const kanbanBoard = document.querySelector("#kanban-board");
+
+if (kanbanBoard) {
+  Sortable.create(kanbanBoard, {
+    group: "column",
+    animation: 150,
+    draggable: ".kanban-column",
+    onAdd: (evt) => sortColumns(evt),
+    onUpdate: (evt) => sortColumns(evt),
+  });
+}
 
 // Sort Cards
 

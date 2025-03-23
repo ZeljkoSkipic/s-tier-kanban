@@ -1,18 +1,21 @@
 <?php
 
 // Start the loop.
-get_header();
+include plugin_dir_path(__FILE__) . 'header-kanban.php';
+
 
 $avatar = get_avatar($user_ID);
 
 while (have_posts()) : the_post(); ?>
-
 	<div class="board-header">
 		<div class="top">
 			<div class="top_left">
 				<?php the_post_thumbnail(); ?>
 				<h1><?php the_title(); ?></h1>
 			</div>
+
+			<button id="fullscreen-btn">Fullscreen</button>
+
 			<div class="top_expander_wrap">
 				<p>Project Details</p> <span class="top_expander expander"></span>
 			</div>
@@ -62,11 +65,10 @@ while (have_posts()) : the_post(); ?>
 							$account_page = get_pages(array(
 								'meta_key' => '_wp_page_template',
 								'meta_value' => 'kanban-account.php'
-							));
+							)); ?>
 
-							if (!empty($account_page)) {
-								$account_page_url = get_permalink($account_page[0]->ID); ?>
-								<a class="account-link" href="<?php echo esc_url($account_page_url); ?>">
+
+								<a class="account-link" href="/kanban-profile">
 									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
 										<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
 										<circle cx="12" cy="7" r="4"></circle>
@@ -74,7 +76,6 @@ while (have_posts()) : the_post(); ?>
 									<?php _e('My Account', 'kanban'); ?>
 								</a>
 
-							<?php }	?>
 
 							<a href="<?php echo wp_logout_url(); ?>" class="logout-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#18191B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out">
 									<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
@@ -164,14 +165,3 @@ include_once plugin_dir_path(__FILE__) . 'template-parts/card-view.php';
 
 get_footer();
 ?>
-
-
-<script>
-	jQuery(document).ready(function($) {
-		$(".card-flags label").on("click", function() {
-			$(this).siblings(".card-flags label").animate({
-				width: 'toggle'
-			});
-		});
-	});
-</script>

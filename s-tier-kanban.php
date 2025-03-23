@@ -2,9 +2,9 @@
 
 /**
  * Plugin Name: S Kanban
- * Plugin URI: https://stierdev.com/s-tier-dev-kanban/
+ * Plugin URI: https://kanbanplugin.com/
  * Description: Project Management Simplified
- * Version: 0.0.4
+ * Version: 0.1.0
  * Author: S-Tier Dev
  * Author URI: https://stierdev.com/
  */
@@ -14,16 +14,27 @@
 !defined('PLUGIN_ROOT_PATH') ? define('PLUGIN_ROOT_PATH', plugin_dir_path(__FILE__)) : "";
 !defined('PLUGIN_ROOT_URL') ? define('PLUGIN_ROOT_URL', plugin_dir_url(__FILE__)) : "";
 
+// Load plugin files
+
+include_once plugin_dir_path(__FILE__) . 'admin/admin.php';
+include_once plugin_dir_path(__FILE__) . 'post-types.php';
+include_once plugin_dir_path(__FILE__) . 'template-parts/backend/meta.php';
+
 
 function stk_scripts()
 {
+
+	$is_kanban_page = is_singular('kanban-project');
+
+	if (!$is_kanban_page && !is_kanban_profile_page()) return;
+
 	// Enqueue the CSS file
 	// wp_enqueue_style('s-tier-kanban-css', plugin_dir_url(__FILE__) . 's-tier-kanban.css');
 	wp_enqueue_style('s-tier-kanban-css', PLUGIN_ROOT_URL . 'dist/index.min.css');
 
 	// Enqueue the JS file
 	wp_enqueue_script('s-tier-kanban-js-vendor', PLUGIN_ROOT_URL . 'dist/vendor.min.js', array('jquery'), false, true);
-	wp_enqueue_script('s-tier-kanban-js', PLUGIN_ROOT_URL . 'dist/theme.min.js', array('jquery', 's-tier-kanban-js-vendor', 'sortable-js'), false, true);
+	wp_enqueue_script('s-tier-kanban-js', PLUGIN_ROOT_URL . 'dist/plugin.min.js', array('jquery', 's-tier-kanban-js-vendor', 'sortable-js'), false, true);
 
 	wp_enqueue_script('sweetalert-js', plugin_dir_url(__FILE__) . 'assets/js/sweetalert/sweetalert2.min.js', array(), false, true);
 	wp_enqueue_script('sortable-js', plugin_dir_url(__FILE__) . 'assets/js/sortable/sortable.js', array(), false, true);
@@ -42,14 +53,6 @@ add_action('admin_enqueue_scripts', 'stk_admin_scripts');
 
 
 add_action('wp_enqueue_scripts', 'stk_scripts');
-
-include_once plugin_dir_path(__FILE__) . 'post-types.php';
-
-include_once plugin_dir_path(__FILE__) . 'template-parts/backend/meta.php';
-
-if (is_admin()) {
-	include_once plugin_dir_path(__FILE__) . 'admin/admin.php';
-}
 
 // Create Column
 function stk_add_column_callback()
@@ -358,8 +361,6 @@ function stk_card_title_callback()
 		if ($card) {
 
 			if (!is_user_kanban_creation($user_id) && !is_user_kanban_admin()) return  wp_send_json_error('You can not do that!', 403);
-
-
 
 			$card_data = [
 				'ID' => $card_id
@@ -700,38 +701,55 @@ function remove_admin_bar_for_kanban_user()
 }
 add_action('after_setup_theme', 'remove_admin_bar_for_kanban_user');
 
-//
-
-// Register Account Template
-
-function register_kanban_account_template($templates)
-{
-	$templates['kanban-account.php'] = 'Kanban Account Page';
-	return $templates;
-}
-add_filter('theme_page_templates', 'register_kanban_account_template');
-
-function load_kanban_account_template($template)
-{
-	if (get_page_template_slug() == 'kanban-account.php') {
-		$template = plugin_dir_path(__FILE__) . 'kanban-account.php';
-	}
-	return $template;
-}
-add_filter('template_include', 'load_kanban_account_template');
-
 // Redirect Kanban User to Account Page after login
 function redirect_kanban_user_to_account_page($redirect_to, $request, $user)
 {
 	// Check if the user is a kanban-user
 	if (isset($user->roles) && in_array('kanban-user', $user->roles)) {
-		// Redirect to the Kanban Account Page
-		$account_page = get_page_by_path('kanban-account');
-		if ($account_page) {
-			return get_permalink($account_page->ID);
-		}
+		return get_site_url() . '/kanban-profile';
 	}
 
 	return $redirect_to;
 }
 add_filter('login_redirect', 'redirect_kanban_user_to_account_page', 10, 3);
+
+// Update user account
+
+function stk_update_user()
+{
+	if (!wp_verify_nonce($_POST['security'], 's-tier-kanban-nonce')) {
+		die(__('Security check', 'kanban'));
+	} else {
+
+		$user_id = get_current_user_id();
+		$first_name = isset($_POST['first_name']) ? wp_strip_all_tags($_POST['first_name']) : "";
+		$last_name = isset($_POST['last_name']) ? wp_strip_all_tags($_POST['last_name']) : "";
+		$password = isset($_POST['password']) ? wp_strip_all_tags($_POST['password']) : "";
+		$confirm_password = isset($_POST['password_confirm']) ? wp_strip_all_tags($_POST['password_confirm']) : "";
+
+		if (!$first_name || !$last_name) {
+			return wp_send_json_error('First name and last name are mandatory fields', 400);
+		}
+
+
+		$user_data = [
+			'ID' 			=> $user_id,
+			'first_name' 	=> $first_name,
+			'last_name'		=> $last_name,
+		];
+
+		if ($password && $password === $confirm_password && preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$/', $password)) {
+			$user_data['user_pass'] = $password;
+		}
+
+		$user = wp_update_user($user_data);
+
+
+		if ($user && !is_wp_error($user)) {
+			return wp_send_json_success();
+		}
+	}
+
+	die();
+}
+add_action('wp_ajax_stk_update_user', 'stk_update_user');

@@ -357,7 +357,7 @@ document.addEventListener("cardViewOpened", (e) =>
 document.addEventListener("cardViewClosed", (e) => editor.clear());
 
 const commentsSave = document.querySelector(".kanban-comment-save");
-commentsSave.addEventListener("click", comments);
+commentsSave?.addEventListener("click", comments);
 document.addEventListener("editMode", editMode);
 document.addEventListener("click", commentsAction);
 

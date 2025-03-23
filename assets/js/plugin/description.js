@@ -110,10 +110,10 @@ const activeDescriptionEditor = (e) => {
 	const editorHtml = document.querySelector(
 		".kanban-card-view-description-editor"
 	);
-	const saveButton = document.querySelector(".kanban-description-save");
+	const saveButton = document?.querySelector(".kanban-description-save");
 
-	const isAdmin = saveButton.dataset.userAdmin;
-	const isUserCreation = saveButton.dataset.userCreation;
+	const isAdmin = saveButton?.dataset.userAdmin;
+	const isUserCreation = saveButton?.dataset.userCreation;
 
 	if (e.target.closest(".kanban-card-view-description-editor")) {
 		if (
@@ -126,7 +126,7 @@ const activeDescriptionEditor = (e) => {
 		}
 	} else {
 		if (
-			editorHtml.classList.contains("active") &&
+			editorHtml?.classList.contains("active") &&
 			!e.target.matches(".kanban-description-save")
 		) {
 			editorHtml.classList.remove("active");

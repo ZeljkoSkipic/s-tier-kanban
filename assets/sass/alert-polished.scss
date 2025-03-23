@@ -8,7 +8,7 @@
 		background-color: rgba(233, 236, 240, .95);
 		grid-row: 1!important;
 		font-size: 14px;
-		.swal2-icon {
+		.swal2-icon:not(.swal2-success) {
 			position: relative;
 			justify-content: center;
 			width: 43px;
@@ -31,6 +31,14 @@
 				position: absolute;
 				transform: translate(-7px);
 				border-radius: 50%;
+			}
+
+		}
+		.swal2-info {
+			.swal2-icon-content {
+				&::after {
+					border-color: #a5dc86;
+				}
 			}
 		}
 		.swal2-title {

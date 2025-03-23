@@ -42,6 +42,11 @@ body:not(.kanban-modern) {
 				margin-bottom: -2.5px;
 			}
 		}
+		#fullscreen-btn {
+			@include classic_wrap;
+			padding: 5px 50px 5px 20px;
+
+		}
 		.bottom {
 			background-color: rgba(0,0,0,0.3);
 			transform: translateY(3px);
@@ -92,9 +97,20 @@ body.kanban-modern {
 	.kanban-card {
 		box-shadow: 0 5px 15px -4px rgba(0, 0, 0, 0.5), inset 0 -3px 4px -1px rgba(0, 0, 0, 0.2), 0 -5px 15px -1px rgba(255,255,255,0.6), inset 0 3px 4px -1px rgba(255,255,255,0.2), inset 0 0 5px 1px rgba(255,255,255,0.8), inset 0 20px 30px 0 rgba(255,255,255,0.2);
 	}
+	&.fs-active {
+		#fullscreen-btn {
+			filter: blur(0.5px);
+			box-shadow: 0 8px 15px -4px rgba(0, 0, 0, 0.4), inset 0 -8px 30px 1px var(--color-09), 0 -10px 15px -1px var(--color-06), inset 0 8px 15px 0 rgba(0, 0, 0, 0.4), inset 0 0 10px 1px var(--color-06);
+		}
+	}
 	.board-header  {
 		.top_left {
 			@include modern_wrap;
+		}
+		#fullscreen-btn {
+			@include modern_wrap;
+			padding: 5px 50px 5px 20px;
+			transition: all .2s cubic-bezier(0.23, 1, 0.32, 1);
 		}
 		.top_expander_wrap {
 			@include modern_wrap;
