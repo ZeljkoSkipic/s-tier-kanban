@@ -18,7 +18,7 @@ use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
 // Initialize the update checker
 $updateChecker = PucFactory::buildUpdateChecker(
-    'https://github.com/ZeljkoSkipic/s-tier-kanban', // Replace with your GitHub repo
+    'https://github.com/ZeljkoSkipic/s-tier-kanban/', // Replace with your GitHub repo
     __FILE__,                                     // Full path to the main plugin file
     's-tier-kanban'                                   // Plugin slug
 );

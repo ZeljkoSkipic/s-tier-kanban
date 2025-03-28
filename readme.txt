@@ -1,6 +1,7 @@
 === S-Tier Kanban ===
 Contributors: ZeljkoSkipic
 Tags: kanban, productivity, project management, s-tier
+Requires at least: 5.5
 Tested up to: 6.7.2
 Stable tag: 0.10.2
 License: GPLv2 or later
