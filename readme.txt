@@ -2,7 +2,7 @@
 Contributors: your-github-username
 Tags: kanban, productivity, project management, s-tier
 Tested up to: 6.7.2
-Stable tag: 0.10.0
+Stable tag: 0.10.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
