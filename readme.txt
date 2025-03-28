@@ -1,5 +1,5 @@
 === S-Tier Kanban ===
-Contributors: your-github-username
+Contributors: ZeljkoSkipic
 Tags: kanban, productivity, project management, s-tier
 Tested up to: 6.7.2
 Stable tag: 0.10.1
