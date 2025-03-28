@@ -50,7 +50,7 @@ while (have_posts()) : the_post(); ?>
 							$current_project_id = get_the_ID();
 
 							if (!empty($user_projects)) { ?>
-								<p class="user_boards_title">Your Kanbans:</p>
+								<p class="user_boards_title">Your Boards:</p>
 							<?php foreach ($user_projects as $project) {
 									$class = ($project->ID == $current_project_id) ? 'current-project' : '';
 									$thumbnail = get_the_post_thumbnail($project->ID, 'full', array('class' => 'project-thumbnail'));
@@ -91,6 +91,9 @@ while (have_posts()) : the_post(); ?>
 		<div class="bottom">
 			<div class="bottom_inner">
 				<div class="bottom_left">
+					<p class="kanban_field_title">
+						<?php _e('Project Description', 'kanban'); ?>
+					</p>
 					<p>
 						<?php
 						$project_description = get_post_meta(get_the_ID(), '_kanban_project_description', true);
@@ -98,25 +101,54 @@ while (have_posts()) : the_post(); ?>
 						?>
 					</p>
 				</div>
+
+				<?php
+					$kanban_documents = get_post_meta(get_the_ID(), 'kanban-board-documents', true);
+					$kanban_documents = $kanban_documents ? explode(',', $kanban_documents) : [];
+					?>
+					<?php if ($kanban_documents && KanbanUpdate::isLicenceValid()): ?>
+
+					<div class="board_documents bottom_mid">
+						<p class="kanban_field_title">Project Files:</p>
+						<div class="board_documents_files">
+
+						<?php foreach ($kanban_documents as $kanban_documentID): ?>
+							<?php
+							$file_url = wp_get_attachment_url($kanban_documentID);
+							$file_path = get_attached_file($kanban_documentID);
+							$file_info = pathinfo($file_path);
+							$file_extension = isset($file_info['extension']) ? strtolower($file_info['extension']) : 'unknown'; // Get file extension
+							?>
+							<a download href="<?php echo esc_url($file_url); ?>">
+								<span class="file-type-<?php echo esc_attr($file_extension); ?>"></span><?php echo ucfirst(basename($file_path)); ?>
+							</a>
+						<?php endforeach; ?>
+
+						</div>
+					</div>
+
+					<?php endif; ?>
 				<div class="bottom_right">
 					<div class="board_members">
-						<p class="board_members_title"><?php the_title(); ?> Members:</p>
+						<p class="kanban_field_title">Board Members:</p>
 						<?php
 						$allowed_users = get_post_meta(get_the_ID(), '_allowed_kanban_users', true) ?: array();
 						if (!empty($allowed_users)) {
 							foreach ($allowed_users as $user_id) { ?>
 								<div class="board_member">
-									<?php $user_info = get_userdata($user_id);
-									if ($user_info) {
-										$user_avatar = get_avatar($user_id, 32); // Get user avatar with size 32
-										$first_name = get_user_meta($user_id, 'first_name', true);
-										$last_name = get_user_meta($user_id, 'last_name', true);
-										$display_name = trim($first_name . ' ' . $last_name);
-										if (empty($display_name)) {
-											$display_name = $user_info->user_login;
-										}
-										echo $user_avatar . ' ' . esc_html($display_name);
-									} ?>
+								<?php $user_info = get_userdata($user_id);
+								if ($user_info) {
+									$first_name = get_user_meta($user_id, 'first_name', true);
+									$last_name = get_user_meta($user_id, 'last_name', true);
+									$display_name = trim($first_name . ' ' . $last_name);
+									if (empty($display_name)) {
+										$display_name = $user_info->user_login;
+									}
+									// Add the display name as the title attribute of the avatar
+									$avatar_html = get_avatar($user_id, 32, '', esc_attr($display_name));
+									$avatar_with_title = str_replace('<img', '<img title="' . esc_attr($display_name) . '"', $avatar_html);
+									echo $avatar_with_title;
+								} ?>
 								</div>
 						<?php }
 						}

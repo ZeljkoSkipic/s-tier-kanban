@@ -380,7 +380,7 @@ jQuery(document).ready(function ($) {
     $(this).toggleClass("open");
   });
   $(".top_expander_wrap").on("click", function () {
-    $(".board-header .bottom").fadeToggle();
+    $(".board-header .bottom").slideToggle();
     $(".top_expander_wrap").toggleClass("open");
   });
 });

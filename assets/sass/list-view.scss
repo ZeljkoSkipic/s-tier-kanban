@@ -1,0 +1,106 @@
+.list-view {
+	#kanban-board {
+		flex-direction: column;
+		min-width: 1000px;
+	}
+	.column-title {
+		width: fit-content;
+	}
+	.delete-column-btn {
+		top: 3px;
+		background-color: #e9ecf0;
+	}
+	.kanban-column-inner {
+		padding-bottom: 16px;
+	}
+	.kanban-card {
+		margin-top: 12px;
+		align-items: center;
+		padding-block: 8px;
+		height: 45px;
+		box-sizing: border-box;
+		.ce-block__content {
+			margin-top: 0;
+		}
+		.card-title {
+			width: 20%;
+			max-width: 250px;
+		}
+		.description-placeholder, .card-description {
+			width: 20%;
+			max-width: 300px;
+			margin: 0 auto 0 0;
+		}
+		.ce-paragraph  {
+			padding: 0!important;
+		}
+		.dynamic-select {
+			width: 15%;
+			max-width: 115px;
+			margin-right: 10px;
+			.dynamic-select-current-item {
+				padding: 3px 6px;
+			}
+		}
+		.card-priority + .dynamic-select {
+			margin-left: 0;
+		}
+		.card-bottom {
+			width: unset;
+			margin-right: 30px;
+		}
+		.card-bottom {
+			margin-top: 0;
+			display: flex;
+			justify-content: flex-end;
+			width: 120px;
+			align-items: center;
+		}
+		.card-svgs {
+			margin-inline: 16px;
+			display: flex;
+
+		}
+		.card-members {
+			img {
+				width: 25px;
+
+			}
+			.user-avatar {
+				margin-right: -8px;
+				line-height: 0;
+				margin-left: 0;
+			}
+		}
+		.card-svgs, .card-members {
+			width: unset;
+			img {
+				margin: 0;
+			}
+		}
+	}
+
+
+	.add-card-wrap {
+		position: absolute;
+		top: 0;
+		right: 50px;
+		width: 150px;
+		transform: translateY(-50%);
+		.add-card-btn {
+			padding-block: 4px;
+		}
+	}
+	&.admin-bar {
+		#add-column-btn {
+			top: 108px;
+		}
+	}
+	#add-column-btn {
+		position: fixed;
+		top: 75px;
+		right: 20px;
+		width: 180px;
+		padding: 8px;
+	}
+}

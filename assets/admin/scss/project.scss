@@ -1,3 +1,62 @@
+
+.disabled {
+	opacity: .6;
+	filter: grayscale(1);
+	pointer-events: none;
+}
+
+.licence-invalid {
+	> *:not(.pro_overlay) {
+		opacity: .6;
+		filter: grayscale(1);
+		* {
+			pointer-events: none;
+		}
+	}
+}
+.board_settings_section, .switch-holder {
+	position: relative;
+}
+div.licence-invalid {
+	.pro_overlay {
+		display: flex;
+	}
+}
+
+
+.pro_overlay {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	border-radius: 8px;
+	background-color: rgba(0, 0, 0, .2);
+	z-index: 9;
+	padding: 32px;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	opacity: 0;
+	transition: .2s ease-in-out;
+	display: none;
+	&:hover {
+		opacity: 1;
+	}
+	a {
+		@include kan-btn;
+		padding: 10px 20px;
+		margin-inline:16px;
+		cursor: pointer;
+		text-decoration: none;
+	}
+}
+
+*[disabled] {
+	pointer-events: none;
+}
+
 .post-type-kanban-project {
 	input[type="submit"] {
 		@include kan-btn;
@@ -15,8 +74,13 @@
 }
 
 .board_settings_section {
-	@include shadow-box;
 	background-color: #f1f5f9;
+	padding: 15px 25px;
+	border-radius: 10px;
+}
+.board_box {
+	@include basic-box;
+	position: relative;
 }
 
 #project_class_meta_box {
@@ -39,25 +103,11 @@
 .board_settings_subtitle {
 	font-size: 16px;
 	font-weight: 500;
-	margin-block: 0 16px;
+	margin-block: 0 32px;
 }
 
-#board_color_scheme {
-	@include basic-box;
-
-
-}
-
-:not(.modern) {
-	.switch-holder {
-		@include basic-box;
-	}
-}
 
 .modern {
-	.switch-holder {
-		@include shadow-box;
-	}
 	#project-class-meta-box {
 		p {
 			input {
@@ -81,6 +131,97 @@
 			}
 		}
 	}
+}
+
+.board-files {
+	display: flex;
+	flex-wrap: wrap;
+	li {
+		width: 100px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		position: relative;
+		padding-inline: 5px;
+		box-sizing: border-box;
+		&:last-child {
+			margin-right: 64px;
+		}
+		.board-file-remove {
+			position: absolute;
+			top: -5px;
+			right: 10px;
+			text-decoration: none;
+			font-size: 22px;
+			line-height: 1;
+		}
+		.file_icon {
+			width: 50px;
+			height: 50px;
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: calc(100% - 10px);
+			display: flex;
+			background-image: url(../icons/file.svg);
+			&.file-type-pdf {
+				background-image: url(../icons/pdf.svg);
+			}
+			&.file-type-doc {
+				background-image: url(../icons/doc.svg);
+			}
+			&.file-type-docx {
+				background-image: url(../icons/docx.svg);
+			}
+			&.file-type-ppt {
+				background-image: url(../icons/ppt.svg);
+			}
+			&.file-type-pptx {
+				background-image: url(../icons/pptx.svg);
+			}
+			&.file-type-csv {
+				background-image: url(../icons/csv.svg);
+			}
+			&.file-type-zip {
+				background-image: url(../icons/zip.svg);
+			}
+			&.file-type-rar {
+				background-image: url(../icons/rar.svg);
+			}
+		}
+	}
+}
+
+.board-upload-files_inner {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center
+}
+
+.button.board-upload-button {
+	background-color: transparent;
+	border: 1px solid #439CEF;
+	color: #439CEF;
+	font-size: 16px;
+	padding: 10px 15px 10px 45px;
+	background-color: #fff;
+	background-image: url(../icons/upload.svg)!important;
+	background-position: center left 15px;
+	background-repeat: no-repeat;
+	background-size: 20px;
+	transition: .2s ease-in-out;
+	&:hover, &:focus {
+		background-color: rgba(67, 156, 239, .1);
+		border: 1px solid #439CEF;
+	}
+	&:hover, &:focus, &[disabled] {
+		background-image: url(../icons/upload.svg)!important;
+		background-repeat: no-repeat!important;
+		background-size: 20px!important;
+		background-position: center left 15px!important;
+
+	}
+
 }
 
 #kanban-users-meta-box {
@@ -127,26 +268,39 @@
 	}
 }
 
+#board_layout_options {
+	@include basic-box;
+}
+
+#board_color_scheme {
+	.board_settings_subtitle {
+		margin-bottom: 0;
+	}
+}
+
 .switch-holder {
 	display: flex;
-	justify-content: space-between;
 	align-items: center;
-	max-width: 300px;
-	margin-bottom: 32px;
-	background-color: #fff;
+	padding-block: 32px;
 	@include st;
 }
 
 
 .switch-label {
-	padding: 0 20px 0 10px;
-	i {
-		margin-right: 5px;
-	}
+	margin-right: 16px;
+
 }
 
 .switch-toggle {
 	height: 40px;
+	&:not(.disabled) {
+		input[type="checkbox"]+label::before {
+			@include st;
+		}
+		input[type="checkbox"]+label {
+			cursor: pointer;
+		}
+	}
 	input[type="checkbox"] {
 		position: absolute;
 		opacity: 0;
@@ -159,7 +313,6 @@
 		height: 40px;
 		border-radius: 20px;
 		margin: 0;
-		cursor: pointer;
 		box-shadow: inset -8px -8px 15px rgba(255, 255, 255, .6),
 				inset 10px 10px 10px rgba(0, 0, 0, .25);
 	}
@@ -175,7 +328,6 @@
 		height: 25px;
 		border-radius: 20px;
 		background-color: #eeeeee;
-		@include st;
 	}
 	input[type="checkbox"]:checked+label::before {
 		left: 50%;
@@ -201,7 +353,6 @@
 			width: 100%;
 			height: 100%;
 			position: relative;
-			border-radius: 0;
 			border-radius: 12px;
 			border: none;
 			box-shadow: none;
@@ -226,6 +377,57 @@
     				right: 4px;
 					top: 4px;
 				}
+			}
+		}
+	}
+}
+
+#project-layout-meta-box {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 100px);
+	gap: 10px;
+	@include basic-box;
+	#project-layout-meta-box {
+		width: 100%;
+	}
+	p {
+		margin-top: 0;
+		font-size: 14px;
+	}
+	input {
+		margin-top: 8px;
+		width: 100px;
+		height: 100px;
+		border-radius: 12px;
+
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: 75px;
+		box-sizing: border-box;
+		background-color: #2F7AE5;
+		position: relative;
+		border: none;
+		box-shadow: none;
+		background-position: bottom 5px left 5px;
+		@include st;
+		&[value="kanban-view"] {
+			background-image: url(../icons/kanban.svg);
+		}
+		&[value="list-view"] {
+			background-image: url(../icons/list.svg);
+		}
+		&::before {
+			width: 24px;
+			height: 24px;
+		}
+		&:checked {
+			&:before {
+				all: unset;
+				content: url(../icons/check-light.svg);
+				position: absolute;
+				right: 4px;
+				top: 4px;
+
 			}
 		}
 	}

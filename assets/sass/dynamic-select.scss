@@ -33,8 +33,14 @@
 	}
 }
 
+.kanban-view {
+	.dynamic-select {
+		width: 46%;
+		margin-inline: 2%;
+
+	}
+}
 .dynamic-select {
-    width: 48%;
     position: relative;
     border-radius: 8px;
     box-sizing: border-box;
@@ -42,17 +48,7 @@
 	svg {
 		height: 13px;
 	}
-    &:nth-of-type(2) {
-        margin-right: auto;
-        .dynamic-select-label {
-            margin-top: -3px;
-        }
-    }
-    &:not(:nth-of-type(2)) {
-        .dynamic-select-label {
-            margin-block: -1.5px;
-        }
-    }
+
     &.dropdown-opened {
         .dynamic-select-current-item {
             background-color: #F5F6F6;
@@ -68,7 +64,8 @@
         border: 1px solid #E9ECF0;
         border-radius: 6px;
         position: relative;
-
+		height: 30px;
+		box-sizing: border-box;
         &:after {
             content: "";
             position: absolute;

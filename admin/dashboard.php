@@ -116,7 +116,7 @@ function stk_add_settings_link($links)
 {
 
     // Construct the Get Pro link
-    $get_pro_link = '<a href="https://kanbanplugin.com/" target="_blank"><b>Get Pro</b></a>';
+    $get_pro_link = '<a href="https://kanbanplugin.com/pricing" target="_blank"><b>Get Pro</b></a>';
 
     // Construct the Settings link
     $settings_link = '<a href="' . admin_url('admin.php?page=kanban-settings') . '">Settings</a>';
@@ -215,51 +215,127 @@ add_filter('submenu_file', function ($submenu_file) {
 
 function stk_options_page()
 {
+    // Get current tab or default to 'dashboard'
+    $current_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'dashboard';
 ?>
-    <div class="wrap">
-        <h1><?php _e('Kanban Settings', 'kanban'); ?></h1>
-        <div class="kanban-settings-container">
-            <div class="kanban-settings-main">
-                <form method="post" action="options.php">
-                    <?php
-                    settings_fields('kanban_settings_group');
-                    do_settings_sections('kanban-settings');
-                    submit_button();
-                    ?>
-                </form>
-            </div>
-            <div class="kanban-settings-sidebar">
-                <?php kanban_sidebar_callback(); ?>
-            </div>
-        </div>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const modernSwitch = document.getElementById('kanban_default_modern');
-                const formTable = document.querySelector('.form-table');
+<div class="kanban-settings-container">
+	<div class="kanban-settings-main">
+		<!-- Move tabs navigation inside kanban-settings-main -->
+		<div class="nav-tab-wrapper">
+		<img src="<?php echo PLUGIN_ROOT_URL . 'assets/images/kanban-plugin-logo.svg'; ?>" alt="Kanban Plugin Logo">
+			<a href="?page=kanban-settings&tab=dashboard" class="nav-tab <?php echo $current_tab === 'dashboard' ? 'nav-tab-active' : ''; ?>">
+				<?php _e('Dashboard', 'kanban'); ?>
+			</a>
+			<a href="?page=kanban-settings&tab=global-settings" class="nav-tab <?php echo $current_tab === 'global-settings' ? 'nav-tab-active' : ''; ?>">
+				<?php _e('Global Settings', 'kanban'); ?>
+			</a>
+			<?php
+			if (!KanbanUpdate::isLicenceValid()) { ?>
+			<a href="?page=kanban-settings&tab=pro-features-tab" class="nav-tab <?php echo $current_tab === 'pro-features-tab' ? 'nav-tab-active' : ''; ?>">
+				<?php _e('Pro Features', 'kanban'); ?>
+			</a>
+			<?php } ?>
+		</div>
 
-                function toggleModernClass() {
-                    if (modernSwitch.checked) {
-                        formTable.classList.add('modern');
-                    } else {
-                        formTable.classList.remove('modern');
-                    }
-                }
+		<?php
+		// Display content based on current tab
+		if ($current_tab === 'dashboard') {
+			// Dashboard content
+			?>
+			<div class="dashboard-content kanban-settings-tab">
+				<h2><?php _e('Kanban Dashboard', 'kanban'); ?></h2>
+				<p><?php _e('Welcome to your Kanban dashboard! Here you can see an overview of your Kanban projects.', 'kanban'); ?></p>
 
-                // Initial check
-                toggleModernClass();
+				<?php
+				// Add dashboard statistics or other content here
+				$projects_count = wp_count_posts('kanban-project');
+				$tasks_count = wp_count_posts('kanban_card');
+				?>
 
-                // Listen for changes
-                modernSwitch.addEventListener('change', toggleModernClass);
-            });
-        </script>
-    </div>
+				<div class="dashboard-stats">
+					<div class="kanban-dashboard-boxes">
+						<div class="kanban-dashboard-box">
+							<h3 class="kanban-dashboard-box-title"><?php _e('Projects', 'kanban'); ?></h3>
+							<p class="stat-number"><?php echo $projects_count->publish; ?></p>
+						</div>
+						<div class="kanban-dashboard-box">
+							<h3 class="kanban-dashboard-box-title"><?php _e('Tasks', 'kanban'); ?></h3>
+							<p class="stat-number"><?php echo $tasks_count->publish; ?></p>
+						</div>
+					</div>
+					<!-- Add more stat boxes as needed -->
+				</div>
+			</div>
+			<?php
+		} else if ($current_tab === 'global-settings') {
+			// Global settings form
+			?>
+			<div class="kanban-settings-tab">
+				<form method="post" action="options.php">
+					<?php
+					settings_fields('kanban_settings_group');
+					do_settings_sections('kanban-settings');
+					submit_button();
+					?>
+				</form>
+			</div>
+			<?php
+		} else if ($current_tab === 'pro-features-tab' && !KanbanUpdate::isLicenceValid()) {
+			// Pro Features Tab
+			?>
+			<div class="kanban-settings-tab">
+				<div class="pro-features-tab-section">
+					<form method="post" action="options.php">
+						<?php
+						settings_fields('kanban_advanced_settings_group');
+						do_settings_sections('kanban-pro-features-tab');
+						submit_button();
+						?>
+					</form>
+				</div>
+			</div>
+			<?php
+		}
+		?>
+	</div>
+	<div class="kanban-settings-sidebar">
+		<?php kanban_sidebar_callback(); ?>
+	</div>
+</div>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		const modernSwitch = document.getElementById('kanban_default_modern');
+		if (modernSwitch) {
+			const formTable = document.querySelector('.form-table');
+
+			function toggleModernClass() {
+				if (modernSwitch.checked) {
+					formTable.classList.add('modern');
+				} else {
+					formTable.classList.remove('modern');
+				}
+			}
+
+			// Initial check
+			toggleModernClass();
+
+			// Listen for changes
+			modernSwitch.addEventListener('change', toggleModernClass);
+		}
+	});
+</script>
 <?php
 }
+
 
 function kanban_settings_init()
 {
     register_setting('kanban_settings_group', 'kanban_default_color_scheme');
     register_setting('kanban_settings_group', 'kanban_default_modern');
+
+    // Register the new hide_licence_invalid setting
+    register_setting('kanban_advanced_settings_group', 'kanban_hide_licence_invalid');
 
     add_settings_section(
         'kanban_settings_section',
@@ -270,7 +346,7 @@ function kanban_settings_init()
 
     add_settings_field(
         'kanban_default_modern',
-        __('Modern Color Scheme', 'kanban'),
+        __('', 'kanban'),
         'kanban_default_modern_callback',
         'kanban-settings',
         'kanban_settings_section'
@@ -283,6 +359,16 @@ function kanban_settings_init()
         'kanban-settings',
         'kanban_settings_section'
     );
+
+    // Add a section for Pro Features
+    add_settings_section(
+        'kanban_advanced_settings_section',
+        __('Pro Features', 'kanban'),
+        'kanban_hide_licence_invalid_callback',
+        'kanban-pro-features-tab'
+    );
+
+
 }
 add_action('admin_init', 'kanban_settings_init');
 
@@ -294,13 +380,22 @@ function kanban_settings_section_callback()
 function kanban_default_modern_callback()
 {
     $default_modern = get_option('kanban_default_modern', '0');
+
+	$pro_feature = 'licence-invalid';
+	$disabled = 'disabled';
+	if (KanbanUpdate::isLicenceValid()) {
+		$pro_feature = '';
+		$disabled = '';
+	}
+ // Ensure the checkbox is unchecked if it is disabled
+ $checked = ($disabled === '') ? checked($default_modern, '1', false) : '';
 ?>
-    <div class="switch-holder">
-        <div class="switch-label">
-            <?php _e('Color Scheme Type', 'kanban'); ?>
-        </div>
+    <div class="switch-holder <?php echo $pro_feature; ?>">
+		<?php include PLUGIN_ROOT_PATH . '/template-parts/backend/pro_overlay.php'; ?>
+		<p class="settings_section_title"><?php _e('Color Scheme Type', 'kanban'); ?></p>
+
         <div class="switch-toggle">
-            <input id="kanban_default_modern" type="checkbox" name="kanban_default_modern" value="1" <?php checked($default_modern, '1'); ?>>
+            <input id="kanban_default_modern" type="checkbox" name="kanban_default_modern" value="1" <?php echo $checked; ?>  <?php echo $disabled; ?>>
             <label for="kanban_default_modern"></label>
         </div>
     </div>
@@ -320,6 +415,33 @@ function kanban_default_color_scheme_callback()
             </p>
         <?php endforeach; ?>
     </div>
+<?php
+}
+
+
+function kanban_hide_licence_invalid_callback()
+{
+    $hide_licence_invalid = get_option('kanban_hide_licence_invalid', '0');
+?>
+	<p><?php _e('Kanban Plugin Pro features gives you an extra productivity and ease of use boost.', 'kanban'); ?></p>
+	<div class="kanban-dashboard-boxes">
+		<div class="kanban-dashboard-box">
+			<h3 class="kanban-dashboard-box-title">See Pro Features</h3>
+			<a class="kan-btn-2" href="https://kanbanplugin.com/pricing/" target="_blank">Get Pro</a>
+		</div>
+		<div class="kanban-dashboard-box">
+			<h3 class="kanban-dashboard-box-title">Choose a Plan for you</h3>
+			<a class="kan-btn-2" href="https://kanbanplugin.com/features/" target="_blank">Get Pro</a>
+		</div>
+		<div class="kanban-dashboard-box">
+			<h3 class="kanban-dashboard-box-title">Have a licence?</h3>
+			<a class="kan-btn-2" href="/wp-admin/admin.php?page=kanban-updates">Activate Licence</a>
+		</div>
+	</div>
+	<div class="pro_features_toggle_wrap">
+		<label for="kanban_hide_licence_invalid"><?php _e('Kanban Free works great for me. Hide Pro Feature boxes.', 'kanban'); ?></label>
+		<input type="checkbox" id="kanban_hide_licence_invalid" class="kan-checkbox" name="kanban_hide_licence_invalid" value="1" <?php checked($hide_licence_invalid, '1'); ?>>
+	</div>
 <?php
 }
 
@@ -350,4 +472,18 @@ function kanban_sidebar_callback()
 
 
 <?php
+}
+?>
+
+<?php
+if (!KanbanUpdate::isLicenceValid()) {
+
+function kanban_apply_hide_licence_invalid() {
+    $hide_licence_invalid = get_option('kanban_hide_licence_invalid', '0');
+
+    if ($hide_licence_invalid === '1') {
+        echo '<style>.licence-invalid { display: none !important; }</style>';
+    }
+}
+add_action('admin_head', 'kanban_apply_hide_licence_invalid');
 }

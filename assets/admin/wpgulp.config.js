@@ -27,7 +27,7 @@ const styleSRC = './scss/admin.scss';
 const styleDestination = './';
 
 // Available options → 'compact' or 'compressed' or 'nested' or 'expanded'
-const outputStyle = 'compact';
+const outputStyle = 'expanded';
 const errLogToConsole = true;
 const precision = 10;
 
@@ -45,13 +45,13 @@ const jsVendorFile = 'vendor';
 // JS Custom options.
 
 // Path to JS custom scripts folder.
-const jsCustomSRC = './assets/js/custom/*.js';
+const jsCustomSRC = './js/*.js';
 
 // Path to place the compiled JS custom scripts file.
-const jsCustomDestination = './assets/js/';
+const jsCustomDestination = './';
 
 // Compiled JS custom file name. Default set to custom i.e. custom.js.
-const jsCustomFile = 'custom';
+const jsCustomFile = 'admin';
 
 // Images options.
 
@@ -71,7 +71,7 @@ const watchStyles = './scss/**/*.scss';
 const watchJsVendor = './assets/js/vendor/*.js';
 
 // Path to all custom JS files.
-const watchJsCustom = './assets/js/custom/*.js';
+const watchJsCustom = './js/*.js';
 
 // Path to all PHP files.
 const watchPhp = './**/*.php';

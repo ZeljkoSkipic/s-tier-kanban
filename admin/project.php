@@ -1,5 +1,6 @@
 <?php
 
+
 // Restrict project access based on allowed users
 function restrict_project_access($query) {
     if (!is_admin() && $query->is_main_query() && is_post_type_archive('kanban-project')) {
@@ -73,6 +74,23 @@ function render_project_class_meta_box($post) {
     $selected_users = get_post_meta($post->ID, '_allowed_kanban_users', true) ?: array();
     $description = get_post_meta($post->ID, '_kanban_project_description', true);
 
+	$kanban_documents = get_post_meta($post->ID, 'kanban-board-documents', true);
+    $kanban_documents = $kanban_documents ? explode(',', $kanban_documents) : [];
+
+	// New layout option - PRO
+    $layout_options = array('kanban-view', 'list-view');
+    $selected_layout = get_post_meta($post->ID, '_project_layout', true) ?: 'kanban-view';
+
+
+	$pro_feature = 'licence-invalid';
+	$disabled = 'disabled';
+	if (KanbanUpdate::isLicenceValid()) {
+		$pro_feature = '';
+		$disabled = '';
+	}
+    $kanban_modern_checked = ($disabled === '') ? checked($kanban_modern, '1', false) : '';
+
+
     // Set default class if none is selected
     if (empty($selected_class)) {
         $selected_class = 'kanban-color-one';
@@ -93,7 +111,32 @@ function render_project_class_meta_box($post) {
             ));
             ?>
         </div>
-		<div id="kanban-users-meta-box">
+
+		<div class="board-upload-files board_box <?php echo $pro_feature; ?>">
+			<?php include PLUGIN_ROOT_PATH . '/template-parts/backend/pro_overlay.php'; ?>
+			<p class="board_settings_subtitle"><?php _e('Project Files:', 'kanban'); ?></p>
+			<div class="board-upload-files_inner">
+				<ul class="board-files">
+					<?php
+					foreach ($kanban_documents as $kanban_documentID):
+						$file_path = get_attached_file($kanban_documentID);
+						$file_info = pathinfo($file_path);
+						$file_extension = isset($file_info['extension']) ? strtolower($file_info['extension']) : 'unknown'; // Get file extension
+						$kanban_document_name = basename($file_path);
+					?>
+						<li data-id="<?php echo esc_attr($kanban_documentID); ?>">
+							<span class="file_icon file-type-<?php echo esc_attr($file_extension); ?>"></span>
+							<span><?php echo esc_html($kanban_document_name); ?> </span>
+							<a href="#" class="board-file-remove" title="Remove File">×</a>
+						</li>
+					<?php endforeach; ?>
+				</ul>
+				<input type="hidden" name="board-documents" value="<?php echo join(',', $kanban_documents); ?>" />
+				<a href="#" class="button board-upload-button" <?php echo $disabled; ?>><?php esc_html_e('Upload Files', 'kanban'); ?></a>
+			</div>
+        </div>
+
+		<div id="kanban-users-meta-box" class="board_box">
 			<p class="board_settings_subtitle"><?php _e('Kanban Users:', 'kanban'); ?></p>
 			<select id="kanban-user-role-filter">
 				<option value=""><?php _e('All Roles', 'kanban'); ?></option>
@@ -122,15 +165,16 @@ function render_project_class_meta_box($post) {
 			</div>
 		</div>
 
-		<div id="board_color_scheme" class="<?php echo $kanban_modern ? 'modern' : ''; ?>">
+		<div id="board_color_scheme" class="board_box <?php echo $kanban_modern ? 'modern' : ''; ?>">
 			<p class="board_settings_subtitle"><?php _e('Board Color Scheme:', 'kanban'); ?></p>
 			<div id="project-color-style">
-			<div class="switch-holder">
+			<div class="switch-holder <?php echo $pro_feature; ?>">
+				<?php include PLUGIN_ROOT_PATH . '/template-parts/backend/pro_overlay.php'; ?>
 				<div class="switch-label">
-					<?php _e('Color Scheme Type', 'kanban'); ?>
+					<b><?php _e('Color Scheme Type:', 'kanban'); ?></b>
 				</div>
 				<div class="switch-toggle">
-					<input id="color-type-switch" type="checkbox" name="kanban_modern" value="1" <?php checked($kanban_modern, '1'); ?>>
+                <input id="color-type-switch" type="checkbox" name="kanban_modern" value="1" <?php echo $kanban_modern_checked; ?> <?php echo $disabled; ?>>
 					<label for="color-type-switch"></label>
 				</div>
 			</div>
@@ -144,6 +188,27 @@ function render_project_class_meta_box($post) {
 			<?php endforeach; ?>
 			</div>
 		</div>
+
+		<!-- Board Layout Options - PRO -->
+		<div id="board_layout_options" class="board_box <?php echo $pro_feature; ?>">
+			<?php include PLUGIN_ROOT_PATH . '/template-parts/backend/pro_overlay.php'; ?>
+            <p class="board_settings_subtitle"><?php _e('Board Layout:', 'kanban'); ?></p>
+            <div id="project-layout-meta-box">
+                <?php foreach ($layout_options as $layout) : ?>
+                    <p>
+						<label for="layout-<?php echo esc_attr($layout); ?>">
+                           <b><?php echo esc_html(ucwords(str_replace('-', ' ', $layout))); ?></b>
+                        </label>
+                        <input type="radio" id="layout-<?php echo esc_attr($layout); ?>"
+                               name="project_layout"
+                               value="<?php echo esc_attr($layout); ?>"
+                               <?php checked($selected_layout, $layout); ?>  <?php echo $disabled; ?>>
+
+                    </p>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
 	</div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -187,6 +252,10 @@ function render_project_class_meta_box($post) {
                 }
             }
 
+			if (colorTypeSwitch.hasAttribute('disabled')) {
+				colorTypeSwitch.checked = false; // Uncheck the input if it's disabled
+			}
+
             // Initial check
             toggleModernClass();
 
@@ -216,6 +285,12 @@ function save_project_class_meta_box($post_id) {
         delete_post_meta($post_id, '_project_class');
     }
 
+	if (isset($_POST['board-documents'])) {
+        update_post_meta($post_id, 'kanban-board-documents', sanitize_text_field($_POST['board-documents']));
+    } else {
+        delete_post_meta($post_id, 'kanban-board-documents');
+    }
+
     if (isset($_POST['kanban_modern'])) {
         update_post_meta($post_id, '_kanban_modern', '1');
     } else {
@@ -226,6 +301,13 @@ function save_project_class_meta_box($post_id) {
         update_post_meta($post_id, '_kanban_project_description', wp_kses_post($_POST['kanban_project_description']));
     } else {
         delete_post_meta($post_id, '_kanban_project_description');
+    }
+
+	  // Save the new layout option - PRO
+	  if (isset($_POST['project_layout'])) {
+        update_post_meta($post_id, '_project_layout', sanitize_text_field($_POST['project_layout']));
+    } else {
+        update_post_meta($post_id, '_project_layout', 'default-layout');
     }
 
     $selected_users = isset($_POST['kanban_users']) ? array_map('sanitize_text_field', $_POST['kanban_users']) : array();
@@ -243,9 +325,17 @@ function add_project_class_to_body($classes) {
         }
 
         $kanban_modern = get_post_meta($post->ID, '_kanban_modern', true);
-        if ($kanban_modern) {
+        if ($kanban_modern && KanbanUpdate::isLicenceValid()) {
             $classes[] = 'kanban-modern';
         }
+
+		 // Add layout class to body - PRO
+		 $project_layout = get_post_meta($post->ID, '_project_layout', true);
+		 if ($project_layout && KanbanUpdate::isLicenceValid()) {
+			 $classes[] = $project_layout;
+		 } else {
+			 $classes[] = 'kanban-view'; // Add default if not set
+		 }
     }
     return $classes;
 }

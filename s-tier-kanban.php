@@ -4,22 +4,45 @@
  * Plugin Name: S Kanban
  * Plugin URI: https://kanbanplugin.com/
  * Description: Project Management Simplified
- * Version: 0.1.0
+ * Version: 0.0.9
  * Author: S-Tier Dev
  * Author URI: https://stierdev.com/
+ * License: GPLv2 or later
  */
+
+
+// Include the update checker library
+require plugin_dir_path(__FILE__) . 'plugin-update-checker/plugin-update-checker.php';
+
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+
+// Initialize the update checker
+$updateChecker = PucFactory::buildUpdateChecker(
+    'https://github.com/ZeljkoSkipic/s-tier-kanban', // Replace with your GitHub repo
+    __FILE__,                                     // Full path to the main plugin file
+    's-tier-kanban'                                   // Plugin slug
+);
+
+// Optional: Track a specific branch (default is 'master')
+// $updateChecker->setBranch('main'); // Change 'main' if your default branch is different
+
+$updateChecker->setAuthentication('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');
 
 // Plugin Path Constants
 
 !defined('PLUGIN_ROOT_PATH') ? define('PLUGIN_ROOT_PATH', plugin_dir_path(__FILE__)) : "";
 !defined('PLUGIN_ROOT_URL') ? define('PLUGIN_ROOT_URL', plugin_dir_url(__FILE__)) : "";
 
+
 // Load plugin files
 
-include_once plugin_dir_path(__FILE__) . 'admin/admin.php';
+include_once plugin_dir_path(__FILE__) . 'admin/KanbanUpdate.php';
+include_once plugin_dir_path(__FILE__) . 'admin/dashboard.php';
 include_once plugin_dir_path(__FILE__) . 'post-types.php';
-include_once plugin_dir_path(__FILE__) . 'template-parts/backend/meta.php';
+include_once plugin_dir_path(__FILE__) . 'admin/project.php';
+include_once plugin_dir_path(__FILE__) . 'includes/clean-kanban-posts.php';
 
+KanbanUpdate::init();
 
 function stk_scripts()
 {
@@ -48,6 +71,8 @@ function stk_scripts()
 function stk_admin_scripts()
 {
 	wp_enqueue_style('s-tier-kanban-admin-css', PLUGIN_ROOT_URL . 'assets/admin/admin.css');
+	wp_enqueue_script('s-tier-kanban-admin-js', PLUGIN_ROOT_URL . 'assets/admin/admin.js', array(), false, true);
+
 }
 add_action('admin_enqueue_scripts', 'stk_admin_scripts');
 

@@ -53,6 +53,37 @@ body:not(.kanban-modern) {
 		}
 	}
 
+	.board_documents {
+		a {
+			span {
+				&.file-type-pdf {
+					background-image: url(../assets/icons/pdf.svg);
+				}
+				&.file-type-doc {
+					background-image: url(../assets/icons/doc.svg);
+				}
+				&.file-type-docx {
+					background-image: url(../assets/icons/docx.svg);
+				}
+				&.file-type-ppt {
+					background-image: url(../assets/icons/ppt.svg);
+				}
+				&.file-type-pptx {
+					background-image: url(../assets/icons/pptx.svg);
+				}
+				&.file-type-csv {
+					background-image: url(../assets/icons/csv.svg);
+				}
+				&.file-type-zip {
+					background-image: url(../assets/icons/zip.svg);
+				}
+				&.file-type-rar {
+					background-image: url(../assets/icons/rar.svg);
+				}
+			}
+		}
+	}
+
 	.user_info {
 		background-color: var(--bg-color);
 		.user_info_top {
@@ -134,7 +165,36 @@ body.kanban-modern {
 			display: none;
 		}
 	}
-
+	.board_documents {
+		a {
+			span {
+				&.file-type-pdf {
+					background-image: url(../assets/icons/pdf-2.svg);
+				}
+				&.file-type-doc {
+					background-image: url(../assets/icons/doc-2.svg);
+				}
+				&.file-type-docx {
+					background-image: url(../assets/icons/docx-2.svg);
+				}
+				&.file-type-ppt {
+					background-image: url(../assets/icons/ppt-2.svg);
+				}
+				&.file-type-pptx {
+					background-image: url(../assets/icons/pptx-2.svg);
+				}
+				&.file-type-csv {
+					background-image: url(../assets/icons/csv-2.svg);
+				}
+				&.file-type-zip {
+					background-image: url(../assets/icons/zip-2.svg);
+				}
+				&.file-type-rar {
+					background-image: url(../assets/icons/rar-2.svg);
+				}
+			}
+		}
+	}
 	.user_info {
 		background: var(--bg-color);
 		.user_info_top {
