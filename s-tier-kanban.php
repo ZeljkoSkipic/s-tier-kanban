@@ -4,7 +4,7 @@
  * Plugin Name: S Kanban
  * Plugin URI: https://kanbanplugin.com/
  * Description: Project Management Simplified
- * Version: 0.10.4
+ * Version: 0.10.5
  * Author: S-Tier Dev
  * Author URI: https://stierdev.com/
  * License: GPLv2 or later

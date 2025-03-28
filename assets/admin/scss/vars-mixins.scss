@@ -48,9 +48,14 @@ $shadow-var-4: inset 0 20px 30px 0;
 		outline: none;
 	}
 }
+
 @mixin kan-btn-1 {
 	@include kan-btn;
+	padding: 10px;
+	box-sizing: border-box;
+	text-decoration: none
 }
+
 @mixin kan-btn-2 {
 	@include kan-btn;
 	display: flex;
@@ -77,7 +82,9 @@ $shadow-var-4: inset 0 20px 30px 0;
 		outline: none;
 	}
 }
-
+.kan-btn-1 {
+	@include kan-btn-1;
+}
 .kan-btn-2 {
 	@include kan-btn-2;
 }
@@ -118,4 +125,109 @@ $shadow-var-4: inset 0 20px 30px 0;
 
 .kan-checkbox:checked[type="checkbox"]:before {
   left: 25px;
+}
+
+
+$mob-max: 480.5px;
+$tab-min: 480.6px;
+$tab-max: 834.5px;
+$limbo-min: 834.6px;
+$limbo-max: 1199.5px;
+$desk-min: 1199.6px;
+$sm-desk-max: 1360.5px;
+$md-desk-min: 1360.6px;
+$md-desk-max: 1660.5px;
+$lg-desk-min: 1660.6px;
+$huge-desk-min: 2560px;
+
+// Breakpoints
+
+@mixin mob-only {
+	@media (max-width: $mob-max) {
+		@content;
+	}
+}
+
+@mixin tab-min {
+	@media (min-width: $tab-min) {
+		@content;
+	}
+}
+
+@mixin tab-max {
+	@media (max-width: $tab-max) {
+		@content;
+	}
+}
+
+@mixin tab-only {
+	@media (min-width: $tab-min) and (max-width: $tab-max) {
+		@content;
+	}
+}
+
+@mixin limbo-min {
+	@media (min-width: $limbo-min) {
+		@content;
+	}
+}
+
+@mixin limbo-max {
+	@media (max-width: $limbo-max) {
+		@content;
+	}
+}
+
+@mixin limbo-only {
+	@media (min-width: $limbo-min) and (max-width: $limbo-max) {
+		@content;
+	}
+}
+
+@mixin desk-min {
+	@media (min-width: $desk-min) {
+		@content;
+	}
+}
+
+@mixin sm-desk-only {
+	@media (min-width: $desk-min) and (max-width: $sm-desk-max) {
+		@content;
+	}
+}
+
+@mixin sm-desk-max {
+	@media (max-width: $sm-desk-max) {
+		@content;
+	}
+}
+
+@mixin md-desk-min {
+	@media (min-width: $md-desk-min) {
+		@content;
+	}
+}
+
+@mixin md-desk-max {
+	@media (min-width: $md-desk-max) {
+		@content;
+	}
+}
+
+@mixin md-desk-only {
+	@media (min-width: $md-desk-min)  and (max-width: $md-desk-max) {
+		@content;
+	}
+}
+
+@mixin lg-desk-min {
+	@media (min-width: $lg-desk-min) {
+		@content;
+	}
+}
+
+@mixin huge-desk-min {
+	@media (min-width: $huge-desk-min) {
+		@content;
+	}
 }

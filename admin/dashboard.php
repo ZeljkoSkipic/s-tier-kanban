@@ -301,6 +301,31 @@ function stk_options_page()
 	<div class="kanban-settings-sidebar">
 		<?php kanban_sidebar_callback(); ?>
 	</div>
+	<?php if(!KanbanUpdate::isLicenceValid()) { ?>
+	<!-- Upsell Banner -->
+	<div class="kanban-settings-footer">
+		<h3><?php _e('Upgrade to Kanban Plugin Pro', 'kanban'); ?></h3>
+		<div class="kanban-upsell-container">
+			<div class="kanban-upsell-box">
+				<ul>
+					<li>Board List View</li>
+					<li>Modern Color Schemes</li>
+					<li>Kanban User Role</li>
+					<li>Project Documents</li>
+				</ul>
+			</div>
+			<div class="kanban-upsell-box">
+				<ul>
+					<li><em>Default Columns - Templates*</em></li>
+					<li><em>User Assignment*</em></li>
+					<li><em>Email Notification*</em></li>
+					<li><em>Account Assigned Card List*</em></li>
+				</ul>
+			</div>
+		</div>
+		<a class="kan-btn-1" href="https://kanbanplugin.com/pricing/" target="_blank">Get Kanban Plugin Pro</a>
+	</div>
+	<?php } ?>
 </div>
 
 <script>
@@ -449,19 +474,14 @@ function kanban_hide_licence_invalid_callback()
 function kanban_sidebar_callback()
 {
 ?>
-    <h3><?php _e('This is a Kanban Plugin Demo', 'kanban'); ?></h3>
-    <h4><?php _e('Thank you for testing the Kanban Plugin!', 'kanban'); ?></h4>
+    <h3><?php _e('Thank you for using the Kanban Plugin!', 'kanban'); ?></h3>
     <div class="kanban-settings-sidebar-box">
-        <p>We made a video to help you get started:</p>
+        <p>Need a hand getting started? This video will walk you through it.</p>
         <a href="https://www.youtube.com/watch?v=E8EvRA7_aOQ" target="_blank"><?php _e('Watch Video', 'kanban'); ?></a>
     </div>
     <div class="kanban-settings-sidebar-box">
         <p><?php _e('We would greatly appreciate your feedback. Share with us any issues, bugs, or feature requests you might have.', 'kanban'); ?></p>
-        <a href="https://stierdev.com/kanban-feedback" target="_blank"><?php _e('Share Feedback', 'kanban'); ?></a>
-    </div>
-    <div class="kanban-settings-sidebar-box">
-        <p>The Kanban Plugin Website and Pro Features are coming soon.</p>
-        <a href="https://kanbanplugin.com/" target="_blank"><?php _e('Kanban Plugin Website', 'kanban'); ?></a>
+        <a href="https://kanbanplugin.com/feedback/" target="_blank"><?php _e('Share Feedback', 'kanban'); ?></a>
     </div>
 
     <div class="kanban-settings-sidebar-box">
@@ -469,7 +489,6 @@ function kanban_sidebar_callback()
         <a href="https://stiedev.com/" target="_blank"><?php _e('S-Tier Dev', 'kanban'); ?></a>
         <a href="https://zeljkoskipic.com/" target="_blank"><?php _e('Zeljko Skipic', 'kanban'); ?></a>
     </div>
-
 
 <?php
 }
@@ -483,6 +502,7 @@ function kanban_apply_hide_licence_invalid() {
 
     if ($hide_licence_invalid === '1') {
         echo '<style>.licence-invalid { display: none !important; }</style>';
+		echo '<style>.kanban-settings-footer { display: none !important; }</style>';
     }
 }
 add_action('admin_head', 'kanban_apply_hide_licence_invalid');
