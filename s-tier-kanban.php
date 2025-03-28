@@ -4,7 +4,7 @@
  * Plugin Name: S Kanban
  * Plugin URI: https://kanbanplugin.com/
  * Description: Project Management Simplified
- * Version: 0.10.0
+ * Version: 0.10.1
  * Author: S-Tier Dev
  * Author URI: https://stierdev.com/
  * License: GPLv2 or later
@@ -23,10 +23,8 @@ $updateChecker = PucFactory::buildUpdateChecker(
     's-tier-kanban'                                   // Plugin slug
 );
 
-// Optional: Track a specific branch (default is 'master')
 $updateChecker->setBranch('main'); // Change 'main' if your default branch is different
 
-$updateChecker->setAuthentication('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');
 
 // Plugin Path Constants
 
