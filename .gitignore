@@ -1,2 +1,9 @@
 node_modules/
 /node_modules/
+
+.editorconfig
+.eslintignore
+.eslintrc.js
+gulpfile.babel.js
+package-lock.json
+package.json
