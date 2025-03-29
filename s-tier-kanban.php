@@ -4,7 +4,7 @@
  * Plugin Name: S Kanban
  * Plugin URI: https://kanbanplugin.com/
  * Description: Project Management Simplified
- * Version: 0.10.7
+ * Version: 0.10.8
  * Author: S-Tier Dev
  * Author URI: https://stierdev.com/
  * License: GPLv2 or later
@@ -24,12 +24,6 @@ $updateChecker = PucFactory::buildUpdateChecker(
 );
 
 $updateChecker->setBranch('main'); // Change 'main' if your default branch is different
-
-add_filter('plugin_action_links_' . plugin_basename(__FILE__), function($actions) {
-    unset($actions['view-details']); // This disables the modal link
-    return $actions;
-});
-
 
 // Plugin Path Constants
 

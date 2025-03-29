@@ -31,4 +31,3 @@ foreach (
 	//was already defined by another, older version of the update checker.
 	MinorFactory::addVersion($pucGeneralClass, $pucVersionedClass, '5.5');
 }
-
