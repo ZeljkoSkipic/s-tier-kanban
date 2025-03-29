@@ -23,6 +23,7 @@ if ( !class_exists(Ui::class, false) ):
 			if ( $this->updateChecker->userCanInstallUpdates() ) {
 				$this->handleManualCheck();
 
+				add_filter('plugin_row_meta', array($this, 'addViewDetailsLink'), 10, 3);
 				add_filter('plugin_row_meta', array($this, 'addCheckForUpdatesLink'), 10, 2);
 				add_action('all_admin_notices', array($this, 'displayManualCheckResult'));
 			}
@@ -50,6 +51,54 @@ if ( !class_exists(Ui::class, false) ):
 		 * @param array $pluginData Array of plugin header data.
 		 * @return array
 		 */
+		public function addViewDetailsLink($pluginMeta, $pluginFile, $pluginData = array()) {
+			if ( $this->isMyPluginFile($pluginFile) && !isset($pluginData['slug']) ) {
+				$linkText = apply_filters($this->updateChecker->getUniqueName('view_details_link'), __('View details'));
+				if ( !empty($linkText) ) {
+					$viewDetailsLinkPosition = 'append';
+
+					//Find the "Visit plugin site" link (if present).
+					$visitPluginSiteLinkIndex = count($pluginMeta) - 1;
+					if ( $pluginData['PluginURI'] ) {
+						$escapedPluginUri = esc_url($pluginData['PluginURI']);
+						foreach ($pluginMeta as $linkIndex => $existingLink) {
+							if ( strpos($existingLink, $escapedPluginUri) !== false ) {
+								$visitPluginSiteLinkIndex = $linkIndex;
+								$viewDetailsLinkPosition = apply_filters(
+									$this->updateChecker->getUniqueName('view_details_link_position'),
+									'before'
+								);
+								break;
+							}
+						}
+					}
+
+					$viewDetailsLink = sprintf('<a href="%s" class="thickbox open-plugin-details-modal" aria-label="%s" data-title="%s">%s</a>',
+						esc_url(network_admin_url('plugin-install.php?tab=plugin-information&plugin=' . urlencode($this->updateChecker->slug) .
+							'&TB_iframe=true&width=600&height=550')),
+						esc_attr(sprintf(__('More information about %s'), $pluginData['Name'])),
+						esc_attr($pluginData['Name']),
+						$linkText
+					);
+					switch ($viewDetailsLinkPosition) {
+						case 'before':
+							array_splice($pluginMeta, $visitPluginSiteLinkIndex, 0, $viewDetailsLink);
+							break;
+						case 'after':
+							array_splice($pluginMeta, $visitPluginSiteLinkIndex + 1, 0, $viewDetailsLink);
+							break;
+						case 'replace':
+							$pluginMeta[$visitPluginSiteLinkIndex] = $viewDetailsLink;
+							break;
+						case 'append':
+						default:
+							$pluginMeta[] = $viewDetailsLink;
+							break;
+					}
+				}
+			}
+			return $pluginMeta;
+		}
 
 		/**
 		 * Add a "Check for updates" link to the plugin row in the "Plugins" page. By default,
@@ -236,6 +285,8 @@ if ( !class_exists(Ui::class, false) ):
 		}
 
 		public function removeHooks() {
+			remove_action('admin_init', array($this, 'onAdminInit'));
+			remove_filter('plugin_row_meta', array($this, 'addViewDetailsLink'), 10);
 			remove_filter('plugin_row_meta', array($this, 'addCheckForUpdatesLink'), 10);
 			remove_action('all_admin_notices', array($this, 'displayManualCheckResult'));
 		}

@@ -492,6 +492,7 @@ function kanban_sidebar_callback()
 
 <?php
 }
+
 ?>
 
 <?php

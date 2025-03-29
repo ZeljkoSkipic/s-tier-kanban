@@ -25,6 +25,35 @@ $updateChecker = PucFactory::buildUpdateChecker(
 
 $updateChecker->setBranch('main'); // Change 'main' if your default branch is different
 
+
+// Customize plugin action links
+add_filter('plugin_action_links_s-tier-kanban/s-tier-kanban.php', 'stk_customize_plugin_action_links', 20); // Higher priority
+add_filter('plugin_row_meta', 'stk_customize_plugin_row_meta', 20, 2); // Higher priority
+
+function stk_customize_plugin_action_links($links) {
+    // Your existing code in stk_add_settings_link will still run with priority 10
+    return $links;
+}
+
+function stk_customize_plugin_row_meta($links, $file) {
+    if ($file !== 's-tier-kanban/s-tier-kanban.php') {
+        return $links;
+    }
+
+    // Remove "View details" link added by plugin-update-checker
+    foreach ($links as $key => $link) {
+        if (strpos($link, 'plugin-install.php?tab=plugin-information') !== false &&
+            strpos($link, 'View details') !== false) {
+            unset($links[$key]);
+        }
+    }
+
+    // Add back "Visit plugin site" link
+    $links[] = '<a href="https://kanbanplugin.com/" target="_blank">' . __('Visit plugin site', 'kanban') . '</a>';
+
+    return $links;
+}
+
 // Plugin Path Constants
 
 !defined('PLUGIN_ROOT_PATH') ? define('PLUGIN_ROOT_PATH', plugin_dir_path(__FILE__)) : "";
