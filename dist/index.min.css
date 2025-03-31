@@ -238,14 +238,15 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end,body.swal2-toast-shown 
 .user_info svg *{stroke:var(--text-color)}
 .user_info.side-open .user_image_idle p{opacity:1}
 .user_info::before{content:"";position:absolute;top:0;left:0;width:100%;height:100%;border-radius:8px;z-index:-1;-webkit-transition:.2s all;transition:.2s all}
-.user_info .current-user-info{display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-align:center;-ms-flex-align:center;align-items:center}
-.user_info .current-user-info img{border-radius:50%;width:24px;height:24px}
-.user_info .current-user-info p{margin-left:8px;font-size:16px}
 .user_info .user_boards_title{font-size:18px;font-weight:500;margin-bottom:16px}
-.user_info .user_boards{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}
+.user_info .user_boards{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;border-bottom:1px solid rgba(255,255,255,0.4);padding-bottom:32px}
 .user_info .user_boards a{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-align:center;-ms-flex-align:center;align-items:center;margin-bottom:4px;font-size:16px;text-decoration:none;border-bottom:1px solid transparent;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;line-height:1.2}
 .user_info .user_boards a:hover,.user_info .user_boards a:active,.user_info .user_boards a:focus{color:#fff;border-color:#fff}
 .user_info .user_boards a img{width:32px;height:32px;-o-object-fit:contain;object-fit:contain;-o-object-position:center;object-position:center;margin-right:8px}
+.user_info .edit-project-link{border-bottom:1px solid rgba(255,255,255,0.4);padding-block:16px;margin-bottom:8px}
+.user_info .edit-project-link a{border-bottom:1px solid transparent;font-size:16px;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-align:center;-ms-flex-align:center;align-items:center;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;-webkit-transition:.2s all;transition:.2s all}
+.user_info .edit-project-link a:hover{border-color:#fff}
+.user_info .edit-project-link svg{width:16px;margin-right:8px}
 .user_info .account-link{margin-block:32px 8px}
 .user_info .logout-link,.user_info .account-link{font-size:16px;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-align:center;-ms-flex-align:center;align-items:center;text-decoration:none;-webkit-transition:.2s all;transition:.2s all;border-bottom:1px solid transparent;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content}
 .user_info .logout-link:hover,.user_info .account-link:hover{color:#fff;border-color:#fff}

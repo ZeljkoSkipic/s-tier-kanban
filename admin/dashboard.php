@@ -130,6 +130,8 @@ function stk_add_settings_link($links)
 // Define your plugin deactivation callback function
 function stk_deactivate()
 {
+	remove_role('kanban-user');
+    remove_role('kanban-admin');
     // Flush rewrite rules to clean up after deactivation
     flush_rewrite_rules();
 }

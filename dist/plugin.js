@@ -1393,7 +1393,7 @@ jQuery(document).ready(function ($) {
     $(this).toggleClass("open");
   });
   $(".top_expander_wrap").on("click", function () {
-    $(".board-header .bottom").slideToggle();
+    $(".board-header .bottom").fadeToggle();
     $(".top_expander_wrap").toggleClass("open");
   });
 });

@@ -1,7 +1,26 @@
 <?php
-if (!is_user_logged_in() || !(current_user_can('kanban-user') || current_user_can('administrator'))) {
-	wp_redirect(home_url());
-	exit;
+// First check if user is logged in
+if (!is_user_logged_in()) {
+    wp_redirect(home_url());
+    exit;
+}
+
+// Administrators always have access
+if (current_user_can('administrator')) {
+    // Continue with the page (no redirect)
+}
+// For kanban-user and kanban-admin, check license validity
+else if ((current_user_can('kanban-user') || current_user_can('kanban-admin'))) {
+    // If license is not valid, redirect
+    if (!KanbanUpdate::isLicenceValid()) {
+        wp_redirect(home_url());
+        exit;
+    }
+}
+// For all other user roles, redirect
+else {
+    wp_redirect(home_url());
+    exit;
 }
 
 get_header();

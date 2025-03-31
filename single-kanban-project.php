@@ -41,14 +41,11 @@ while (have_posts()) : the_post(); ?>
 				</div>
 				<div class="user_info_inner_wrap side_hidden">
 					<div class="user_info_inner">
-						<div class="current-user-info">
-						</div>
 
 						<div class="user_boards">
 							<?php
 							$user_projects = get_user_projects($current_user_id);
 							$current_project_id = get_the_ID();
-
 							if (!empty($user_projects)) { ?>
 								<p class="user_boards_title">Your Boards:</p>
 							<?php foreach ($user_projects as $project) {
@@ -59,6 +56,23 @@ while (have_posts()) : the_post(); ?>
 							}
 							?>
 						</div>
+
+						<?php
+
+						// Check if user can edit projects (administrator or kanban-admin)
+						if (current_user_can('administrator') || current_user_can('kanban-admin')) {
+							$edit_link = get_edit_post_link($current_project_id);
+							if (!empty($edit_link)) {
+								echo '<div class="edit-project-link">';
+								echo '<a href="' . esc_url($edit_link) . '">';
+								echo '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>';
+								echo __('Edit Project', 'kanban');
+								echo '</a>';
+								echo '</div>';
+							}
+						}
+						?>
+
 						<div class="account_meta">
 							<?php
 							// Get the account page that uses the 'kanban-account.php' template

@@ -68,6 +68,11 @@ include_once plugin_dir_path(__FILE__) . 'post-types.php';
 include_once plugin_dir_path(__FILE__) . 'admin/project.php';
 include_once plugin_dir_path(__FILE__) . 'includes/clean-kanban-posts.php';
 
+if (KanbanUpdate::isLicenceValid()) {
+	include_once plugin_dir_path(__FILE__) . 'admin/users.php';
+}
+
+
 KanbanUpdate::init();
 
 function stk_scripts()
@@ -699,70 +704,43 @@ add_action('pre_get_comments', 'filter_kanban_comments');
 
 function restrict_project_post_type_access()
 {
-	// Check if we're viewing a 'kanban-project' post type
-	if (is_singular('kanban-project')) {
-		// Check if the user is not logged in or not an administrator
-		if (!is_user_logged_in() || !current_user_can('administrator')) {
-			$current_user_id = get_current_user_id();
-			$allowed_users = get_post_meta(get_the_ID(), '_allowed_kanban_users', true) ?: array();
+    // Check if we're viewing a 'kanban-project' post type
+    if (is_singular('kanban-project')) {
+        // If user is an administrator, allow access
+        if (current_user_can('administrator')) {
+            return; // Administrators always have access
+        }
 
-			// Redirect to the homepage or login page if the user is not allowed
-			if (!in_array($current_user_id, $allowed_users)) {
-				wp_redirect(home_url());
-				// You can use wp_redirect(wp_login_url()) to redirect to the login page instead
-				exit;
-			}
-		}
-	}
+        // For non-administrators
+        if (!is_user_logged_in()) {
+            // Not logged in, redirect to home
+            wp_redirect(home_url());
+            exit;
+        }
+
+        // Check license validity
+        if (KanbanUpdate::isLicenceValid()) {
+            // License is valid, check if user is in allowed users list
+            $current_user_id = get_current_user_id();
+            $allowed_users = get_post_meta(get_the_ID(), '_allowed_kanban_users', true) ?: array();
+
+            // Also allow kanban-admin users
+            if (current_user_can('kanban-admin') || in_array($current_user_id, $allowed_users)) {
+                return; // User is allowed
+            }
+        } else {
+            // License is not valid, only administrators can access
+            // (We already checked for admin above, so redirect at this point)
+        }
+
+        // If we get here, the user is not allowed
+        wp_redirect(home_url());
+        exit;
+    }
 }
 add_action('template_redirect', 'restrict_project_post_type_access');
 
 
-// Register Kanban User Role
-
-function add_kanban_user_role()
-{
-	add_role(
-		'kanban-user',
-		__('Kanban User'),
-		array(
-			'read'         => true,
-			'edit_posts'   => false,
-			'delete_posts' => false,
-			'level_0'      => true, // This capability is required to log in
-		)
-	);
-}
-add_action('init', 'add_kanban_user_role');
-
-function restrict_kanban_user_admin_access()
-{
-	if (current_user_can('kanban-user') && !defined('DOING_AJAX')) {
-		wp_redirect(home_url());
-		exit;
-	}
-}
-add_action('admin_init', 'restrict_kanban_user_admin_access');
-
-function remove_admin_bar_for_kanban_user()
-{
-	if (current_user_can('kanban-user')) {
-		show_admin_bar(false);
-	}
-}
-add_action('after_setup_theme', 'remove_admin_bar_for_kanban_user');
-
-// Redirect Kanban User to Account Page after login
-function redirect_kanban_user_to_account_page($redirect_to, $request, $user)
-{
-	// Check if the user is a kanban-user
-	if (isset($user->roles) && in_array('kanban-user', $user->roles)) {
-		return get_site_url() . '/kanban-profile';
-	}
-
-	return $redirect_to;
-}
-add_filter('login_redirect', 'redirect_kanban_user_to_account_page', 10, 3);
 
 // Update user account
 

@@ -70,7 +70,6 @@ function render_project_class_meta_box($post) {
     $classes = array('kanban-color-one', 'kanban-color-two', 'kanban-color-three', 'kanban-color-four');
     $selected_class = get_post_meta($post->ID, '_project_class', true);
     $kanban_modern = get_post_meta($post->ID, '_kanban_modern', true);
-    $roles = array('kanban-user', 'administrator');
     $selected_users = get_post_meta($post->ID, '_allowed_kanban_users', true) ?: array();
     $description = get_post_meta($post->ID, '_kanban_project_description', true);
 
@@ -84,9 +83,13 @@ function render_project_class_meta_box($post) {
 
 	$pro_feature = 'licence-invalid';
 	$disabled = 'disabled';
+	$roles = array('administrator');
+
 	if (KanbanUpdate::isLicenceValid()) {
 		$pro_feature = '';
 		$disabled = '';
+		$roles = array('kanban-user', 'kanban-admin', 'administrator');
+
 	}
     $kanban_modern_checked = ($disabled === '') ? checked($kanban_modern, '1', false) : '';
 
@@ -136,7 +139,8 @@ function render_project_class_meta_box($post) {
 			</div>
         </div>
 
-		<div id="kanban-users-meta-box" class="board_box">
+		<div id="kanban-users-meta-box" class="board_box <?php echo $pro_feature; ?>">
+			<?php include PLUGIN_ROOT_PATH . '/template-parts/backend/pro_overlay.php'; ?>
 			<p class="board_settings_subtitle"><?php _e('Kanban Users:', 'kanban'); ?></p>
 			<select id="kanban-user-role-filter">
 				<option value=""><?php _e('All Roles', 'kanban'); ?></option>
