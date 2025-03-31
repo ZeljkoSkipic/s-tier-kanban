@@ -184,8 +184,9 @@
 				text-decoration: none;
 				position: relative;
 				transition: .2s all;
+				line-height: 1.2;
 				span {
-					width: 50px;
+					width: 40px;
 					height: 50px;
 					background-repeat: no-repeat;
 					background-position: center;
@@ -299,6 +300,8 @@
 			img {
 				border-radius: 50px;
 				margin-right: 8px;
+				width: 32px;
+				height: 32px;
 			}
 			p {
 				font-size: 14px;
@@ -894,6 +897,7 @@
 	  @include btn-1;
 	  float: right;
 	  margin-top: 4px;
+	  width: fit-content;
 	}
 
 	.ce-block,
