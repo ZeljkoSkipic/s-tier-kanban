@@ -4,7 +4,7 @@
  * Plugin Name: S Kanban
  * Plugin URI: https://kanbanplugin.com/
  * Description: Project Management Simplified
- * Version: 0.12.1
+ * Version: 0.20.0
  * Author: S-Tier Dev
  * Author URI: https://stierdev.com/
  * License: GPLv2 or later
@@ -844,7 +844,7 @@ function assign_users_to_task()
 
 		if ($user && $task) {
 
-			// Check rights 
+			// Check rights
 
 			if (KanbanUpdate::isLicenceValid()) {
 				$user_tasks = get_user_meta($user_id, 'kanban_tasks', true);
@@ -934,11 +934,11 @@ function assign_users_project_deleted($project_id, $deleted_users)
 					}
 				}
 
-				// Unset project for that user 
+				// Unset project for that user
 
 				unset($user_tasks_by_project[$project_id]);
 
-				// Update user meta 
+				// Update user meta
 
 				update_user_meta($deleted_user, 'kanban_tasks', $user_tasks_by_project);
 			}
