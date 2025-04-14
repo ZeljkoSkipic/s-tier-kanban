@@ -4,7 +4,7 @@
  * Plugin Name: S Kanban
  * Plugin URI: https://kanbanplugin.com/
  * Description: Project Management Simplified
- * Version: 0.20.0
+ * Version: 0.20.1
  * Author: S-Tier Dev
  * Author URI: https://stierdev.com/
  * License: GPLv2 or later
@@ -81,18 +81,18 @@ KanbanUpdate::init();
 
 function stk_scripts()
 {
+	$s_version = '0.20.1';
 
 	$is_kanban_page = is_singular('kanban-project');
 
 	if (!$is_kanban_page && !is_kanban_profile_page()) return;
 
 	// Enqueue the CSS file
-	// wp_enqueue_style('s-tier-kanban-css', plugin_dir_url(__FILE__) . 's-tier-kanban.css');
-	wp_enqueue_style('s-tier-kanban-css', PLUGIN_ROOT_URL . 'dist/index.min.css');
+	wp_enqueue_style('s-tier-kanban-css', PLUGIN_ROOT_URL . 'dist/index.min.css', '',  $s_version);
 
 	// Enqueue the JS file
 	wp_enqueue_script('s-tier-kanban-js-vendor', PLUGIN_ROOT_URL . 'dist/vendor.min.js', array('jquery'), false, true);
-	wp_enqueue_script('s-tier-kanban-js', PLUGIN_ROOT_URL . 'dist/plugin.min.js', array('jquery', 's-tier-kanban-js-vendor', 'sortable-js'), false, true);
+	wp_enqueue_script('s-tier-kanban-js', PLUGIN_ROOT_URL . 'dist/plugin.min.js', array('jquery', 's-tier-kanban-js-vendor', 'sortable-js'),  $s_version, true);
 
 	wp_enqueue_script('sweetalert-js', plugin_dir_url(__FILE__) . 'assets/js/sweetalert/sweetalert2.min.js', array(), false, true);
 	wp_enqueue_script('sortable-js', plugin_dir_url(__FILE__) . 'assets/js/sortable/sortable.js', array(), false, true);
