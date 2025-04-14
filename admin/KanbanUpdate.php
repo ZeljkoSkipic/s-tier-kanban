@@ -19,8 +19,8 @@ class KanbanUpdate
     {
         $updatePage = add_submenu_page(
             'kanban-settings',
-            'Updates',
-            'Updates',
+            'License',
+            'License',
             'edit_pages',
             'kanban-updates',
             [self::class, 'updatePage'],

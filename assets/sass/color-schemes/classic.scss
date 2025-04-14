@@ -1,0 +1,79 @@
+@import 'color-schemes/vars-mixins';
+body.kanban-classic {
+	@mixin classic_wrap {
+	  background-color: rgba(0,0,0,0.4);
+	}
+  .board-header  {
+	  .top_left {
+		  @include classic_wrap;
+	  }
+	  .expander {
+		background-image: url(../assets/icons/plus.svg);
+		&.open {
+			background-image: url(../assets/icons/minus.svg);
+		}
+	  }
+	  .top_expander_wrap {
+		  @include classic_wrap;
+		  transition: .2s all, all .2s .3s;
+		  &.open {
+			  background-color: rgba(0,0,0, .3);
+			  transition: .2s all, border-radius .2s .2s;
+			  height: 57.5px;
+			  border-radius: 8px 8px 0 0;
+			  padding-bottom: 7.5px;
+			  margin-bottom: -2.5px;
+		  }
+	  }
+	  #fullscreen-btn {
+		  @include classic_wrap;
+	  }
+	  .bottom {
+		  background-color: rgba(0,0,0,0.3);
+		  transform: translateY(3px);
+	  }
+  }
+
+  .board_documents {
+	  a {
+		  span {
+			  &.file-type-pdf {
+				  background-image: url(../assets/icons/pdf.svg);
+			  }
+			  &.file-type-doc {
+				  background-image: url(../assets/icons/doc.svg);
+			  }
+			  &.file-type-docx {
+				  background-image: url(../assets/icons/docx.svg);
+			  }
+			  &.file-type-ppt {
+				  background-image: url(../assets/icons/ppt.svg);
+			  }
+			  &.file-type-pptx {
+				  background-image: url(../assets/icons/pptx.svg);
+			  }
+			  &.file-type-csv {
+				  background-image: url(../assets/icons/csv.svg);
+			  }
+			  &.file-type-zip {
+				  background-image: url(../assets/icons/zip.svg);
+			  }
+			  &.file-type-rar {
+				  background-image: url(../assets/icons/rar.svg);
+			  }
+		  }
+	  }
+  }
+
+  .user_info {
+	  background-color: var(--bg-color);
+	  &:before {
+		  background-color: rgba(0,0,0,0.4);
+	  }
+	  &.side-open {
+		  &::before {
+			  background-color: rgba(0,0,0,0.2);
+		  }
+	  }
+  }
+}

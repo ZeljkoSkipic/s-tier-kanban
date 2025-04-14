@@ -100,25 +100,23 @@
 
 .kanban-dashboard-boxes {
 	display: grid;
-	grid-template-columns: repeat(3, minmax(0, 1fr));
+	grid-template-columns: repeat(2, minmax(0, 1fr));
 	gap: 32px;
+	margin-top: 32px;
 	@include sm-desk-only {
 		gap: 8px;
 	}
 	@include md-desk-only {
 		gap: 16px;
 	}
-	@include limbo-max {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-	}
 	@include mob-only {
 		grid-template-columns: 1fr;
-		gap: 0;
 	}
 }
 .kanban-dashboard-box {
 	@include basic-box;
 	box-sizing: border-box;
+	margin-block: 0;
 	.kanban-dashboard-box-title {
 		margin-bottom: 32px;
 		text-align: center;

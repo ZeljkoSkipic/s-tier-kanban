@@ -1,27 +1,230 @@
 "use strict";
 
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+var assignUsersTrigger = document.querySelector("body").querySelectorAll(".user-assign");
+var search = document.querySelectorAll(".assign-users-search");
+var triggerIcon = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"feather feather-user-plus\"><path d=\"M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2\"></path><circle cx=\"8.5\" cy=\"7\" r=\"4\"></circle><line x1=\"20\" y1=\"8\" x2=\"20\" y2=\"14\"></line><line x1=\"23\" y1=\"11\" x2=\"17\" y2=\"11\"></line></svg>";
+var assignUsersViewAction = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
+    var assignButton, assignUsersView, projectID, cardID, response, _response$data, users;
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          assignButton = e.target.closest(".user-assign");
+          if (!assignButton) {
+            _context.next = 12;
+            break;
+          }
+          assignUsersView = assignButton.parentElement.querySelector(".assign-users");
+          assignUsersCloseGlobal();
+          assignUsersView.classList.remove("hide");
+          assignUsersView.classList.add("show");
+          projectID = assignButton.dataset.projectid;
+          cardID = assignButton.dataset.cardid;
+          _context.next = 10;
+          return getUsers(projectID, cardID);
+        case 10:
+          response = _context.sent;
+          if (response && response.success === true) {
+            assignUsersView.querySelector(".assign-users-select").innerHTML = response === null || response === void 0 || (_response$data = response.data) === null || _response$data === void 0 ? void 0 : _response$data.users;
+            users = assignUsersView.querySelectorAll(".assign-user");
+            if (users) {
+              users.forEach(function (user) {
+                user.addEventListener("click", _assignUsers);
+              });
+            }
+          }
+        case 12:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee);
+  }));
+  return function assignUsersViewAction(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
+var getUsers = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2(projectID, cardID) {
+    var data, request;
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
+        case 0:
+          data = new FormData();
+          data.append("action", "get_assign_users");
+          data.append("projectID", projectID);
+          data.append("cardID", cardID);
+          data.append("security", myAjax.security);
+          _context2.next = 7;
+          return fetch(myAjax.ajaxurl, {
+            method: "POST",
+            body: data
+          });
+        case 7:
+          request = _context2.sent;
+          return _context2.abrupt("return", request.json());
+        case 9:
+        case "end":
+          return _context2.stop();
+      }
+    }, _callee2);
+  }));
+  return function getUsers(_x2, _x3) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+var assignUsersCloseGlobal = function assignUsersCloseGlobal() {
+  var assignUsersViewGlobal = document.querySelectorAll(".assign-users");
+  assignUsersViewGlobal.forEach(function (assignUsersViewGlobal) {
+    assignUsersViewGlobal.classList.remove("show");
+    assignUsersViewGlobal.classList.add("hide");
+  });
+};
+var assignUsersViewClose = function assignUsersViewClose(e) {
+  if (!e.target.closest(".user-assign") && !e.target.closest(".assign-users") || e.target.closest(".assign-users-close")) {
+    assignUsersCloseGlobal();
+  }
+};
+var searchUsers = function searchUsers(e) {
+  var term = e.currentTarget.value.toLowerCase();
+  var users = e.currentTarget.parentElement.querySelectorAll(".assign-user");
+  if (users) {
+    users.forEach(function (user) {
+      var name = user.querySelector(".assign-user-name").innerHTML.toLowerCase();
+      var searchTerm = term.toLowerCase();
+      if (searchTerm === "") {
+        user.classList.remove("hide");
+      } else if (name.indexOf(searchTerm) !== -1) {
+        user.classList.remove("hide");
+      } else {
+        user.classList.add("hide");
+      }
+    });
+  }
+};
+var removeUser = function removeUser(card, userID) {
+  var users = card.querySelectorAll(".user-assign .assign-user");
+  var queryTrigger = card.querySelector(".user-assign");
+  if (users) {
+    users.forEach(function (user) {
+      if (userID === user.dataset.id) {
+        user.remove();
+      }
+    });
+    var IsUsers = card.querySelectorAll(".user-assign .assign-user");
+    if (IsUsers.length === 0) {
+      queryTrigger.classList.remove("hasUsers");
+    }
+  }
+};
+var _assignUsers = /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3(e) {
+    var _target$closest;
+    var target, userID, card, assignUsersSelect, taskID, userClone, assignName, data, request, response, smallViewCard, queryTrigger, _smallViewCard, queryTriggerSmallViewCard;
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
+        case 0:
+          target = e.currentTarget;
+          userID = target.dataset.id;
+          card = (_target$closest = target.closest(".kanban-card")) !== null && _target$closest !== void 0 ? _target$closest : document.querySelector(".kanban-card-view");
+          assignUsersSelect = card.querySelector(".user-assign");
+          taskID = card.dataset.cardId !== undefined ? card.dataset.cardId : assignUsersSelect.dataset.cardid;
+          userClone = target.cloneNode(true);
+          userClone.removeEventListener("click", _assignUsers);
+          assignName = userClone.querySelector(".assign-user-name");
+          if (assignName) assignName.remove();
+          data = new FormData();
+          data.append("action", "assign_users_to_task");
+          data.append("userID", userID);
+          data.append("cardID", taskID);
+          data.append("security", myAjax.security);
+          _context3.prev = 14;
+          _context3.next = 17;
+          return fetch(myAjax.ajaxurl, {
+            method: "POST",
+            body: data
+          });
+        case 17:
+          request = _context3.sent;
+          _context3.next = 20;
+          return request.json();
+        case 20:
+          response = _context3.sent;
+          if (!response || response.success === false) {
+            console.error("Error user assign");
+          } else {
+            if (target.classList.contains("selected")) {
+              target.classList.remove("selected");
+              smallViewCard = document.querySelector(".kanban-card[data-card-id=\"".concat(taskID, "\"]"));
+              removeUser(card, userID);
+              removeUser(smallViewCard, userID);
+            } else {
+              target.classList.add("selected");
+              queryTrigger = card.querySelector(".user-assign");
+              if (!queryTrigger.classList.contains("hasUsers")) {
+                queryTrigger.classList.add("hasUsers");
+              }
+              queryTrigger.prepend(userClone);
+              if (card.classList.contains("kanban-card-view")) {
+                _smallViewCard = document.querySelector(".kanban-card[data-card-id=\"".concat(taskID, "\"]"));
+                queryTriggerSmallViewCard = _smallViewCard.querySelector(".user-assign");
+                if (!queryTriggerSmallViewCard.classList.contains("hasUsers")) {
+                  queryTriggerSmallViewCard.classList.add("hasUsers");
+                }
+                queryTriggerSmallViewCard.prepend(userClone.cloneNode(true));
+              }
+            }
+          }
+          _context3.next = 27;
+          break;
+        case 24:
+          _context3.prev = 24;
+          _context3.t0 = _context3["catch"](14);
+          console.error("AJAX error", _context3.t0);
+        case 27:
+        case "end":
+          return _context3.stop();
+      }
+    }, _callee3, null, [[14, 24]]);
+  }));
+  return function assignUsers(_x4) {
+    return _ref3.apply(this, arguments);
+  };
+}();
+var assignUsersCardView = function assignUsersCardView(e) {
+  var card = document.querySelector(".kanban-card[data-card-id=\"".concat(e.detail.cardID, "\"]"));
+  var userAsign = card.querySelector(".user-assign").cloneNode(true);
+  userAsign.addEventListener("click", assignUsersViewAction);
+  var kanbanCardViewTitle = document.querySelector(".kanban-card-view").querySelector(".board_members_title");
+  kanbanCardViewTitle.after(userAsign);
+};
+var assignUsersCardViewDelete = function assignUsersCardViewDelete(e) {
+  var userAsign = document.querySelector(".kanban-card-view").querySelector(".user-assign");
+  if (userAsign) {
+    userAsign.remove();
+  }
+};
+if (search) {
+  search.forEach(function (search) {
+    search.addEventListener("keyup", searchUsers);
+  });
+}
+document.addEventListener("click", assignUsersViewClose);
+document.body.addEventListener("click", assignUsersViewAction);
+document.addEventListener("cardViewOpened", assignUsersCardView);
+document.addEventListener("cardViewClosed", assignUsersCardViewDelete);
+"use strict";
+
+var copyButton = document.querySelector(".sidebar-btn-copy");
 var cardView = function cardView(e) {
   // Open Modal
 
-  if (e.target.closest(".kanban-card") && !e.target.closest('.dynamic-select') && !e.target.closest(".card-priority") && !e.target.closest(".card-status") && !e.target.closest(".delete-card-btn") && !e.target.closest(".card-title") && !e.target.closest("a")) {
+  if (e.target.closest(".kanban-card") && !e.target.closest(".dynamic-select") && !e.target.closest(".card-priority") && !e.target.closest(".card-status") && !e.target.closest(".delete-card-btn") && !e.target.closest(".card-title") && !e.target.closest("a") && !e.target.closest(".user-assign") && !e.target.closest(".assign-users")) {
     var card = e.target.closest(".kanban-card");
     var cardID = card.dataset.cardId;
-    var isAdmin = card.dataset.userAdmin;
-    var isUserCreation = card.dataset.userCreation;
-    var commentsSaveButton = document.querySelector(".kanban-comment-save");
-    var descriptionSaveButton = document.querySelector(".kanban-description-save");
-    var commentForm = document.querySelector(".kanban-card-view");
-    var cardTitle = e.target.closest(".kanban-card").querySelector(".card-title").innerHTML;
-    var cardViewTitle = document.querySelector(".kanban-card-view").querySelector('.card-title');
-    commentsSaveButton.dataset.cardId = cardID;
-    descriptionSaveButton.dataset.cardId = cardID;
-    descriptionSaveButton.dataset.userAdmin = isAdmin;
-    descriptionSaveButton.dataset.userCreation = isUserCreation;
-    cardViewTitle.innerHTML = cardTitle;
-    cardViewTitle.dataset.cardId = cardID;
-    commentForm.classList.remove("hide");
-    commentForm.classList.add("show");
-    document.querySelector("body").style.overflow = "hidden";
     var modalOpened = new CustomEvent("cardViewOpened", {
       detail: {
         cardID: cardID
@@ -33,27 +236,134 @@ var cardView = function cardView(e) {
   // Close modal
 
   if (e.target.matches(".kanban-card-view-close") || e.target.matches(".kanban-card-view")) {
-    var _commentForm = document.querySelector(".kanban-card-view");
-    var commnetsWrapper = document.querySelector(".kanban-comments");
-    _commentForm.classList.remove("show");
-    _commentForm.classList.add("hide");
-    document.querySelector("body").style.overflow = "visible";
-    var error = document.querySelector(".comment-error");
-    if (error) {
-      error.remove();
-    }
-    commnetsWrapper.innerHTML = "";
     var modalClosed = new CustomEvent("cardViewClosed");
     document.dispatchEvent(modalClosed);
   }
 };
 document.addEventListener("click", cardView);
+var cardViewOpen = function cardViewOpen(e) {
+  var card = document.querySelector(".kanban-card[data-card-Id=\"".concat(e.detail.cardID, "\"]"));
+  var cardID = e.detail.cardID;
+  var isAdmin = card.dataset.userAdmin;
+  var isUserCreation = card.dataset.userCreation;
+  var commentsSaveButton = document.querySelector(".kanban-comment-save");
+  var descriptionSaveButton = document.querySelector(".kanban-description-save");
+  var cardViewWrapper = document.querySelector(".kanban-card-view");
+  var cardTitle = card.querySelector(".card-title").innerHTML;
+  var cardViewTitle = document.querySelector(".kanban-card-view").querySelector(".card-title");
+  cardViewWrapper.dataset.cardId = cardID;
+  commentsSaveButton.dataset.cardId = cardID;
+  descriptionSaveButton.dataset.cardId = cardID;
+  descriptionSaveButton.dataset.userAdmin = isAdmin;
+  descriptionSaveButton.dataset.userCreation = isUserCreation;
+  cardViewTitle.innerHTML = cardTitle;
+  cardViewTitle.dataset.cardId = cardID;
+
+  // Dynamic select
+
+  var priority = card.querySelector(".card-priority").selectedIndex;
+  var status = card.querySelector(".card-status").selectedIndex;
+  var priorityView = cardViewWrapper.querySelector(".card-priority");
+  var statusView = cardViewWrapper.querySelector(".card-status");
+  var currentOptionPriority = card.querySelector(".priority-wrap .dynamic-select-current-item").cloneNode(true);
+  var currentOptionStatus = card.querySelector(".status-wrap .dynamic-select-current-item").cloneNode(true);
+  var dynamicSelectCurrentOptionWrapperPriority = cardViewWrapper.querySelector(".priority-wrap .dynamic-select-current");
+  var dynamicSelectCurrentOptionWrapperStatus = cardViewWrapper.querySelector(".status-wrap .dynamic-select-current");
+  priorityView.selectedIndex = priority;
+  statusView.selectedIndex = status;
+  dynamicSelectCurrentOptionWrapperPriority.replaceChildren(currentOptionPriority);
+  dynamicSelectCurrentOptionWrapperStatus.replaceChildren(currentOptionStatus);
+  cardViewWrapper.classList.remove("hide");
+  cardViewWrapper.classList.add("show");
+  document.querySelector("body").style.overflow = "hidden";
+};
+var cardViewClose = function cardViewClose() {
+  var commentForm = document.querySelector(".kanban-card-view");
+  var commnetsWrapper = document.querySelector(".kanban-comments");
+  commentForm.classList.remove("show");
+  commentForm.classList.add("hide");
+  document.querySelector("body").style.overflow = "visible";
+  var error = document.querySelector(".comment-error");
+  if (error) {
+    error.remove();
+  }
+  var url = new URL(window.location);
+  url.searchParams.delete("cardIDView");
+  window.history.replaceState({}, "", url);
+  commnetsWrapper.innerHTML = "";
+};
+var openCardViewUrl = function openCardViewUrl(e) {
+  var url = new URLSearchParams(window.location.search);
+  var toOpenCardView = url.get("cardIDView");
+  if (toOpenCardView) {
+    var modalOpened = new CustomEvent("cardViewOpened", {
+      detail: {
+        cardID: toOpenCardView
+      }
+    });
+    setTimeout(function () {
+      document.dispatchEvent(modalOpened);
+    }, 200);
+  }
+};
+var copyCardLink = function copyCardLink(e) {
+  e.preventDefault();
+  var cardViewWrapper = e.currentTarget.closest(".kanban-card-view");
+  var cardid = cardViewWrapper.dataset.cardId;
+  var urlObj = new URL(window.location.href);
+  urlObj.searchParams.set("cardIDView", cardid);
+  var url = urlObj.toString();
+  if (navigator.clipboard && window.isSecureContext) {
+    var _navigator;
+    (_navigator = navigator) === null || _navigator === void 0 || (_navigator = _navigator.clipboard) === null || _navigator === void 0 || _navigator.writeText(url).then(showCopyMessage).catch(function (err) {
+      console.error("Error Copy Url: ", err);
+      fallbackCopyTextToClipboard(url);
+    });
+  } else {
+    fallbackCopyTextToClipboard(url);
+  }
+};
+function fallbackCopyTextToClipboard(text) {
+  var textArea = document.createElement("textarea");
+  textArea.value = text;
+  textArea.style.position = "fixed";
+  textArea.style.top = "-9999px";
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+  try {
+    var successful = document.execCommand("copy");
+    if (successful) {
+      showCopyMessage();
+    } else {
+      console.error("Error Copy Url!");
+    }
+  } catch (err) {
+    console.error("Error Copy Url: ", err);
+  }
+  document.body.removeChild(textArea);
+}
+function showCopyMessage() {
+  var message = document.getElementById("copyMessage");
+  if (message) {
+    message.style.display = "block";
+    setTimeout(function () {
+      message.style.display = "none";
+    }, 3000);
+  }
+}
+document.addEventListener("cardViewOpened", cardViewOpen);
+document.addEventListener("cardViewClosed", cardViewClose);
+document.addEventListener("DOMContentLoaded", openCardViewUrl);
+copyButton === null || copyButton === void 0 ? void 0 : copyButton.addEventListener("click", copyCardLink);
 "use strict";
 
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+var commentIcon = "<svg title=\"Card has Comments\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"#808890\" class=\"size-6\">\n\t\t\t\t\t\t<path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z\" />\n\t\t\t\t\t</svg>";
+
 // Comment Editor
 
 var commentEditors = [];
@@ -174,7 +484,7 @@ var comments = function comments(e) {
   var data = new FormData();
   editor.save().then(/*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3(savedData) {
-      var request, response, userID, cardCommentUsers, usersWrapper;
+      var request, response, card, svgContainer;
       return _regeneratorRuntime().wrap(function _callee3$(_context3) {
         while (1) switch (_context3.prev = _context3.next) {
           case 0:
@@ -200,15 +510,14 @@ var comments = function comments(e) {
           case 11:
             response = _context3.sent;
             if (response && response.success === true) {
+              card = document.querySelector("[data-card-id=\"".concat(cardId, "\"]"));
               getComments(cardId);
               editor.clear();
 
-              // Add user to comment list if does not exist
-              userID = response.data.user_id;
-              cardCommentUsers = document.querySelector("[data-card-id=\"".concat(cardId, "\"]")).querySelectorAll("[data-user=\"".concat(userID, "\"]"));
-              usersWrapper = document.querySelector("[data-card-id=\"".concat(cardId, "\"]")).querySelector(".card-members");
-              if (!cardCommentUsers.length) {
-                usersWrapper.insertAdjacentHTML("beforeend", "<div data-user=\"".concat(userID, "\" class=\"user-avatar\">\n              ").concat(response.data.user_avatar, "\n          </div>"));
+              // Add comment icon
+              svgContainer = card.querySelector(".card-svgs");
+              if (!svgContainer.innerHTML.includes(commentIcon)) {
+                svgContainer.innerHTML += commentIcon;
               }
             }
           case 13:
@@ -516,7 +825,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-var descriptionIcon = "<svg width=\"14\" height=\"18\" viewBox=\"0 0 14 18\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n\t\t\t\t\t<path d=\"M13.25 10.875V8.6875C13.25 7.94158 12.9537 7.22621 12.4262 6.69876C11.8988 6.17132 11.1834 5.875 10.4375 5.875H9.1875C8.93886 5.875 8.7004 5.77623 8.52459 5.60041C8.34877 5.4246 8.25 5.18614 8.25 4.9375V3.6875C8.25 2.94158 7.95368 2.22621 7.42624 1.69876C6.89879 1.17132 6.18342 0.875 5.4375 0.875H3.875M3.875 11.5H10.125M3.875 14H7M5.75 0.875H1.6875C1.17 0.875 0.75 1.295 0.75 1.8125V16.1875C0.75 16.705 1.17 17.125 1.6875 17.125H12.3125C12.83 17.125 13.25 16.705 13.25 16.1875V8.375C13.25 6.38588 12.4598 4.47822 11.0533 3.0717C9.64678 1.66518 7.73912 0.875 5.75 0.875Z\" stroke=\"#808890\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path>\n\t\t\t\t</svg>";
+var descriptionIcon = "<svg title=\"Card has Comments\" width=\"14\" height=\"18\" viewBox=\"0 0 14 18\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n\t\t\t\t\t<path d=\"M13.25 10.875V8.6875C13.25 7.94158 12.9537 7.22621 12.4262 6.69876C11.8988 6.17132 11.1834 5.875 10.4375 5.875H9.1875C8.93886 5.875 8.7004 5.77623 8.52459 5.60041C8.34877 5.4246 8.25 5.18614 8.25 4.9375V3.6875C8.25 2.94158 7.95368 2.22621 7.42624 1.69876C6.89879 1.17132 6.18342 0.875 5.4375 0.875H3.875M3.875 11.5H10.125M3.875 14H7M5.75 0.875H1.6875C1.17 0.875 0.75 1.295 0.75 1.8125V16.1875C0.75 16.705 1.17 17.125 1.6875 17.125H12.3125C12.83 17.125 13.25 16.705 13.25 16.1875V8.375C13.25 6.38588 12.4598 4.47822 11.0533 3.0717C9.64678 1.66518 7.73912 0.875 5.75 0.875Z\" stroke=\"#808890\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path>\n\t\t\t\t</svg>";
 var checkForEmptyObject = function checkForEmptyObject(obj) {
   for (var key in obj) {
     if (obj.hasOwnProperty(key)) {
@@ -616,7 +925,7 @@ var createEditorsPromiseDescription = /*#__PURE__*/function () {
 var descriptionEditor = new EditorJS({
   holder: "description-editor-js",
   minHeight: 100,
-  placeholder: "Write a description...",
+  placeholder: "Click to Add a description...",
   readOnly: true,
   tools: {
     Marker: {
@@ -695,7 +1004,10 @@ var updateDescription = function updateDescription(e) {
                     var editorID = parseInt(editorIDSplit[editorIDSplit.length - 1]);
                     if (editorID == cardId) {
                       var _card = document.querySelector("[data-card-id=\"".concat(cardId, "\"]"));
-                      _card.querySelector(".card-svgs").innerHTML = descriptionIcon;
+                      var svgContainer = _card.querySelector(".card-svgs .description_svg");
+                      if (!svgContainer.innerHTML.includes(descriptionIcon)) {
+                        svgContainer.innerHTML += descriptionIcon;
+                      }
                       _card.querySelector(".card-description").dataset.description = response.data.description;
                       var _data = JSON.parse(response.data.description);
                       editor.render(_data);
@@ -755,6 +1067,7 @@ var initDescriptionEditors = /*#__PURE__*/function () {
 }();
 initDescriptionEditors();
 var renderDescription = function renderDescription(e) {
+  console.log(e.detail.cardID);
   var card = document.querySelector("[data-card-id=\"".concat(e.detail.cardID, "\"]"));
   var data = card.querySelector(".card-description").dataset.description;
   data = JSON.parse(data);
@@ -810,6 +1123,9 @@ document.addEventListener("click", updateDescription);
 jQuery(function ($) {
   var dynamicSelectItem = ".dynamic-select-item";
   var dynamicSelectCurrent = ".dynamic-select-current";
+  var cardViewWrapper = document.querySelector(".kanban-card-view");
+  var priorityView = cardViewWrapper === null || cardViewWrapper === void 0 ? void 0 : cardViewWrapper.querySelector(".card-priority");
+  var statusView = cardViewWrapper === null || cardViewWrapper === void 0 ? void 0 : cardViewWrapper.querySelector(".card-status");
   var updateOption = function updateOption(e) {
     var currentTarget = e.target.closest(dynamicSelectItem);
     var dropdownTriggerTarget = e.target.closest(dynamicSelectCurrent);
@@ -817,30 +1133,30 @@ jQuery(function ($) {
     // Open dropdown
 
     if (dropdownTriggerTarget) {
-      var dynamicSelect = $(dropdownTriggerTarget).closest('.dynamic-select');
-      var selectDropdown = dynamicSelect.find('.dynamic-select-dropdown');
+      var dynamicSelect = $(dropdownTriggerTarget).closest(".dynamic-select");
+      var selectDropdown = dynamicSelect.find(".dynamic-select-dropdown");
       if (!selectDropdown.hasClass("active")) {
         selectDropdown.addClass("active");
-        selectDropdown.slideDown(".4s");
-        dynamicSelect.addClass('dropdown-opened');
+        selectDropdown.slideDown(".1s");
+        dynamicSelect.addClass("dropdown-opened");
       } else {
         selectDropdown.removeClass("active");
-        selectDropdown.slideUp(".4s");
-        dynamicSelect.removeClass('dropdown-opened');
+        selectDropdown.slideUp(".1s");
+        dynamicSelect.removeClass("dropdown-opened");
       }
     } else {
       if (!currentTarget) {
-        var _dynamicSelect = $('.dynamic-select');
-        var _selectDropdown = $('.dynamic-select-dropdown');
+        var _dynamicSelect = $(".dynamic-select");
+        var _selectDropdown = $(".dynamic-select-dropdown");
         _selectDropdown.removeClass("active");
-        _selectDropdown.slideUp(".4s");
-        _dynamicSelect.removeClass('dropdown-opened');
+        _selectDropdown.slideUp(".1s");
+        _dynamicSelect.removeClass("dropdown-opened");
       }
     }
     if (currentTarget) {
       var currentOption = $(currentTarget);
-      var _dynamicSelect2 = currentOption.closest('.dynamic-select');
-      var optionValue = currentOption.data('option');
+      var _dynamicSelect2 = currentOption.closest(".dynamic-select");
+      var optionValue = currentOption.data("option");
       if (!currentOption.hasClass("active")) {
         // Remove active to all otgers options
 
@@ -865,23 +1181,47 @@ jQuery(function ($) {
       // Switch current target
 
       var cloneCurrentOption = currentOption.clone();
-      cloneCurrentOption.removeClass('active dynamic-select-item');
-      cloneCurrentOption.addClass('dynamic-select-current-item');
+      cloneCurrentOption.removeClass("active dynamic-select-item");
+      cloneCurrentOption.addClass("dynamic-select-current-item");
       if (optionValue == "") {
-        cloneCurrentOption.find('.dynamic-select-label').addClass('dynamic-select-label--default');
+        cloneCurrentOption.find(".dynamic-select-label").addClass("dynamic-select-label--default");
       }
-      var dynamicSelectCurrentOptionWrapper = $('.dynamic-select-current');
-      _dynamicSelect2.find(dynamicSelectCurrentOptionWrapper).html('');
+      var dynamicSelectCurrentOptionWrapper = $(".dynamic-select-current");
+      _dynamicSelect2.find(dynamicSelectCurrentOptionWrapper).html("");
       _dynamicSelect2.find(dynamicSelectCurrentOptionWrapper).append(cloneCurrentOption);
 
       // Close dropdown
       var _selectDropdown2 = $(".dynamic-select-dropdown");
       _dynamicSelect2.find(_selectDropdown2).removeClass("active");
-      _dynamicSelect2.find(_selectDropdown2).slideUp(".4s");
-      _dynamicSelect2.removeClass('dropdown-opened');
+      _dynamicSelect2.find(_selectDropdown2).slideUp(".1s");
+      _dynamicSelect2.removeClass("dropdown-opened");
     }
   };
+  var syncPriorityWithViewPriority = function syncPriorityWithViewPriority() {
+    setTimeout(function () {
+      var card = document.querySelector(".kanban-card[data-card-id=\"".concat(cardViewWrapper.dataset.cardId, "\"]"));
+      var viewPriority = cardViewWrapper.querySelector(".priority-wrap .dynamic-select-current-item");
+      var viewSelect = cardViewWrapper.querySelector(".card-priority").selectedIndex;
+      var clonedPriority = viewPriority.cloneNode(true);
+      var cardPriorityWrapper = card.querySelector(".priority-wrap .dynamic-select-current");
+      card.querySelector(".card-priority").selectedIndex = viewSelect;
+      cardPriorityWrapper.replaceChildren(clonedPriority);
+    }, 100);
+  };
+  var syncStatusWithViewStatus = function syncStatusWithViewStatus() {
+    setTimeout(function () {
+      var card = document.querySelector(".kanban-card[data-card-id=\"".concat(cardViewWrapper.dataset.cardId, "\"]"));
+      var viewStatus = cardViewWrapper.querySelector(".status-wrap .dynamic-select-current-item");
+      var viewSelect = cardViewWrapper.querySelector(".card-status").selectedIndex;
+      var clonedStatus = viewStatus.cloneNode(true);
+      var cardStatusWrapper = card.querySelector(".status-wrap .dynamic-select-current");
+      card.querySelector(".card-status").selectedIndex = viewSelect;
+      cardStatusWrapper.replaceChildren(clonedStatus);
+    }, 100);
+  };
   document.addEventListener("click", updateOption);
+  priorityView === null || priorityView === void 0 || priorityView.addEventListener("change", syncPriorityWithViewPriority);
+  statusView === null || statusView === void 0 || statusView.addEventListener("change", syncStatusWithViewStatus);
 });
 "use strict";
 
@@ -1246,12 +1586,12 @@ document.addEventListener("click", /*#__PURE__*/function () {
     return _regeneratorRuntime().wrap(function _callee4$(_context4) {
       while (1) switch (_context4.prev = _context4.next) {
         case 0:
-          if (!event.target.matches(".delete-card-btn")) {
+          if (!(event.target.matches(".delete-card-btn") || event.target.matches(".sidebar-btn-delete"))) {
             _context4.next = 8;
             break;
           }
-          card = event.target.closest(".kanban-card");
-          cardId = event.target.getAttribute("data-card-id");
+          card = event.target.closest(".kanban-card") || event.target.closest(".kanban-card-view");
+          cardId = event.target.getAttribute("data-card-id") || card.getAttribute("data-card-id");
           cardDeleted = null;
           _context4.next = 6;
           return Swal.fire({
@@ -1280,7 +1620,14 @@ document.addEventListener("click", /*#__PURE__*/function () {
               },
               success: function success(response) {
                 if (response.success) {
-                  card.remove();
+                  if (card.classList.contains('.kanban-card')) {
+                    card.remove();
+                  } else {
+                    var cardSmallview = document.querySelector(".kanban-card[data-card-Id=\"".concat(cardId, "\"]"));
+                    cardSmallview.remove();
+                    var modalClosed = new CustomEvent("cardViewClosed");
+                    document.dispatchEvent(modalClosed);
+                  }
                 } else {
                   alert("Error: Card could not be deleted.");
                 }
@@ -1307,7 +1654,7 @@ var updateStatusPriority = function updateStatusPriority(e) {
   if (!e.target.matches(".card-status") && !e.target.matches(".card-priority")) {
     return;
   }
-  var card = e.target.closest(".kanban-card");
+  var card = e.target.closest(".kanban-card") || e.target.closest(".kanban-card-view");
   var cardId = card.getAttribute("data-card-id");
   var status = card.querySelector(".card-status").value;
   var priority = card.querySelector(".card-priority").value;
@@ -1404,7 +1751,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var body = document.body;
 
   // Request fullscreen and add 'fs-active' class
-  fullscreenBtn.addEventListener('click', function () {
+  fullscreenBtn === null || fullscreenBtn === void 0 || fullscreenBtn.addEventListener('click', function () {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen({
         navigationUI: "hide"

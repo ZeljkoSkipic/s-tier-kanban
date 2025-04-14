@@ -4,7 +4,11 @@
 @import 's-tier-kanban';
 @import 'account';
 @import 'dynamic-select';
-@import 'color-schemes';
+
+@import 'color-schemes/defaults';
+@import 'color-schemes/classic';
 
 // Pro
 @import 'list-view';
+@import 'color-schemes/modern';
+@import 'color-schemes/clean';

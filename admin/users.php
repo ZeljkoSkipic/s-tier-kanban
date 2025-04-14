@@ -32,28 +32,6 @@ function add_kanban_user_role()
 }
 add_action('init', 'add_kanban_user_role');
 
-/* // Map custom capabilities to the kanban-project post type
-function map_kanban_project_capabilities() {
-    // Get the post type object
-    $post_type_obj = get_post_type_object('kanban-project');
-
-    // Only proceed if the post type exists
-    if ($post_type_obj) {
-        // Map the custom capability to the relevant post type capabilities
-        $post_type_obj->cap->edit_post = 'edit_kanban_projects';
-        $post_type_obj->cap->edit_posts = 'edit_kanban_projects';
-        $post_type_obj->cap->edit_others_posts = 'edit_kanban_projects';
-        $post_type_obj->cap->publish_posts = 'edit_kanban_projects';
-        $post_type_obj->cap->read_post = 'read';
-        $post_type_obj->cap->read_private_posts = 'read_private_posts';
-        $post_type_obj->cap->delete_post = 'edit_kanban_projects';
-
-        // Ensure create_posts capability is also mapped
-        $post_type_obj->cap->create_posts = 'edit_kanban_projects';
-    }
-}
-// Run after post types are registered but before capabilities are checked
-add_action('init', 'map_kanban_project_capabilities', 999); */
 
 // Add meta capability mapping filter to ensure proper permission checks
 function map_kanban_admin_meta_caps($caps, $cap, $user_id, $args) {

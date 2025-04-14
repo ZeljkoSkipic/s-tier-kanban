@@ -1,3 +1,4 @@
+
 .card-priority, .card-status {
     display: none;
 }
@@ -31,15 +32,14 @@
 	&:last-child {
 		z-index: 1;
 	}
-}
-
-.kanban-view {
-	.dynamic-select {
-		width: 46%;
-		margin-inline: 2%;
-
+	.priority-wrap {
+		margin-right: 4%;
+	}
+	.priority-wrap, .status-wrap {
+		width: 48%;
 	}
 }
+
 .dynamic-select {
     position: relative;
     border-radius: 8px;
@@ -92,7 +92,7 @@
         margin-top: 4px;
         position: absolute;
         background-color: #fff;
-        width: 92%;
+        width: 100%;
         border-radius: 4px;
         .dynamic-select-item {
             padding: 4px;
@@ -100,6 +100,7 @@
             display: flex;
             align-items: center;
             transition: .3s all;
+			font-size: 13px;
             svg {
                 margin-right: 8px;
             }

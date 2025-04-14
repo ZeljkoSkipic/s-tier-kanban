@@ -47,7 +47,7 @@ $boards = get_user_projects($current_user_id);
 					</div>
 				</div>
 				<div class="user_info_edit">
-					<a href="#" class="edit-info" id="edit-info">
+					<a class="edit-info" id="edit-info">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#17B26A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3">
 							<path d="M12 20h9"></path>
 							<path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>

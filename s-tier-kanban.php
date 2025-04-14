@@ -18,9 +18,9 @@ use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
 // Initialize the update checker
 $updateChecker = PucFactory::buildUpdateChecker(
-    'https://github.com/ZeljkoSkipic/s-tier-kanban/', // Replace with your GitHub repo
-    __FILE__,                                     // Full path to the main plugin file
-    's-tier-kanban'                                   // Plugin slug
+	'https://github.com/ZeljkoSkipic/s-tier-kanban/', // Replace with your GitHub repo
+	__FILE__,                                     // Full path to the main plugin file
+	's-tier-kanban'                                   // Plugin slug
 );
 
 $updateChecker->setBranch('main'); // Change 'main' if your default branch is different
@@ -30,28 +30,32 @@ $updateChecker->setBranch('main'); // Change 'main' if your default branch is di
 add_filter('plugin_action_links_s-tier-kanban/s-tier-kanban.php', 'stk_customize_plugin_action_links', 20); // Higher priority
 add_filter('plugin_row_meta', 'stk_customize_plugin_row_meta', 20, 2); // Higher priority
 
-function stk_customize_plugin_action_links($links) {
-    // Your existing code in stk_add_settings_link will still run with priority 10
-    return $links;
+function stk_customize_plugin_action_links($links)
+{
+	// Your existing code in stk_add_settings_link will still run with priority 10
+	return $links;
 }
 
-function stk_customize_plugin_row_meta($links, $file) {
-    if ($file !== 's-tier-kanban/s-tier-kanban.php') {
-        return $links;
-    }
+function stk_customize_plugin_row_meta($links, $file)
+{
+	if ($file !== 's-tier-kanban/s-tier-kanban.php') {
+		return $links;
+	}
 
-    // Remove "View details" link added by plugin-update-checker
-    foreach ($links as $key => $link) {
-        if (strpos($link, 'plugin-install.php?tab=plugin-information') !== false &&
-            strpos($link, 'View details') !== false) {
-            unset($links[$key]);
-        }
-    }
+	// Remove "View details" link added by plugin-update-checker
+	foreach ($links as $key => $link) {
+		if (
+			strpos($link, 'plugin-install.php?tab=plugin-information') !== false &&
+			strpos($link, 'View details') !== false
+		) {
+			unset($links[$key]);
+		}
+	}
 
-    // Add back "Visit plugin site" link
-    $links[] = '<a href="https://kanbanplugin.com/" target="_blank">' . __('Visit plugin site', 'kanban') . '</a>';
+	// Add back "Visit plugin site" link
+	$links[] = '<a href="https://kanbanplugin.com/" target="_blank">' . __('Visit plugin site', 'kanban') . '</a>';
 
-    return $links;
+	return $links;
 }
 
 // Plugin Path Constants
@@ -103,7 +107,6 @@ function stk_admin_scripts()
 {
 	wp_enqueue_style('s-tier-kanban-admin-css', PLUGIN_ROOT_URL . 'assets/admin/admin.css');
 	wp_enqueue_script('s-tier-kanban-admin-js', PLUGIN_ROOT_URL . 'assets/admin/admin.js', array(), false, true);
-
 }
 add_action('admin_enqueue_scripts', 'stk_admin_scripts');
 
@@ -567,7 +570,7 @@ function getCommentsUsers($card_id)
 function is_user_kanban_admin()
 {
 	$user = wp_get_current_user();
-	return in_array('administrator',  $user->roles);
+	return in_array('administrator',  $user->roles) ||  in_array('kanban-admin',  $user->roles);
 }
 
 function is_user_kanban_creation(int $post_user_id)
@@ -704,39 +707,39 @@ add_action('pre_get_comments', 'filter_kanban_comments');
 
 function restrict_project_post_type_access()
 {
-    // Check if we're viewing a 'kanban-project' post type
-    if (is_singular('kanban-project')) {
-        // If user is an administrator, allow access
-        if (current_user_can('administrator')) {
-            return; // Administrators always have access
-        }
+	// Check if we're viewing a 'kanban-project' post type
+	if (is_singular('kanban-project')) {
+		// If user is an administrator, allow access
+		if (current_user_can('administrator')) {
+			return; // Administrators always have access
+		}
 
-        // For non-administrators
-        if (!is_user_logged_in()) {
-            // Not logged in, redirect to home
-            wp_redirect(home_url());
-            exit;
-        }
+		// For non-administrators
+		if (!is_user_logged_in()) {
+			// Not logged in, redirect to home
+			wp_redirect(home_url());
+			exit;
+		}
 
-        // Check license validity
-        if (KanbanUpdate::isLicenceValid()) {
-            // License is valid, check if user is in allowed users list
-            $current_user_id = get_current_user_id();
-            $allowed_users = get_post_meta(get_the_ID(), '_allowed_kanban_users', true) ?: array();
+		// Check license validity
+		if (KanbanUpdate::isLicenceValid()) {
+			// License is valid, check if user is in allowed users list
+			$current_user_id = get_current_user_id();
+			$allowed_users = get_post_meta(get_the_ID(), '_allowed_kanban_users', true) ?: array();
 
-            // Also allow kanban-admin users
-            if (current_user_can('kanban-admin') || in_array($current_user_id, $allowed_users)) {
-                return; // User is allowed
-            }
-        } else {
-            // License is not valid, only administrators can access
-            // (We already checked for admin above, so redirect at this point)
-        }
+			// Also allow kanban-admin users
+			if (current_user_can('kanban-admin') || in_array($current_user_id, $allowed_users)) {
+				return; // User is allowed
+			}
+		} else {
+			// License is not valid, only administrators can access
+			// (We already checked for admin above, so redirect at this point)
+		}
 
-        // If we get here, the user is not allowed
-        wp_redirect(home_url());
-        exit;
-    }
+		// If we get here, the user is not allowed
+		wp_redirect(home_url());
+		exit;
+	}
 }
 add_action('template_redirect', 'restrict_project_post_type_access');
 
@@ -782,3 +785,180 @@ function stk_update_user()
 	die();
 }
 add_action('wp_ajax_stk_update_user', 'stk_update_user');
+
+// Get assign users
+
+add_action('wp_ajax_get_assign_users', 'get_assign_users');
+
+function get_assign_users()
+{
+
+	if (!wp_verify_nonce($_POST['security'], 's-tier-kanban-nonce')) {
+		die(__('Security check', 'kanban'));
+	} else {
+
+		$project_id = isset($_POST['projectID']) && $_POST['projectID'] ? wp_strip_all_tags($_POST['projectID']) : "";
+		$card_id = isset($_POST['cardID']) && $_POST['cardID'] ? wp_strip_all_tags($_POST['cardID']) : "";
+
+		if ($project_id && $card_id) {
+			$assign_users = get_post_meta($project_id, '_allowed_kanban_users', true);
+
+			if ($assign_users) {
+				ob_start();
+				foreach ($assign_users as $user_id) {
+					$user = get_userdata($user_id);
+					$show_name = true;
+
+					// Get already assinged tasks
+					$card_users = get_post_meta($card_id, 'card_users', true) ?: [];
+					include PLUGIN_ROOT_PATH . 'template-parts/assign-user.php';
+				}
+
+				return wp_send_json_success(['users' => ob_get_clean()], 200);
+			}
+		} else {
+			wp_send_json_error('Missing project ID or card ID');
+		}
+	}
+
+	die();
+}
+
+
+// Get assign users
+
+add_action('wp_ajax_assign_users_to_task', 'assign_users_to_task');
+
+function assign_users_to_task()
+{
+
+	if (!wp_verify_nonce($_POST['security'], 's-tier-kanban-nonce')) {
+		die(__('Security check', 'kanban'));
+	} else {
+
+		$user_id = isset($_POST['userID']) && $_POST['userID'] ? wp_strip_all_tags($_POST['userID']) : "";
+		$card_id = isset($_POST['cardID']) && $_POST['cardID'] ? wp_strip_all_tags($_POST['cardID']) : "";
+
+		$user = get_user($user_id);
+		$task = get_post($card_id);
+
+		if ($user && $task) {
+
+			// Check rights 
+
+			if (KanbanUpdate::isLicenceValid()) {
+				$user_tasks = get_user_meta($user_id, 'kanban_tasks', true);
+				$card_users = get_post_meta($card_id, 'card_users', true);
+
+				if (!is_array($user_tasks)) {
+					$user_tasks = [];
+				}
+
+				if (!is_array($card_users)) {
+					$card_users = [];
+				}
+
+				$column_id = get_post_meta($card_id, 'associated_column_id', true);
+				$project_id = get_post_meta($column_id, 'associated_project_id', true);
+
+				if (!isset($user_tasks[$project_id])) {
+					$user_tasks[$project_id] = [];
+				}
+
+				$is_task_found = array_search($card_id, $user_tasks[$project_id]);
+				$is_user_found = array_search($user_id, $card_users);
+
+				if ($is_task_found !== false) {
+					unset($user_tasks[$project_id][$is_task_found]);
+					unset($card_users[$is_user_found]);
+
+					if (empty($user_tasks[$project_id])) {
+						unset($user_tasks[$project_id]);
+					}
+				} else {
+					$user_tasks[$project_id][] = $card_id;
+					$card_users[] = $user_id;
+
+					// Send email notification
+
+					$template_path = PLUGIN_ROOT_PATH . 'template-parts/emails/user-assign.php';
+
+					kanban_email_notification($user->data->user_email, $template_path, [
+						'task_ID'		=> $card_id,
+						'user_name' 	=> $user->data->display_name,
+						'task_title'	=> $task->post_title,
+						'task_url'		=> get_the_permalink($project_id)
+					]);
+				}
+
+				update_user_meta($user_id, 'kanban_tasks', $user_tasks);
+				update_post_meta($card_id, 'card_users', $card_users);
+
+				wp_send_json_success();
+			} else {
+				wp_send_json_error('You can not do that', 403);
+			}
+		} else {
+			wp_send_json_error('Wrong user_id or card_id');
+		}
+	}
+
+	die();
+}
+
+// Clean assign users when user is deleted from project
+
+function assign_users_project_deleted($project_id, $deleted_users)
+{
+	$project = get_post($project_id);
+
+	if ($project && $deleted_users) {
+
+		foreach ($deleted_users as $deleted_user) {
+			$user_tasks_by_project = get_user_meta($deleted_user, 'kanban_tasks', true);
+
+			if (isset($user_tasks_by_project[$project_id])) {
+				$user_tasks = $user_tasks_by_project[$project_id];
+
+				if ($user_tasks) {
+					foreach ($user_tasks as $user_task) {
+						$users_related_to_card = get_post_meta($user_task, 'card_users', true);
+
+						if ($users_related_to_card) {
+							$users_related_to_card = array_filter($users_related_to_card, function ($user_related_to_card) use ($deleted_user) {
+								return $user_related_to_card !== $deleted_user;
+							});
+
+							update_post_meta($user_task, 'card_users', $users_related_to_card);
+						}
+					}
+				}
+
+				// Unset project for that user 
+
+				unset($user_tasks_by_project[$project_id]);
+
+				// Update user meta 
+
+				update_user_meta($deleted_user, 'kanban_tasks', $user_tasks_by_project);
+			}
+		}
+	}
+}
+
+
+add_action('allowed_kanban_users_deleted', 'assign_users_project_deleted', 10, 2);
+
+function kanban_email_notification($email, $template_path, $data)
+{
+	$headers = array('Content-Type: text/html; charset=UTF-8');
+	$subject = __('User Assign', 'kanban');
+
+	$email_data = $data;
+
+	ob_start();
+	include $template_path;
+	$message = ob_get_clean();
+
+	return wp_mail($email, $subject, $message, $headers);
+}

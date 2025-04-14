@@ -230,9 +230,9 @@ document.addEventListener("click", function (event) {
 
 // Delete Card
 document.addEventListener("click", async function (event) {
-  if (event.target.matches(".delete-card-btn")) {
-    let card = event.target.closest(".kanban-card");
-    let cardId = event.target.getAttribute("data-card-id");
+  if (event.target.matches(".delete-card-btn") || event.target.matches(".sidebar-btn-delete") ) {
+    let card = event.target.closest(".kanban-card") || event.target.closest(".kanban-card-view");
+    let cardId = event.target.getAttribute("data-card-id") || card.getAttribute("data-card-id");
     let cardDeleted = null;
 
     cardDeleted = await Swal.fire({
@@ -260,7 +260,20 @@ document.addEventListener("click", async function (event) {
         },
         success: function (response) {
           if (response.success) {
-            card.remove();
+
+            if(card.classList.contains('.kanban-card')) {
+                card.remove();
+            }
+
+            else {
+              const cardSmallview = document.querySelector(
+                `.kanban-card[data-card-Id="${cardId}"]`
+              );
+              cardSmallview.remove();
+              const modalClosed = new CustomEvent("cardViewClosed");
+              document.dispatchEvent(modalClosed);
+            }
+
           } else {
             alert("Error: Card could not be deleted.");
           }
@@ -283,7 +296,7 @@ const updateStatusPriority = (e) => {
     return;
   }
 
-  const card = e.target.closest(".kanban-card");
+  const card = e.target.closest(".kanban-card") || e.target.closest(".kanban-card-view");
   const cardId = card.getAttribute("data-card-id");
   const status = card.querySelector(".card-status").value;
   const priority = card.querySelector(".card-priority").value;
@@ -391,7 +404,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	const body = document.body;
 
 	// Request fullscreen and add 'fs-active' class
-	fullscreenBtn.addEventListener('click', function () {
+	fullscreenBtn?.addEventListener('click', function () {
 			if (!document.fullscreenElement) {
 					document.documentElement.requestFullscreen({ navigationUI: "hide" }).then(() => {
 							body.classList.add('fs-active');

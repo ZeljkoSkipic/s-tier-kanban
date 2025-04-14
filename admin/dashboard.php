@@ -264,6 +264,20 @@ function stk_options_page()
 							<h3 class="kanban-dashboard-box-title"><?php _e('Tasks', 'kanban'); ?></h3>
 							<p class="stat-number"><?php echo $tasks_count->publish; ?></p>
 						</div>
+						<?php
+						if (KanbanUpdate::isLicenceValid()) {
+						$user_count = count_users();
+						$kanban_admin_count = isset($user_count['avail_roles']['kanban-admin']) ? $user_count['avail_roles']['kanban-admin'] : 0;
+						$kanban_user_count = isset($user_count['avail_roles']['kanban-user']) ? $user_count['avail_roles']['kanban-user'] : 0; ?>
+						<div class="kanban-dashboard-box">
+							<h3 class="kanban-dashboard-box-title"><?php _e('Kanban Admins', 'kanban'); ?></h3>
+							<p class="stat-number"><?php echo $kanban_admin_count; ?></p>
+						</div>
+						<div class="kanban-dashboard-box">
+							<h3 class="kanban-dashboard-box-title"><?php _e('Kanban Users', 'kanban'); ?></h3>
+							<p class="stat-number"><?php echo $kanban_user_count; ?></p>
+						</div>
+						<?php } ?>
 					</div>
 					<!-- Add more stat boxes as needed -->
 				</div>
@@ -331,26 +345,31 @@ function stk_options_page()
 </div>
 
 <script>
-	document.addEventListener('DOMContentLoaded', function() {
-		const modernSwitch = document.getElementById('kanban_default_modern');
-		if (modernSwitch) {
-			const formTable = document.querySelector('.form-table');
+    document.addEventListener('DOMContentLoaded', function() {
+        const styleRadios = document.querySelectorAll('input[name="kanban_default_style"]');
+        const formTable = document.querySelector('.form-table');
 
-			function toggleModernClass() {
-				if (modernSwitch.checked) {
-					formTable.classList.add('modern');
-				} else {
-					formTable.classList.remove('modern');
-				}
-			}
+        function updateStyleClass() {
+            // Remove all possible classes first
+            formTable.classList.remove('modern', 'clean', 'classic');
 
-			// Initial check
-			toggleModernClass();
+            // Find selected radio and add appropriate class
+            const selectedStyle = document.querySelector('input[name="kanban_default_style"]:checked');
+            if (selectedStyle) {
+                formTable.classList.add(selectedStyle.value);
+            } else {
+                formTable.classList.add('classic'); // Default
+            }
+        }
 
-			// Listen for changes
-			modernSwitch.addEventListener('change', toggleModernClass);
-		}
-	});
+        // Initial update
+        updateStyleClass();
+
+        // Listen for changes
+        styleRadios.forEach(radio => {
+            radio.addEventListener('change', updateStyleClass);
+        });
+    });
 </script>
 <?php
 }
@@ -358,8 +377,8 @@ function stk_options_page()
 
 function kanban_settings_init()
 {
-    register_setting('kanban_settings_group', 'kanban_default_color_scheme');
-    register_setting('kanban_settings_group', 'kanban_default_modern');
+	register_setting('kanban_settings_group', 'kanban_default_color_scheme');
+    register_setting('kanban_settings_group', 'kanban_default_style'); // New option name
 
     // Register the new hide_licence_invalid setting
     register_setting('kanban_advanced_settings_group', 'kanban_hide_licence_invalid');
@@ -404,26 +423,44 @@ function kanban_settings_section_callback()
     echo __('Set the default color scheme for new Kanban projects.', 'kanban');
 }
 
-function kanban_default_modern_callback()
-{
-    $default_modern = get_option('kanban_default_modern', '0');
+function kanban_default_modern_callback() {
+    // Get current style - default to 'classic' if not set
+    $default_style = get_option('kanban_default_style', 'classic');
 
-	$pro_feature = 'licence-invalid';
-	$disabled = 'disabled';
-	if (KanbanUpdate::isLicenceValid()) {
-		$pro_feature = '';
-		$disabled = '';
-	}
- // Ensure the checkbox is unchecked if it is disabled
- $checked = ($disabled === '') ? checked($default_modern, '1', false) : '';
+    $pro_feature = 'licence-invalid';
+    $disabled = 'disabled';
+    if (KanbanUpdate::isLicenceValid()) {
+        $pro_feature = '';
+        $disabled = '';
+    }
+
+    // Force classic style if license is not valid
+    if ($pro_feature === 'licence-invalid') {
+        $default_style = 'classic';
+    }
 ?>
     <div class="switch-holder <?php echo $pro_feature; ?>">
-		<?php include PLUGIN_ROOT_PATH . '/template-parts/backend/pro_overlay.php'; ?>
-		<p class="settings_section_title"><?php _e('Color Scheme Type', 'kanban'); ?></p>
+        <?php include PLUGIN_ROOT_PATH . '/template-parts/backend/pro_overlay.php'; ?>
+        <p class="settings_section_title"><?php _e('Color Scheme Type', 'kanban'); ?></p>
 
-        <div class="switch-toggle">
-            <input id="kanban_default_modern" type="checkbox" name="kanban_default_modern" value="1" <?php echo $checked; ?>  <?php echo $disabled; ?>>
-            <label for="kanban_default_modern"></label>
+        <div class="color-scheme-options">
+            <?php
+            $style_options = [
+                'classic' => __('Classic', 'kanban'),
+                'modern' => __('Modern', 'kanban'),
+                'clean' => __('Clean', 'kanban')
+            ];
+
+            foreach ($style_options as $value => $label):
+                // Only disable non-classic options when license is invalid
+                $option_disabled = ($value !== 'classic' && $pro_feature === 'licence-invalid') ? 'disabled' : '';
+            ?>
+                <label class="color-scheme-option">
+                    <input type="radio" name="kanban_default_style" value="<?php echo esc_attr($value); ?>"
+                        <?php checked($default_style, $value); ?> <?php echo $option_disabled; ?>>
+                    <span><?php echo esc_html($label); ?></span>
+                </label>
+            <?php endforeach; ?>
         </div>
     </div>
 <?php

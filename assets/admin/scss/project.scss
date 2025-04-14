@@ -107,26 +107,22 @@ div.licence-invalid {
 }
 
 
+
 .modern {
 	#project-class-meta-box {
 		p {
 			input {
 				&[value="kanban-color-one"] {
-					background-color: #838c91;
-					box-shadow: $shadow-var-1 rgba(131, 140, 145, .6),$shadow-var-2 rgba(131, 140, 145, .2),$shadow-var-3 rgba(131, 140, 145, .8),$shadow-var-4 rgba(131, 140, 145, .2);
+					background-color: rgba(var(--color-1), 1);
 				}
 				&[value="kanban-color-two"] {
-					background-color: #487852;
-					box-shadow: $shadow-var-1 rgba(72, 120, 82, .6),$shadow-var-2 rgba(72, 120, 82, .2),$shadow-var-3 rgba(72, 120, 82, .8),$shadow-var-4 rgba(72, 120, 82, .2);
+					background-color: rgba(var(--color-2), 1);
 				}
 				&[value="kanban-color-three"] {
-					background-color: #18191b;
-					box-shadow: $shadow-var-1 rgba(24, 25, 27, .6),$shadow-var-2 rgba(24, 25, 27, .2),$shadow-var-3 rgba(24, 25, 27, .8),$shadow-var-4 rgba(24, 25, 27, .2);
-
+					background-color: rgba(var(--color-3), 1);
 				}
 				&[value="kanban-color-four"] {
-					background-color: #176a86;
-					box-shadow: $shadow-var-1 rgba(23, 106, 134, .6),$shadow-var-2 rgba(23, 106, 134, .2),$shadow-var-3 rgba(23, 106, 134, .8),$shadow-var-4 rgba(23, 106, 134, .2);
+					background-color: rgba(var(--color-4), 1);
 				}
 			}
 		}
@@ -274,82 +270,72 @@ div.licence-invalid {
 	@include basic-box;
 }
 
-#board_color_scheme {
-	.board_settings_subtitle {
-		margin-bottom: 0;
-	}
-}
-
-.switch-holder {
-	display: flex;
-	align-items: center;
-	padding-block: 32px;
-	@include st;
-}
-
-
-.switch-label {
-	margin-right: 16px;
-
-}
-
-.switch-toggle {
-	height: 40px;
-	&:not(.disabled) {
-		input[type="checkbox"]+label::before {
-			@include st;
-		}
-		input[type="checkbox"]+label {
+.color-scheme-options {
+	@include basic-box;
+	width: fit-content;
+	.color-scheme-option {
+		margin-inline: 5px;
+		span {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+			width: 150px;
+			height: 38px;
+			border-radius: 8px;
 			cursor: pointer;
+			box-sizing: border-box;
+			filter: grayscale(1);
+			opacity: .8;
+			transition: .2s all;
+			color: #fff;
+			font-size: 0;
+			background-size: contain;
+			position: relative;
+			&:before {
+				all: unset;
+				content: url(../icons/check-dark.svg);
+				position: absolute;
+				right: 4px;
+				top: 8px;
+				opacity: 0;
+				transition: .2s all;
+			}
+		}
+		input {
+			display: none;
+
+			&[value="classic"] + span {
+				background-image: url(../images/classic.jpg);
+			}
+			&[value="modern"] + span {
+				background-image: url(../images/modern.jpg);
+				box-shadow: 0 5px 15px -4px rgba(0,0,0,0.5),inset 0 -3px 4px -1px rgba(0,0,0,0.2),0 -2.5px 15px -1px rgba(241,241,241,0.6),inset 0 3px 4px -1px rgba(241,241,241,0.2),inset 0 0 5px 1px rgba(241,241,241,0.8),inset 0 20px 30px 0 rgba(241,241,241,0.2);
+			}
+			&[value="clean"] + span {
+				background-image: url(../images/clean.jpg);
+			}
+		}
+		input:checked + span, span:hover {
+			filter: grayscale(0);
+			opacity: 1;
+		}
+		input:checked + span {
+			&:before {
+				opacity: 1;
+			}
 		}
 	}
-	input[type="checkbox"] {
-		position: absolute;
-		opacity: 0;
-		z-index: -2;
-	}
-	input[type="checkbox"]+label {
-		position: relative;
-		display: inline-block;
-		width: 150px;
-		height: 40px;
-		border-radius: 20px;
-		margin: 0;
-		box-shadow: inset -8px -8px 15px rgba(255, 255, 255, .6),
-				inset 10px 10px 10px rgba(0, 0, 0, .25);
-	}
-	input[type="checkbox"]+label::before {
-		position: absolute;
-		content: 'Classic';
-		font-size: 13px;
-		text-align: center;
-		line-height: 25px;
-		top: 8px;
-		left: 8px;
-		width: 65px;
-		height: 25px;
-		border-radius: 20px;
-		background-color: #eeeeee;
-	}
-	input[type="checkbox"]:checked+label::before {
-		left: 50%;
-		content: 'Modern';
-		color: #18191b;
-		background-color: #adf7bd;
-		box-shadow: -3px -3px 5px rgba(255, 255, 255, .5),
-				3px 3px 5px rgba(0, 0, 0, .25);
-	}
 }
-
 
 #project-class-meta-box {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, 100px);
+	grid-template-columns: repeat(4, minmax(0, 150px));
 	gap: 10px;
+	width: fit-content;
 	@include basic-box;
 	p {
-		width: 100px;
-		height: 100px;
+		height: 38px;
 		font-size: 0;
 		input {
 			width: 100%;
@@ -359,25 +345,30 @@ div.licence-invalid {
 			border: none;
 			box-shadow: none;
 			@include st;
+			&:before {
+				all: unset;
+				content: url(../icons/check-light.svg);
+				position: absolute;
+				right: 4px;
+				top: 8px;
+				opacity: 0;
+				transition: .2s all;
+			}
 			&[value="kanban-color-one"] {
-				background-color: #838c91;
+				background-color: rgba(var(--color-1), 1);
 			}
 			&[value="kanban-color-two"] {
-				background-color: #487852;
+				background-color: rgba(var(--color-2), 1);
 			}
 			&[value="kanban-color-three"] {
-				background-color: #18191b;
+				background-color: rgba(var(--color-3), 1);
 			}
 			&[value="kanban-color-four"] {
-				background-color: #176a86;
+				background-color: rgba(var(--color-4), 1);
 			}
 			&:checked {
 				&:before {
-					all: unset;
-					content: url(../icons/check-light.svg);
-					position: absolute;
-    				right: 4px;
-					top: 4px;
+					opacity: 1;
 				}
 			}
 		}
@@ -404,19 +395,19 @@ div.licence-invalid {
 
 		background-repeat: no-repeat;
 		background-position: center;
-		background-size: 75px;
+		background-size: 70px;
 		box-sizing: border-box;
 		background-color: #2F7AE5;
 		position: relative;
 		border: none;
 		box-shadow: none;
-		background-position: bottom 5px left 5px;
+		background-position: bottom 10px left 10px;
 		@include st;
 		&[value="kanban-view"] {
-			background-image: url(../icons/kanban.svg);
+			background-image: url(../icons/kanban.png);
 		}
 		&[value="list-view"] {
-			background-image: url(../icons/list.svg);
+			background-image: url(../icons/list.png);
 		}
 		&::before {
 			width: 24px;

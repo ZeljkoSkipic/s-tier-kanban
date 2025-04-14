@@ -140,9 +140,7 @@ while (have_posts()) : the_post(); ?>
 
 						</div>
 					</div>
-
-					<?php endif; ?>
-				<div class="bottom_right">
+					<div class="bottom_right">
 					<div class="board_members">
 						<p class="kanban_field_title">Board Members:</p>
 						<?php
@@ -169,6 +167,8 @@ while (have_posts()) : the_post(); ?>
 						?>
 					</div>
 				</div>
+					<?php endif; ?>
+
 			</div>
 		</div>
 	</div>

@@ -1,0 +1,133 @@
+@import 'vars-mixins';
+
+.single-kanban-project {
+	background-color: var(--bg-color);
+	position: absolute;
+	overflow: auto;
+	#fullscreen-btn {
+		padding: 5px 50px 5px 20px;
+	}
+	&.fs-active {
+	  #fullscreen-btn {
+		background-image: url(../assets/icons/minimize.svg);
+	  }
+	}
+	.ast-container {
+	  all: unset;
+	}
+	&::-webkit-scrollbar {
+	  background-color: transparent;
+	  height: 8px;
+	  width: 8px;
+	}
+
+	/* background of the scrollbar except button or resizer */
+	&::-webkit-scrollbar-track {
+	  background-color: transparent;
+	}
+
+	/* scrollbar itself */
+	&::-webkit-scrollbar-thumb {
+	  background-color: #babac0;
+	  border-radius: 16px;
+	}
+
+	/* set button(top and bottom of the scrollbar) */
+	&::-webkit-scrollbar-button {
+	  display: none;
+	}
+	header,
+	footer,
+	#footer,
+	#header,
+	hr {
+	  display: none;
+	}
+  }
+
+.board-header {
+	.top_expander_wrap {
+		@include bg_base;
+	}
+	.top_left, .top_expander_wrap, .user_info_top {
+		padding-inline: $inline-padding
+	}
+	.top_left {
+		@include bg_base;
+	}
+	.top_expander_wrap {
+		@include bg_base;
+	}
+	.bottom {
+		display: none;
+	}
+	.user_info_top {
+		height: 55px;
+		@include bg_base;
+
+	}
+}
+
+.expander {
+	background-color: #fff;
+	width: 20px;
+	height: 20px;
+	@include flex-center;
+	cursor: pointer;
+	background-image: url(../assets/icons/cheveron-down.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 10px;
+	line-height: 0;
+	transition: 0.2s all;
+	border-radius: 50%;
+	&.open {
+		background-image: url(../assets/icons/cheveron-up.svg);
+	}
+}
+
+body:not(.kanban-clean) {
+	.kanban-column-inner {
+		background-color: #e9ecf0;
+		padding-inline: 16px;
+		border-radius: 8px;
+		width: 100%;
+		box-sizing: border-box;
+	}
+	#copyMessage {
+		padding: 5px;
+	}
+}
+
+body:not(.kanban-classic) {
+	.board_documents {
+		a {
+			span {
+				&.file-type-pdf {
+					background-image: url(../assets/icons/pdf-2.svg);
+				}
+				&.file-type-doc {
+					background-image: url(../assets/icons/doc-2.svg);
+				}
+				&.file-type-docx {
+					background-image: url(../assets/icons/docx-2.svg);
+				}
+				&.file-type-ppt {
+					background-image: url(../assets/icons/ppt-2.svg);
+				}
+				&.file-type-pptx {
+					background-image: url(../assets/icons/pptx-2.svg);
+				}
+				&.file-type-csv {
+					background-image: url(../assets/icons/csv-2.svg);
+				}
+				&.file-type-zip {
+					background-image: url(../assets/icons/zip-2.svg);
+				}
+				&.file-type-rar {
+					background-image: url(../assets/icons/rar-2.svg);
+				}
+			}
+		}
+	}
+}
