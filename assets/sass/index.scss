@@ -4,9 +4,15 @@
 @import 's-tier-kanban';
 @import 'account';
 @import 'dynamic-select';
+@import 'board-header';
 
 @import 'color-schemes/defaults';
 @import 'color-schemes/classic';
+
+@import 'card-view/defaults';
+@import 'card-view/pop-up';
+
+@import 'kanban-view';
 
 // Pro
 @import 'list-view';

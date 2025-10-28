@@ -1,7 +1,7 @@
 :root {
-	--color-1: 32, 148, 139;
-	--color-2: 64, 142, 198;
-	--color-3: 23, 106, 134;
+	--color-1: 72, 120, 81;
+	--color-2: 24, 105, 134;
+	--color-3: 130, 139, 143;
 	--color-4: 24, 25, 27;
 	--text-color: #fff;
 }
@@ -21,17 +21,8 @@ $shadow-var-4: inset 0 20px 30px 0;
 @mixin basic-box {
 	@include box;
 	padding: 15px 25px;
-	background-color: #fff;
-	box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.3);
-}
-
-@mixin shadow-box {
-	@include box;
-	padding: 15px 25px;
-	box-shadow: -8px -8px 15px rgba(255, 255, 255, .7),
-		  10px 10px 10px rgba(0, 0, 0, .2),
-		  inset 8px 8px 15px rgba(255, 255, 255, .7),
-		  inset 10px 10px 10px rgba(0, 0, 0, .2);
+	background-color: #FAFAFA;
+	border: 1px solid #F4F4F4;
 }
 
 @mixin kan-btn {

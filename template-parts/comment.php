@@ -2,7 +2,7 @@
 $comment_content = $comment->comment_content;
 $user_ID = $comment->user_id;
 $user = get_user_by('ID', $user_ID);
-$comment_date = $comment->comment_date;
+$comment_date = date_i18n(get_option('date_format') . ' ' . get_option('time_format'), strtotime($comment->comment_date));
 $avatar = get_avatar($user_ID);
 ?>
 

@@ -4,7 +4,7 @@
  * Plugin Name: S Kanban
  * Plugin URI: https://kanbanplugin.com/
  * Description: Project Management Simplified
- * Version: 0.20.1
+ * Version: 1.0.0
  * Author: S-Tier Dev
  * Author URI: https://stierdev.com/
  * License: GPLv2 or later
@@ -18,13 +18,12 @@ use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
 // Initialize the update checker
 $updateChecker = PucFactory::buildUpdateChecker(
-	'https://github.com/ZeljkoSkipic/s-tier-kanban/', // Replace with your GitHub repo
-	__FILE__,                                     // Full path to the main plugin file
-	's-tier-kanban'                                   // Plugin slug
+	'https://github.com/ZeljkoSkipic/s-tier-kanban/', 	// Replace with your GitHub repo
+	__FILE__,                                     		// Full path to the main plugin file
+	's-tier-kanban'                                   	// Plugin slug
 );
 
 $updateChecker->setBranch('main'); // Change 'main' if your default branch is different
-
 
 // Customize plugin action links
 add_filter('plugin_action_links_s-tier-kanban/s-tier-kanban.php', 'stk_customize_plugin_action_links', 20); // Higher priority

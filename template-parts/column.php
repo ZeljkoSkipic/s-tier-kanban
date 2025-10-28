@@ -46,7 +46,10 @@ $column_order = get_post_meta($column_id, 'column_order', true); ?>
 		</div> <!-- Container for cards -->
 
 		<div class="add-card-wrap">
-			<button class="add-card-btn">New Card</button>
+			<button class="add-card-btn add-item-btn">
+				<svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.99984 1.66667V13.3333M1.1665 7.5H12.8332" stroke="#18191B" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/></svg>
+				Add Task
+			</button>
 		</div>
 	</div>
 	<!-- Display other column details as needed -->

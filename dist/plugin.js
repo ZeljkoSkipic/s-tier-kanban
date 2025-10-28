@@ -1734,14 +1734,13 @@ document.addEventListener("keydown", updateCardTitle);
 // Miscellaneous
 
 jQuery(document).ready(function ($) {
-  $(".side_expander").on("click", function () {
-    $(".side_hidden").slideToggle();
-    $(".user_info").toggleClass("side-open");
+  $(".kp_details_expander").on("click", function () {
+    $(".kp_details").slideToggle();
     $(this).toggleClass("open");
   });
-  $(".top_expander_wrap").on("click", function () {
-    $(".board-header .bottom").fadeToggle();
-    $(".top_expander_wrap").toggleClass("open");
+  $(".user_static").on("click", function () {
+    $(".user_info_content").slideToggle();
+    $(this).toggleClass("open");
   });
 });
 

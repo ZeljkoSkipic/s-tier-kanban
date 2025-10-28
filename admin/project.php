@@ -120,21 +120,23 @@ function render_project_class_meta_box($post)
     <div class="board_settings_section">
         <div id="kanban-project-description">
             <p class="board_settings_subtitle"><?php _e('Project Description:', 'kanban'); ?></p>
-            <?php
-            wp_editor($description, 'kanban_project_description', array(
-                'textarea_name' => 'kanban_project_description',
-                'textarea_rows' => 4,
-                'media_buttons' => false,
-                'tinymce' => false,
-                'quicktags' => true,
-            ));
-            ?>
+            <div class="board_box_inner">
+				<?php
+				wp_editor($description, 'kanban_project_description', array(
+					'textarea_name' => 'kanban_project_description',
+					'textarea_rows' => 4,
+					'media_buttons' => false,
+					'tinymce' => false,
+					'quicktags' => true,
+				));
+				?>
+			</div>
         </div>
 
         <div class="board-upload-files board_box <?php echo $pro_feature; ?>">
             <?php include PLUGIN_ROOT_PATH . '/template-parts/backend/pro_overlay.php'; ?>
             <p class="board_settings_subtitle"><?php _e('Project Files:', 'kanban'); ?></p>
-            <div class="board-upload-files_inner">
+            <div class="board-upload-files_inner board_box_inner">
                 <ul class="board-files">
                     <?php
                     foreach ($kanban_documents as $kanban_documentID):
@@ -158,86 +160,93 @@ function render_project_class_meta_box($post)
         <div id="kanban-users-meta-box" class="board_box <?php echo $pro_feature; ?>">
             <?php include PLUGIN_ROOT_PATH . '/template-parts/backend/pro_overlay.php'; ?>
             <p class="board_settings_subtitle"><?php _e('Kanban Users:', 'kanban'); ?></p>
-            <select id="kanban-user-role-filter">
-                <option value=""><?php _e('All Roles', 'kanban'); ?></option>
-                <?php foreach ($roles as $role) : ?>
-                    <option value="<?php echo esc_attr($role); ?>"><?php echo esc_html(ucfirst($role)); ?></option>
-                <?php endforeach; ?>
-            </select>
-            <input type="text" id="kanban-user-search" placeholder="<?php _e('Search Users...', 'kanban'); ?>">
-            <div id="kanban-users-list">
-                <?php
-                $users = get_users(array('role__in' => $roles));
-                if (!empty($users)) {
-                    foreach ($users as $user) {
-                ?>
-                        <p class="kanban-user-item" data-role="<?php echo esc_attr(implode(' ', $user->roles)); ?>">
-                            <label>
-                                <input type="checkbox" name="kanban_users[]" value="<?php echo esc_attr($user->ID); ?>"
-                                    <?php checked(in_array($user->ID, $selected_users)); ?>>
-                                <?php echo esc_html($user->display_name); ?>
-                            </label>
-                        </p>
-                <?php
-                    }
-                }
-                ?>
-            </div>
+            <div class="board_box_inner">
+				<select id="kanban-user-role-filter">
+					<option value=""><?php _e('All Roles', 'kanban'); ?></option>
+					<?php foreach ($roles as $role) : ?>
+						<option value="<?php echo esc_attr($role); ?>"><?php echo esc_html(ucfirst($role)); ?></option>
+					<?php endforeach; ?>
+				</select>
+				<input type="text" id="kanban-user-search" placeholder="<?php _e('Search Users...', 'kanban'); ?>">
+				<div id="kanban-users-list">
+					<?php
+					$users = get_users(array('role__in' => $roles));
+					if (!empty($users)) {
+						foreach ($users as $user) {
+					?>
+							<p class="kanban-user-item" data-role="<?php echo esc_attr(implode(' ', $user->roles)); ?>">
+								<label>
+									<input type="checkbox" name="kanban_users[]" value="<?php echo esc_attr($user->ID); ?>"
+										<?php checked(in_array($user->ID, $selected_users)); ?>>
+									<?php echo esc_html($user->display_name); ?>
+								</label>
+							</p>
+					<?php
+						}
+					}
+					?>
+				</div>
+			</div>
         </div>
 
         <div id="board_color_scheme" class="board_box <?php echo $kanban_modern ? 'modern' : ''; ?>">
             <p class="board_settings_subtitle"><?php _e('Board Color Scheme:', 'kanban'); ?></p>
-            <div id="project-color-style">
-                <div class="switch-holder <?php echo $pro_feature; ?>">
-                    <?php include PLUGIN_ROOT_PATH . '/template-parts/backend/pro_overlay.php'; ?>
-                    <div class="switch-label">
-                        <b><?php _e('Color Scheme Type:', 'kanban'); ?></b>
-                    </div>
-                    <div class="color-scheme-options">
-                        <?php
-                        $style_options = [
-                            'classic' => __('Classic', 'kanban'),
-                            'modern' => __('Modern', 'kanban'),
-                            'clean' => __('Clean', 'kanban')
-                        ];
+            <div class="board_box_inner">
+				<div id="project-color-style">
+					<div class="switch-holder <?php echo $pro_feature; ?>">
+						<?php include PLUGIN_ROOT_PATH . '/template-parts/backend/pro_overlay.php'; ?>
+						<div class="switch-label">
+							<b><?php _e('Color Scheme Type:', 'kanban'); ?></b>
+						</div>
+						<div class="color-scheme-options">
+							<?php
+							$style_options = [
+								'classic' => __('Classic', 'kanban'),
+								'modern' => __('Modern', 'kanban'),
+								'compact' => __('Compact', 'kanban')
+							];
 
-                        foreach ($style_options as $value => $label):
-                            // Only disable non-classic options when license is invalid
-                            $option_disabled = ($value !== 'classic' && $pro_feature === 'licence-invalid') ? 'disabled' : '';
-                        ?>
-                            <label class="color-scheme-option">
-                                <input type="radio" name="kanban_style" value="<?php echo esc_attr($value); ?>"
-                                    <?php checked($kanban_style, $value); ?> <?php echo $option_disabled; ?>>
-                                <span><?php echo esc_html($label); ?></span>
-                            </label>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-            </div>
-            <div id="project-class-meta-box">
-                <?php foreach ($classes as $class) : ?>
-                    <p>
-                        <input type="radio" name="project_class" value="<?php echo esc_attr($class); ?>" <?php checked($selected_class, $class); ?>>
-                        <?php echo esc_html(ucfirst(str_replace('-', ' ', $class))); ?>
-                    </p>
-                <?php endforeach; ?>
-            </div>
+							foreach ($style_options as $value => $label):
+								// Only disable non-classic options when license is invalid
+								$option_disabled = ($value !== 'classic' && $pro_feature === 'licence-invalid') ? 'disabled' : '';
+							?>
+								<label class="color-scheme-option">
+									<input type="radio" name="kanban_style" value="<?php echo esc_attr($value); ?>"
+										<?php checked($kanban_style, $value); ?> <?php echo $option_disabled; ?>>
+									<span><?php echo esc_html($label); ?></span>
+								</label>
+							<?php endforeach; ?>
+						</div>
+					</div>
+				</div>
+				<div class="switch-label">
+					<b><?php _e('Color Scheme:', 'kanban'); ?></b>
+				</div>
+				<div id="project-class-meta-box">
+					<?php foreach ($classes as $class) : ?>
+						<p>
+							<input type="radio" name="project_class" value="<?php echo esc_attr($class); ?>" <?php checked($selected_class, $class); ?>>
+							<?php echo esc_html(ucfirst(str_replace('-', ' ', $class))); ?>
+						</p>
+					<?php endforeach; ?>
+				</div>
+			</div>
         </div>
 
         <!-- Board Layout Options - PRO -->
 		<div id="board_layout_options" class="board_box <?php echo $pro_feature; ?>">
 			<?php include PLUGIN_ROOT_PATH . '/template-parts/backend/pro_overlay.php'; ?>
 			<p class="board_settings_subtitle"><?php _e('Board Layout:', 'kanban'); ?></p>
-			<div id="project-layout-meta-box">
+			<div id="project-layout-meta-box" class="board_box_inner">
 				<?php foreach ($layout_options as $layout) : ?>
 					<p>
-						<label for="layout-<?php echo esc_attr($layout); ?>">
-							<b><?php echo esc_html(ucwords(str_replace('-', ' ', $layout))); ?></b>
-						</label>
 						<input type="radio" id="layout-<?php echo esc_attr($layout); ?>"
 							name="project_layout"
 							value="<?php echo esc_attr($layout); ?>"
 							<?php checked($selected_layout, $layout); ?> <?php echo $disabled; ?>>
+							<label for="layout-<?php echo esc_attr($layout); ?>">
+							<b><?php echo esc_html(ucwords(str_replace('-', ' ', $layout))); ?></b>
+						</label>
 					</p>
 				<?php endforeach; ?>
 
@@ -283,7 +292,7 @@ function render_project_class_meta_box($post)
 
             function updateColorSchemeClass() {
                 // Remove all possible classes first
-                projectColorStyle.classList.remove('modern', 'clean', 'classic');
+                projectColorStyle.classList.remove('modern', 'compact', 'classic');
 
                 // Find selected radio and add appropriate class
                 const selectedStyle = document.querySelector('input[name="kanban_style"]:checked');
@@ -332,7 +341,7 @@ function save_project_class_meta_box($post_id)
         delete_post_meta($post_id, 'kanban-board-documents');
     }
 
-    // Save the kanban style (classic, modern, clean)
+    // Save the kanban style (classic, modern, compact)
     if (isset($_POST['kanban_style'])) {
         $style = sanitize_text_field($_POST['kanban_style']);
         update_post_meta($post_id, '_kanban_style', $style);

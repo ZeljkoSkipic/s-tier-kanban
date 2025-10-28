@@ -1,6 +1,6 @@
 <div class="status-wrap">
     <?php if (isset($show_title) && $show_title): ?>
-        <h4 class="card-sidebar-subtitle">Status</h4>
+        <h4 class="card-dd-title">Status</h4>
     <?php endif; ?>
     <?php
     $current = strtolower($status);
@@ -11,19 +11,19 @@
         ],
         'to-do' => [
             'label'     => "To Do",
-            'icon'      => file_get_contents(PLUGIN_ROOT_PATH . 'assets/icons/to-do.svg')
+            'icon'      => file_get_contents(PLUGIN_ROOT_PATH . 'assets/icons/modern/to-do.svg')
         ],
         'ongoing' => [
             'label'     => "Ongoing",
-            'icon'      => file_get_contents(PLUGIN_ROOT_PATH . 'assets/icons/ongoing.svg')
+            'icon'      => file_get_contents(PLUGIN_ROOT_PATH . 'assets/icons/modern/ongoing.svg')
         ],
         'stuck' => [
             'label'     => "Stuck",
-            'icon'      => file_get_contents(PLUGIN_ROOT_PATH . 'assets/icons/stuck.svg')
+            'icon'      => file_get_contents(PLUGIN_ROOT_PATH . 'assets/icons/modern/stuck.svg')
         ],
         'done' => [
             'label'     => "Done",
-            'icon'      => file_get_contents(PLUGIN_ROOT_PATH . 'assets/icons/done.svg')
+            'icon'      => file_get_contents(PLUGIN_ROOT_PATH . 'assets/icons/modern/done.svg')
         ],
     ];
     include PLUGIN_ROOT_PATH . '/template-parts/dynamic-select.php';

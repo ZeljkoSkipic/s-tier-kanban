@@ -4,9 +4,15 @@
 	}
 	.form-table th {
 		width: unset;
+		padding-bottom: 0;
 	}
 	h2 {
 		font-size: 22px
+	}
+	#project-class-meta-box {
+		p {
+			margin-top: 0;
+		}
 	}
 	.kanban-settings-tab {
 		border-radius: 10px;
@@ -23,7 +29,6 @@
 		.settings_section_title {
 			font-weight: 600;
 			margin-top: 0;
-			margin-bottom: 16px;
 		}
 	}
 	.switch-holder {

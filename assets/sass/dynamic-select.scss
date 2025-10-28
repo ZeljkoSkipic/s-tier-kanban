@@ -35,8 +35,13 @@
 	.priority-wrap {
 		margin-right: 4%;
 	}
-	.priority-wrap, .status-wrap {
-		width: 48%;
+}
+
+.status-wrap {
+	.dynamic-select {
+		svg {
+			width: 18px;
+		}
 	}
 }
 
@@ -46,66 +51,52 @@
     box-sizing: border-box;
     z-index: 9;
 	svg {
-		height: 13px;
+		width: 16px;
+		height: auto;
+		aspect-ratio: 1 / 1;
+		flex-shrink: 0;
 	}
-
-    &.dropdown-opened {
-        .dynamic-select-current-item {
-            background-color: #F5F6F6;
-            &::after {
-                transform: scale(-1);
-            }
-        }
-    }
     .dynamic-select-current-item {
         display: flex;
         align-items: center;
-        padding: 6px;
-        border: 1px solid #E9ECF0;
-        border-radius: 6px;
         position: relative;
-		height: 30px;
+		height: 17px;
 		box-sizing: border-box;
-        &:after {
-            content: "";
-            position: absolute;
-            width: 12px;
-            height: 7px;
-            background-image: url(../assets/icons/dropdown.svg);
-            right: 6px;
-            background-size: contain;
-            background-repeat: no-repeat;
-            transition: .3s all;
-        }
         .dynamic-select-label {
-            margin-left: 8px;
+            margin-left: 4px;
             width: calc(100% - 15px);
-            color: #414449;
-			font-size: 13px;
+            color: #484646;
+			font-size: 12px;
+			font-weight: 400;
 			display: flex;
 			align-items: center;
         }
     }
     .dynamic-select-dropdown {
-        padding: 4px;
+        padding: 4px 12px 8px 12px;
         box-shadow: 0px 8px 40px 0px #18191B29;
-        margin-top: 4px;
+        margin-top: 8px;
         position: absolute;
-        background-color: #fff;
-        width: 100%;
+        background-color: #F2F2F2;
+        width: 120px;
         border-radius: 4px;
+		border: 1px solid rgba(115,113,113,0.4);
+		left: 0;
         .dynamic-select-item {
-            padding: 4px;
             border-radius: 4px;
             display: flex;
             align-items: center;
             transition: .3s all;
 			font-size: 13px;
+			font-weight: 400;
+			&:first-child {
+				font-weight: 500;
+			}
             svg {
                 margin-right: 8px;
             }
             &:hover {
-                background-color: #F5F6F7;
+                color: #222;
             }
         }
     }

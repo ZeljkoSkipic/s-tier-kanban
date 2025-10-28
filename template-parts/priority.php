@@ -1,6 +1,6 @@
 <div class="priority-wrap">
     <?php if (isset($show_title) && $show_title): ?>
-        <h4 class="card-sidebar-subtitle">Priority</h4>
+        <h4 class="card-dd-title">Priority</h4>
     <?php endif; ?>
 
     <?php
@@ -12,19 +12,19 @@
         ],
         'low' => [
             'label'     => __('Low', 'kanban'),
-            'icon'      => file_get_contents(PLUGIN_ROOT_PATH . 'assets/icons/flag-grey.svg')
+            'icon'      => file_get_contents(PLUGIN_ROOT_PATH . 'assets/icons/modern/flag-low.svg')
         ],
         'medium' => [
             'label'     =>  __('Medium', 'kanban'),
-            'icon'      => file_get_contents(PLUGIN_ROOT_PATH . 'assets/icons/flag-blue.svg')
+            'icon'      => file_get_contents(PLUGIN_ROOT_PATH . 'assets/icons/modern/flag-medium.svg')
         ],
         'high' => [
             'label'     =>  __('High', 'kanban'),
-            'icon'      => file_get_contents(PLUGIN_ROOT_PATH . 'assets/icons/flag-orange.svg')
+            'icon'      => file_get_contents(PLUGIN_ROOT_PATH . 'assets/icons/modern/flag-high.svg')
         ],
         'urgent' => [
             'label'     =>  __('Urgent', 'kanban'),
-            'icon'      => file_get_contents(PLUGIN_ROOT_PATH . 'assets/icons/flag-red.svg')
+            'icon'      => file_get_contents(PLUGIN_ROOT_PATH . 'assets/icons/modern/flag-urgent.svg')
         ]
 
     ];

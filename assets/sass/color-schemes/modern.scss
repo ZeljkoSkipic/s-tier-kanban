@@ -1,81 +1,80 @@
-@import 'color-schemes/vars-mixins';
-
 body.kanban-modern {
-	@mixin modern_wrap {
-	  @include bg_base;
-	  box-shadow: 0 5px 5px -4px rgba(0, 0, 0, 0.5), inset 0 -3px 4px -1px rgba(0, 0, 0, 0.2), 0 -10px 15px -1px var(--color-06), inset 0 3px 4px -1px var(--color-02), inset 0 0 5px 1px var(--color-08), inset 0 20px 30px 0 var(--color-02);
-	  background-color: rgba(0,0,0,0.2)
-  }
-  .expander {
-	  background-size: 15px;
-	  padding: 0;
-	  background-position: center top 3.5px;
-  }
-  .kanban-card-view {
-	  backdrop-filter: blur(2.5px);
+	#kanban-board {
+		gap: 12px
+	}
+	.kanban-column {
+		background-color: rgba(29, 29, 29, .45);
+		padding: 8px 16px 16px;
+		border-radius: 10px;
+	}
+	.column-title {
+		color: #C7C7C7;
+		font-size: 14px;
+		border-bottom: 1px solid #7B7B7B;
+		margin-bottom: 16px;
+	}
+	.delete-column-btn {
+		background-image: url(../assets/icons/modern/trash-modern-white.svg);
+		width: 20px;
+		top: 10px;
+		background-size: 13px;
+	}
+	.kanban-card {
+		padding: 8px 12px;
+		&:not(:last-of-type) {
+			margin-bottom: 8px;
+		}
 
-  }
-  .kanban-card-view-inner {
-	  box-shadow: 0 5px 15px -4px rgba(0, 0, 0, 0.5), inset 0 -3px 4px -1px rgba(0, 0, 0, 0.2), 0 -5px 15px -1px rgba(200,200,200,0.6), inset 0 3px 4px -1px rgba(200,200,200,0.2), inset 0 0 5px 1px rgba(200,200,200,0.8), inset 0 20px 30px 0 rgba(200,200,200,0.2);
-  }
-  .kanban-column-inner, .column-title {
-	  box-shadow: 0 5px 15px -4px rgba(0, 0, 0, 0.5), inset 0 -3px 4px -1px rgba(0, 0, 0, 0.2), 0 -2.5px 15px -1px rgba(241,241,241,0.6), inset 0 3px 4px -1px rgba(241,241,241,0.2), inset 0 0 5px 1px rgba(241,241,241,0.8), inset 0 20px 30px 0 rgba(241,241,241,0.2);
-  }
-  .kanban-card {
-	  box-shadow: 0 5px 15px -4px rgba(0, 0, 0, 0.5), inset 0 -3px 4px -1px rgba(0, 0, 0, 0.2), 0 -5px 15px -1px rgba(255,255,255,0.6), inset 0 3px 4px -1px rgba(255,255,255,0.2), inset 0 0 5px 1px rgba(255,255,255,0.8), inset 0 20px 30px 0 rgba(255,255,255,0.2);
-  }
-  &.fs-active {
-	  #fullscreen-btn {
-		  filter: blur(0.5px);
-		  box-shadow: 0 8px 15px -4px rgba(0, 0, 0, 0.4), inset 0 -8px 30px 1px var(--color-09), 0 -10px 15px -1px var(--color-06), inset 0 8px 15px 0 rgba(0, 0, 0, 0.4), inset 0 0 10px 1px var(--color-06);
-	  }
-  }
-  .board-header  {
-	  .top_left {
-		  @include modern_wrap;
-	  }
-	  #fullscreen-btn {
-		  @include modern_wrap;
-		  transition: all .2s cubic-bezier(0.23, 1, 0.32, 1);
-	  }
-	  .top_expander_wrap {
-		  @include modern_wrap;
-		  position: relative;
-		  transition: all .2s cubic-bezier(0.23, 1, 0.32, 1);
-		  &:active {
-			  filter: blur(0.5px);
-			  box-shadow: 0 8px 15px -4px rgba(0, 0, 0, 0.4), inset 0 -8px 30px 1px var(--color-09), 0 -10px 15px -1px var(--color-06), inset 0 8px 15px 0 rgba(0, 0, 0, 0.4), inset 0 0 10px 1px var(--color-06);
-		  }
-		  &.open {
-			  filter: blur(0.5px);
-			  box-shadow: 0 8px 15px -4px rgba(0, 0, 0, 0.4), inset 0 -8px 30px 1px var(--color-09), 0 -10px 15px -1px var(--color-06), inset 0 8px 15px 0 rgba(0, 0, 0, 0.4), inset 0 0 10px 1px var(--color-06);
-			  .expander {
-				  background-image: url(../assets/icons/cheveron-up.svg);
-			  }
-		  }
-	  }
-	  .bottom {
-		  @include modern_wrap;
-		  margin-top: 10px;
-		  display: none;
-	  }
-  }
-  .user_info {
-	  background: var(--bg-color);
-	  &:before {
-		  box-shadow: 0 5px 5px -4px rgba(0, 0, 0, 0.5), inset 0 -3px 4px -1px rgba(0, 0, 0, 0.2), 0 -10px 15px -1px var(--color-06), inset 0 3px 4px -1px var(--color-02), inset 0 0 5px 1px var(--color-08), inset 0 20px 30px 0 var(--color-02);
-		  background-color: rgba(0,0,0,0.2)
-	  }
-	  &.side-open {
-		  .user_info_top {
-			  box-shadow: none;
-		  }
-		  &::before {
-			  filter: blur(0.5px);
-			  box-shadow: 0 12px 25px -4px rgba(0, 0, 0, 0.4), inset 0 -8px 30px 1px var(--color-09), 0 -10px 15px -1px var(--color-06), inset 0 8px 25px 0 rgba(0, 0, 0, 0.4), inset 0 0 10px 1px var(--color-06);
-			  background-color: rgba(0,0,0,0.05)
-		  }
-	  }
-  }
-
+		.card-title {
+			font-size: 15px;
+			color: #686565;
+		}
+		.description-placeholder {
+			font-size: 13px;
+			font-weight: 400;
+			color: #484646;
+			background-image: url(../assets/icons/modern/description-placeholder-modern.svg);
+			background-size: 12px;
+			padding-left: 20px;
+		}
+		.card-description {
+			font-size: 14px;
+			color: #484646;
+			font-weight: 400;
+		}
+	}
+	.add-card-btn {
+		color: #C7C7C7;
+		padding-top: 6px;
+		svg {
+			width: 12px;
+			path {
+				stroke: #C7C7C7;
+			}
+		}
+	}
+	#add-column-btn {
+		background-color: rgba(29,29,29,0.45);
+		color: #c7c7c7;
+		border-radius: 6px;
+		padding: 8px 16px;
+		font-weight: 500;
+		display: flex;
+		align-items: center;
+		width: 170px;
+		svg {
+			width: 12px;
+			margin-right: 6px;
+			@include st;
+			path {
+				stroke: #C7C7C7;
+			}
+		}
+		&:hover,
+		&:focus {
+			svg {
+				transform: scale(1.1);
+			}
+		}
+	}
 }

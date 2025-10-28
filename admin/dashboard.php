@@ -351,7 +351,7 @@ function stk_options_page()
 
         function updateStyleClass() {
             // Remove all possible classes first
-            formTable.classList.remove('modern', 'clean', 'classic');
+            formTable.classList.remove('modern', 'compact', 'classic');
 
             // Find selected radio and add appropriate class
             const selectedStyle = document.querySelector('input[name="kanban_default_style"]:checked');
@@ -400,7 +400,7 @@ function kanban_settings_init()
 
     add_settings_field(
         'kanban_default_color_scheme',
-        __('Default Color Scheme', 'kanban'),
+        __('Color Scheme', 'kanban'),
         'kanban_default_color_scheme_callback',
         'kanban-settings',
         'kanban_settings_section'
@@ -448,7 +448,7 @@ function kanban_default_modern_callback() {
             $style_options = [
                 'classic' => __('Classic', 'kanban'),
                 'modern' => __('Modern', 'kanban'),
-                'clean' => __('Clean', 'kanban')
+                'compact' => __('Compact', 'kanban')
             ];
 
             foreach ($style_options as $value => $label):
@@ -491,11 +491,11 @@ function kanban_hide_licence_invalid_callback()
 	<div class="kanban-dashboard-boxes">
 		<div class="kanban-dashboard-box">
 			<h3 class="kanban-dashboard-box-title">See Pro Features</h3>
-			<a class="kan-btn-2" href="https://kanbanplugin.com/pricing/" target="_blank">Get Pro</a>
+			<a class="kan-btn-2" href="https://kanbanplugin.com/features/" target="_blank">See Features</a>
 		</div>
 		<div class="kanban-dashboard-box">
 			<h3 class="kanban-dashboard-box-title">Choose a Plan for you</h3>
-			<a class="kan-btn-2" href="https://kanbanplugin.com/features/" target="_blank">Get Pro</a>
+			<a class="kan-btn-2" href="https://kanbanplugin.com/pricing/" target="_blank">Get Pro</a>
 		</div>
 		<div class="kanban-dashboard-box">
 			<h3 class="kanban-dashboard-box-title">Have a licence?</h3>
@@ -515,8 +515,8 @@ function kanban_sidebar_callback()
 ?>
     <h3><?php _e('Thank you for using the Kanban Plugin!', 'kanban'); ?></h3>
     <div class="kanban-settings-sidebar-box">
-        <p>Need a hand getting started? This video will walk you through it.</p>
-        <a href="https://www.youtube.com/watch?v=E8EvRA7_aOQ" target="_blank"><?php _e('Watch Video', 'kanban'); ?></a>
+        <p>Need a hand getting started? Check out Kanban Plugin documentation articles.</p>
+        <a href="https://kanbanplugin.com/docs/" target="_blank"><?php _e('Docs', 'kanban'); ?></a>
     </div>
     <div class="kanban-settings-sidebar-box">
         <p><?php _e('We would greatly appreciate your feedback. Share with us any issues, bugs, or feature requests you might have.', 'kanban'); ?></p>
@@ -525,7 +525,7 @@ function kanban_sidebar_callback()
 
     <div class="kanban-settings-sidebar-box">
         <p>A Proud Team behind the Kanban Plugin:</p>
-        <a href="https://stiedev.com/" target="_blank"><?php _e('S-Tier Dev', 'kanban'); ?></a>
+        <a href="https://stierdev.com/" target="_blank"><?php _e('S-Tier Dev', 'kanban'); ?></a>
         <a href="https://zeljkoskipic.com/" target="_blank"><?php _e('Zeljko Skipic', 'kanban'); ?></a>
     </div>
 

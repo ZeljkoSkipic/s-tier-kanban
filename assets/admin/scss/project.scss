@@ -58,6 +58,7 @@ div.licence-invalid {
 }
 
 .post-type-kanban-project {
+	background-color: #fff;
 	input[type="submit"] {
 		@include kan-btn;
 	}
@@ -74,13 +75,22 @@ div.licence-invalid {
 }
 
 .board_settings_section {
-	background-color: #f1f5f9;
-	padding: 15px 25px;
-	border-radius: 10px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: 40px;
+	> div {
+		height: 100%;
+	}
+	#kanban-users-meta-box {
+		grid-column: 1 / 3;
+	}
 }
 .board_box {
-	@include basic-box;
 	position: relative;
+}
+
+.board_box_inner {
+	@include basic-box;
 }
 
 #project_class_meta_box {
@@ -92,7 +102,9 @@ div.licence-invalid {
 	.postbox-header {
 		pointer-events: none;
 		h2 {
-			font-size: 22px;
+			font-size: 28px;
+			display: flex;
+			justify-content: center;
 		}
 	}
 	.handle-actions {
@@ -101,28 +113,27 @@ div.licence-invalid {
 }
 
 .board_settings_subtitle {
-	font-size: 16px;
-	font-weight: 500;
-	margin-block: 0 32px;
+	font-size: 18px;
+	margin-block: 32px 16px;
+	color: #232323;
+	font-weight: 400;
 }
 
-
-
-.modern {
+.modern, .compact{
 	#project-class-meta-box {
 		p {
 			input {
 				&[value="kanban-color-one"] {
-					background-color: rgba(var(--color-1), 1);
+					background: linear-gradient(180deg,rgba(var(--color-1), 1) 0%, rgba(16, 60, 24, 1) 100%);
 				}
 				&[value="kanban-color-two"] {
-					background-color: rgba(var(--color-2), 1);
+					background: linear-gradient(180deg,rgba(var(--color-2), 1) 0%, rgba(6, 25, 32, 1) 100%);
 				}
 				&[value="kanban-color-three"] {
-					background-color: rgba(var(--color-3), 1);
+					background: linear-gradient(180deg,rgba(var(--color-3), 1) 0%, rgba(38, 41, 42, 1) 100%);
 				}
 				&[value="kanban-color-four"] {
-					background-color: rgba(var(--color-4), 1);
+					background: linear-gradient(180deg,rgba(var(--color-4), 1) 0%, rgba(0, 0, 0, 1) 100%);
 				}
 			}
 		}
@@ -142,7 +153,6 @@ div.licence-invalid {
 		padding-inline: 5px;
 		box-sizing: border-box;
 		word-break: break-word;
-
 		&:last-child {
 			margin-right: 64px;
 		}
@@ -198,15 +208,15 @@ div.licence-invalid {
 
 .button.board-upload-button {
 	background-color: transparent;
-	border: 1px solid #439CEF;
-	color: #439CEF;
+	border: 1px solid #2270B1;
+	color: #232323;
 	font-size: 16px;
-	padding: 10px 15px 10px 45px;
+	padding: 5px 15px 5px 40px;
 	background-color: #fff;
 	background-image: url(../icons/upload.svg)!important;
-	background-position: center left 15px;
+	background-position: center left 12.5px;
 	background-repeat: no-repeat;
-	background-size: 20px;
+	background-size: 18px;
 	transition: .2s ease-in-out;
 	&:hover, &:focus {
 		background-color: rgba(67, 156, 239, .1);
@@ -215,15 +225,14 @@ div.licence-invalid {
 	&:hover, &:focus, &[disabled] {
 		background-image: url(../icons/upload.svg)!important;
 		background-repeat: no-repeat!important;
-		background-size: 20px!important;
-		background-position: center left 15px!important;
+		background-size: 19px!important;
+		background-position: center left 12.5px!important;
 
 	}
 
 }
 
 #kanban-users-meta-box {
-	@include basic-box;
 	#kanban-user-search, #kanban-user-role-filter {
 		box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.5);
 		border: none;
@@ -266,63 +275,50 @@ div.licence-invalid {
 	}
 }
 
-#board_layout_options {
-	@include basic-box;
-}
-
 .color-scheme-options {
-	@include basic-box;
+	margin-block: 16px;
+	border-radius: 12px;
 	width: fit-content;
+	box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.5);
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	overflow: hidden;
 	.color-scheme-option {
-		margin-inline: 5px;
+		padding: 2px;
 		span {
 			display: inline-flex;
 			align-items: center;
 			justify-content: center;
 			text-align: center;
-			width: 150px;
-			height: 38px;
-			border-radius: 8px;
+			height: 35px;
+			width: 100%;
 			cursor: pointer;
 			box-sizing: border-box;
-			filter: grayscale(1);
-			opacity: .8;
 			transition: .2s all;
-			color: #fff;
-			font-size: 0;
 			background-size: contain;
 			position: relative;
-			&:before {
-				all: unset;
-				content: url(../icons/check-dark.svg);
-				position: absolute;
-				right: 4px;
-				top: 8px;
-				opacity: 0;
-				transition: .2s all;
-			}
+			font-size: 14px;
+			border-radius: 12px;
 		}
 		input {
 			display: none;
-
+			&[value="compact"] + span {
+				border: 2px solid transparent;
+			}
+		}
+		input:checked {
 			&[value="classic"] + span {
-				background-image: url(../images/classic.jpg);
+				background: rgba(var(--color-2), 1);
+				color: #fff;
 			}
 			&[value="modern"] + span {
-				background-image: url(../images/modern.jpg);
-				box-shadow: 0 5px 15px -4px rgba(0,0,0,0.5),inset 0 -3px 4px -1px rgba(0,0,0,0.2),0 -2.5px 15px -1px rgba(241,241,241,0.6),inset 0 3px 4px -1px rgba(241,241,241,0.2),inset 0 0 5px 1px rgba(241,241,241,0.8),inset 0 20px 30px 0 rgba(241,241,241,0.2);
+				background: linear-gradient(180deg, rgba(var(--color-2), 1) 0%, #061920 100%);
+				color: #fff;
 			}
-			&[value="clean"] + span {
-				background-image: url(../images/clean.jpg);
-			}
-		}
-		input:checked + span, span:hover {
-			filter: grayscale(0);
-			opacity: 1;
-		}
-		input:checked + span {
-			&:before {
-				opacity: 1;
+			&[value="compact"] + span {
+				border-color: rgba(var(--color-2), 1);
+				background-color: #fff;
 			}
 		}
 	}
@@ -330,10 +326,11 @@ div.licence-invalid {
 
 #project-class-meta-box {
 	display: grid;
-	grid-template-columns: repeat(4, minmax(0, 150px));
+	grid-template-columns: repeat(4, minmax(0, 1fr));
 	gap: 10px;
 	width: fit-content;
-	@include basic-box;
+	margin-block: 16px;
+	width: 100%;
 	p {
 		height: 38px;
 		font-size: 0;
@@ -347,24 +344,25 @@ div.licence-invalid {
 			@include st;
 			&:before {
 				all: unset;
-				content: url(../icons/check-light.svg);
+				content: url(../icons/check-circle-light.svg);
 				position: absolute;
-				right: 4px;
-				top: 8px;
+				right: 50%;
+				top: 50%;
+				transform: translate(50%, -50%);
 				opacity: 0;
 				transition: .2s all;
 			}
 			&[value="kanban-color-one"] {
-				background-color: rgba(var(--color-1), 1);
+				background: rgba(var(--color-1), 1);
 			}
 			&[value="kanban-color-two"] {
-				background-color: rgba(var(--color-2), 1);
+				background: rgba(var(--color-2), 1);
 			}
 			&[value="kanban-color-three"] {
-				background-color: rgba(var(--color-3), 1);
+				background: rgba(var(--color-3), 1);
 			}
 			&[value="kanban-color-four"] {
-				background-color: rgba(var(--color-4), 1);
+				background: rgba(var(--color-4), 1);
 			}
 			&:checked {
 				&:before {
@@ -377,50 +375,64 @@ div.licence-invalid {
 
 #project-layout-meta-box {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, 100px);
+	grid-template-columns: repeat(2, minmax(0, 1fr));
 	gap: 10px;
-	@include basic-box;
-	#project-layout-meta-box {
-		width: 100%;
-	}
 	p {
 		margin-top: 0;
 		font-size: 14px;
+		margin-bottom: 0;
 	}
-	input {
-		margin-top: 8px;
-		width: 100px;
-		height: 100px;
+	label {
+		width: 100%;
+		height: 100%;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		padding: 15px 10px;
+		box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.5);
 		border-radius: 12px;
-
-		background-repeat: no-repeat;
-		background-position: center;
-		background-size: 70px;
+		height: 48px;
 		box-sizing: border-box;
-		background-color: #2F7AE5;
-		position: relative;
-		border: none;
-		box-shadow: none;
-		background-position: bottom 10px left 10px;
-		@include st;
-		&[value="kanban-view"] {
-			background-image: url(../icons/kanban.png);
-		}
-		&[value="list-view"] {
-			background-image: url(../icons/list.png);
-		}
-		&::before {
+		font-size: 16px;
+		background-color: #fff;
+		&:before {
+			content: "";
+			display: block;
 			width: 24px;
 			height: 24px;
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: contain;
+			margin-right: 16px;
 		}
-		&:checked {
-			&:before {
-				all: unset;
-				content: url(../icons/check-light.svg);
-				position: absolute;
-				right: 4px;
-				top: 4px;
+		&:after {
+			content: "";
+			background-image: url(../icons/square.svg);
+			display: block;
+			width: 24px;
+			height: 24px;
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: contain;
+			margin-left: auto;
+		}
+	}
+	input {
+		display: none;
+		&:checked + label {
+			&:after {
+				background-image: url(../icons/check-square.svg);
+			}
+		}
 
+		&[value="kanban-view"] + label {
+			&::before {
+				background-image: url(../icons/kanban-dark.svg);
+			}
+		}
+		&[value="list-view"] + label {
+			&::before {
+				background-image: url(../icons/list-dark.svg);
 			}
 		}
 	}

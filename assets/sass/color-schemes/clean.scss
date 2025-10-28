@@ -1,6 +1,4 @@
-@import 'color-schemes/vars-mixins';
-
-.kanban-clean {
+.kanban-compact {
 	background-color: transparent;
 	&::before {
 		content: "";
@@ -11,9 +9,8 @@
 		opacity: .6;
 	}
 	.board-header {
-		background: var(--bg-color);
 		.top {
-			padding: 0;
+			padding: 4px 60px 4px 20px;
 		}
 		.user_info {
 			top: 0;
@@ -26,23 +23,22 @@
 	#add-column-btn {
 		width: 260px;
 		font-size: 14px;
-		padding: 6px;
+		padding: 1px 6px;
+		justify-content: center;
 	}
 	.kanban-column {
 		.column-title {
 			font-size: 14px;
 			background-color: #fcf3f6;
 			box-shadow: 0 1px 2px rgba(0, 0, 0, .055);
-			border-top: 2px solid var(--bg-color);
-			padding-block: 5px;
-			&:hover {
-				background-size: 14px;
-				padding-left: 30px;
-			}
+			border-top: 2px solid #444;
+			padding: 6px 24px 6px 6px;
+			margin-bottom: 8px;
 		}
 		.delete-column-btn {
-			top: 3px;
-			background-size: 15px;
+			top: 0;
+			background-size: 13px;
+			background-image: url(../assets/icons/modern/trash-modern-red.svg);;
 		}
 		.kanban-column-inner {
 			background-color: #fcf3f6;
@@ -59,12 +55,19 @@
 			font-weight: 600;
 			font-size: 14px;
 		}
-		.card-description, .description-placeholder {
-			font-size: 13px;
+		.card-mid_left {
+			display: none;
+		}
+		.card-mid_right {
+			margin-top: 0;
+			flex-direction: row;
+			width: 100%;
+			svg {
+				margin-right: 8px;
+			}
 		}
 	}
 	.dynamic-select-current-item {
-		padding: 2px 4px;
 		height: 22.5px;
 	}
 	.selected-users {
@@ -81,19 +84,34 @@
 			}
 		}
 	}
+	.add-card-btn {
+		background-color: transparent;
+		justify-content: flex-start;
+		margin-block: 0;
+		font-size: 12px;
+		font-weight: 600;
+		color: #707684;
+		padding: 8px;
+		&:before {
+			width: 15px;
+			margin-bottom: 0;
+		}
+		svg {
+			width: 11px;
+			margin-top: -1px;
+			path {
+				stroke: #707684;
+			}
+		}
+	}
 	.kanban-card-view .kanban-card-view-inner {
-		grid-template-columns: calc(100% - 225px) 225px;
-		max-width: 860px;
 		.kanban-card-view-right .sidebar-btn {
 			height: 26.5px;
-			svg {
-				height: 15px;
-			}
 		}
 	}
 }
 
-.list-view.kanban-clean {
+.list-view.kanban-compact {
 	.column-title {
 		margin-bottom: 8px;
 	}
@@ -102,6 +120,11 @@
 	}
 	.kanban-column-inner {
 		padding-bottom: 6px;
+	}
+	.delete-column-btn {
+		background-color: #fcf3f6;
+		background-position: center;
+		right: 8px;
 	}
 	.kanban-card {
 		height: 35px;
@@ -114,19 +137,22 @@
 		}
 	}
 	.add-card-wrap {
-		width: 125px;
-		margin-top: 14px;
+		width: fit-content;
+		margin-top: -4px;
 	}
 	.add-card-btn {
 		font-size: 14px;
 		background-color: #fcf3f6;
 		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.055);
-		border-top: 2px solid var(--bg-color);
+		border-top: 2px solid #444;
 		padding-block: 3px;
+		padding-right: 12px;
+		border-radius: 6px;
+		width: fit-content;
 	}
 }
 
-.kanban-view.kanban-clean {
+.kanban-view.kanban-compact {
 	.kanban-column {
 		width: 260px;
 	}
@@ -143,20 +169,16 @@
 	.add-card-wrap {
 		margin-top: 0;
 		border-top: none;
-		.add-card-btn {
-			background-color: transparent;
-			justify-content: flex-start;
-			margin-block: 0;
-			font-size: 12px;
-			font-weight: 600;
-			color: #707684;
-			&:before {
-				width: 15px;
-				margin-bottom: 0;
-			}
-		}
 	}
 	.swal2-popup .swal2-actions button {
 		padding-block: 7.5px;
+	}
+	.kanban-card {
+		.priority-wrap, .status-wrap {
+			width: 16px;
+			.dynamic-select-current-item .dynamic-select-label {
+				display: none;
+			}
+		}
 	}
 }

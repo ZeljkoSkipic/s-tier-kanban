@@ -10,13 +10,29 @@ $card_users = get_post_meta(get_the_ID(), 'card_users', true);
 <div class="kanban-card" data-user-admin="<?php echo is_user_kanban_admin(); ?>" data-user-creation="<?php echo is_user_kanban_creation($user_id); ?>" data-card-id="<?php echo esc_attr(get_the_ID()); ?>">
 
 	<h4 contenteditable="false" class="card-title"><?php echo $title ? $title : __('Add Title', 'kanban'); ?></h4>
-	<div data-description='<?php echo $description ? $description : '{}'; ?>' id="card-description-<?php echo get_the_ID(); ?>" class="card-description" contenteditable="false"></div>
+	<div class="card-mid">
+		<div class="card-mid_left">
+			<div data-description='<?php echo $description ? $description : '{}'; ?>' id="card-description-<?php echo get_the_ID(); ?>" class="card-description" contenteditable="false"></div>
+		</div>
+		<div class="card-mid_right card-svgs">
+			<div class="comment_svg" title="This card has comments">
+				<?php
+				if ($users): ?>
+					<svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.82728 0C0.807081 0 0 0.925558 0 2.04174V6.27893C0 7.39511 0.807081 8.32319 1.82728 8.32319H6.57224L9.64441 10.9486C9.68441 10.9829 9.72967 10.9988 9.774 10.9999C9.89922 11.0032 10.017 10.8893 9.98806 10.742L9.4792 8.2056C10.3331 8.02597 11 7.26721 11 6.27893V2.04174C11 0.925558 10.1937 0 9.17355 0H1.82728ZM1.82728 0.429177H9.17355C9.94077 0.429177 10.5754 1.13265 10.5754 2.04174V6.27893C10.5754 7.16408 9.97091 7.85601 9.23303 7.89149C9.10373 7.89768 9.01019 8.01945 9.0356 8.14849L9.45442 10.2213L6.78785 7.94272C6.74958 7.90963 6.70097 7.89147 6.65072 7.89149H1.82728C1.06006 7.89149 0.425428 7.18802 0.425428 6.27893V2.04174C0.425428 1.13265 1.06006 0.429178 1.82728 0.429177ZM3.41003 3.11091C3.29259 3.11044 3.19727 3.20735 3.19773 3.32676C3.19727 3.44616 3.29259 3.54307 3.41003 3.5426H7.67175C7.78919 3.54307 7.88451 3.44616 7.88405 3.32676C7.88451 3.20735 7.78919 3.11044 7.67175 3.11091H3.41003ZM3.41003 4.83182C3.29259 4.83135 3.19727 4.92826 3.19773 5.04766C3.19909 5.16575 3.29388 5.26062 3.41003 5.26015H7.67175C7.7879 5.26062 7.88269 5.16575 7.88405 5.04766C7.88451 4.92826 7.78919 4.83135 7.67175 4.83182H3.41003Z" fill="#484646"/></svg>
+				<?php endif; ?>
+			</div>
+			<div class="description_svg" title="This card has a description">
 
-	<?php
-	include PLUGIN_ROOT_PATH . 'template-parts/priority.php';
-	include PLUGIN_ROOT_PATH . 'template-parts/status.php';
+				<?php if ($description): ?>
 
-	?>
+					<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_95_19)"><path d="M3.83944 9.98814H1.19824C0.883555 9.98814 0.581759 9.86313 0.359243 9.64061C0.136727 9.4181 0.0117188 9.1163 0.0117188 8.80161L0.0117188 1.18652C0.0117188 0.871836 0.136727 0.57004 0.359243 0.347524C0.581759 0.125008 0.883555 0 1.19824 0L6.69183 0C7.00652 0 7.30831 0.125008 7.53083 0.347524C7.75335 0.57004 7.87835 0.871836 7.87835 1.18652V4.17181C7.88186 4.20898 7.87757 4.24648 7.86575 4.2819C7.85393 4.31732 7.83484 4.34988 7.80971 4.37749C7.78458 4.40511 7.75396 4.42717 7.7198 4.44227C7.68565 4.45736 7.64873 4.46516 7.61139 4.46516C7.57405 4.46516 7.53712 4.45736 7.50297 4.44227C7.46882 4.42717 7.4382 4.40511 7.41306 4.37749C7.38793 4.34988 7.36885 4.31732 7.35703 4.2819C7.3452 4.24648 7.34091 4.20898 7.34442 4.17181V1.18652C7.34442 1.10187 7.32771 1.01805 7.29524 0.93987C7.26277 0.861691 7.21519 0.790692 7.15522 0.730944C7.09526 0.671196 7.02408 0.623875 6.94578 0.591697C6.86748 0.559518 6.7836 0.543114 6.69895 0.543427H1.19824C1.11319 0.542485 1.0288 0.558424 0.949952 0.590321C0.871104 0.622218 0.799367 0.669438 0.738894 0.729249C0.678421 0.78906 0.630414 0.860273 0.597651 0.938764C0.564888 1.01726 0.548021 1.10147 0.548026 1.18652V8.80873C0.548021 8.89379 0.564888 8.978 0.597651 9.05649C0.630414 9.13498 0.678421 9.20619 0.738894 9.26601C0.799367 9.32582 0.871104 9.37304 0.949952 9.40493C1.0288 9.43683 1.11319 9.45277 1.19824 9.45183H3.83944C3.91055 9.45183 3.97876 9.48008 4.02905 9.53037C4.07934 9.58066 4.10759 9.64886 4.10759 9.71998C4.10759 9.7911 4.07934 9.85931 4.02905 9.90959C3.97876 9.95988 3.91055 9.98814 3.83944 9.98814Z" fill="#484646"/><path d="M6.19276 2.86663H1.68398C1.6468 2.87014 1.60931 2.86585 1.57389 2.85403C1.53847 2.84221 1.50591 2.82312 1.47829 2.79799C1.45068 2.77286 1.42862 2.74224 1.41352 2.70808C1.39842 2.67393 1.39062 2.63701 1.39062 2.59967C1.39062 2.56233 1.39842 2.5254 1.41352 2.49125C1.42862 2.4571 1.45068 2.42648 1.47829 2.40134C1.50591 2.37621 1.53847 2.35713 1.57389 2.3453C1.60931 2.33348 1.6468 2.32919 1.68398 2.3327H6.19276C6.25922 2.33897 6.32095 2.36981 6.36588 2.41918C6.41081 2.46855 6.43571 2.53291 6.43571 2.59967C6.43571 2.66642 6.41081 2.73078 6.36588 2.78015C6.32095 2.82952 6.25922 2.86036 6.19276 2.86663Z" fill="#484646"/><path d="M4.16986 4.95016H1.69003C1.61891 4.95016 1.5507 4.9219 1.50042 4.87162C1.45013 4.82133 1.42188 4.75312 1.42188 4.682C1.42188 4.61088 1.45013 4.54268 1.50042 4.49239C1.5507 4.4421 1.61891 4.41385 1.69003 4.41385H4.16986C4.24098 4.41385 4.30918 4.4421 4.35947 4.49239C4.40976 4.54268 4.43801 4.61088 4.43801 4.682C4.43801 4.75312 4.40976 4.82133 4.35947 4.87162C4.30918 4.9219 4.24098 4.95016 4.16986 4.95016Z" fill="#484646"/><path d="M9.11621 7.23067C9.07694 7.23074 9.03806 7.22302 9.0018 7.20794C8.96555 7.19287 8.93265 7.17075 8.90501 7.14287L7.82527 6.06076C7.76957 6.00506 7.73828 5.92952 7.73828 5.85075C7.73828 5.77198 7.76957 5.69643 7.82527 5.64073C7.88097 5.58503 7.95652 5.55374 8.03529 5.55374C8.11406 5.55374 8.1896 5.58503 8.2453 5.64073L9.32741 6.72284C9.38206 6.77909 9.41263 6.85443 9.41263 6.93285C9.41263 7.01128 9.38206 7.08662 9.32741 7.14287C9.29977 7.17075 9.26686 7.19287 9.23061 7.20794C9.19436 7.22302 9.15547 7.23074 9.11621 7.23067Z" fill="#484646"/><path d="M4.96484 9.99999L5.26622 8.19648L8.27287 5.18983C8.40988 5.05318 8.59549 4.97644 8.789 4.97644C8.98251 4.97644 9.16812 5.05318 9.30514 5.18983L9.77975 5.66444C9.9164 5.80145 9.99314 5.98707 9.99314 6.18058C9.99314 6.37409 9.9164 6.5597 9.77975 6.69671L6.76836 9.69861L4.96484 9.99999ZM5.82151 8.47175L5.691 9.26434L6.48359 9.13145L9.35735 6.26007C9.38242 6.23437 9.39646 6.19988 9.39646 6.16396C9.39646 6.12805 9.38242 6.09356 9.35735 6.06786L8.88274 5.59325C8.85703 5.56817 8.82254 5.55414 8.78663 5.55414C8.75072 5.55414 8.71623 5.56817 8.69052 5.59325L5.82151 8.47175Z" fill="#484646"/></g><defs><clipPath id="clip0_95_19"><rect width="10" height="10" fill="white"/></clipPath></defs></svg>
+
+
+				<?php endif; ?>
+
+			</div>
+		</div>
+	</div>
 	<?php if (is_user_kanban_creation($user_id) || is_user_kanban_admin()): ?>
 
 		<button class="delete-card-btn" data-card-id="<?php echo esc_attr(get_the_ID()); ?>">Delete Card</button>
@@ -24,47 +40,33 @@ $card_users = get_post_meta(get_the_ID(), 'card_users', true);
 	<?php endif; ?>
 
 	<div class="card-bottom">
-		<?php if (KanbanUpdate::isLicenceValid()): ?>
+		<div class="card-bottom_left">
+		<?php
+			include PLUGIN_ROOT_PATH . 'template-parts/priority.php';
+			include PLUGIN_ROOT_PATH . 'template-parts/status.php';
+		?>
+		</div>
+		<div class="card-bottom_right">
+			<?php if (KanbanUpdate::isLicenceValid()): ?>
 
-			<div data-cardID="<?php the_ID() ?>" data-projectID="<?php echo $project_id; ?>" class="user-assign selected-users <?php if ($card_users) echo 'hasUsers'; ?>">
+				<div data-cardID="<?php the_ID() ?>" data-projectID="<?php echo $project_id; ?>" class="user-assign selected-users <?php if ($card_users) echo 'hasUsers'; ?>">
 
-				<?php
-				if ($card_users) {
-					foreach (array_reverse($card_users) as $card_user) {
-						$user = get_userdata($card_user);
-						include PLUGIN_ROOT_PATH . 'template-parts/assign-user.php';
+					<?php
+					if ($card_users) {
+						foreach (array_reverse($card_users) as $card_user) {
+							$user = get_userdata($card_user);
+							include PLUGIN_ROOT_PATH . 'template-parts/assign-user.php';
+						}
 					}
-				}
 
-				?>
+					?>
 
-				<?php echo file_get_contents(PLUGIN_ROOT_PATH . 'assets/icons/assign-user.svg'); ?>
+					<?php echo file_get_contents(PLUGIN_ROOT_PATH . 'assets/icons/assign-user.svg'); ?>
 
-			</div>
+				</div>
+				<?php include PLUGIN_ROOT_PATH . '/template-parts/assign-users-view.php'; ?>
+			<?php endif; ?>
 
-		<?php endif; ?>
-
-		<?php include PLUGIN_ROOT_PATH . '/template-parts/assign-users-view.php'; ?>
-		<div class="card-svgs">
-			<div class="comment_svg">
-				<?php
-				if ($users): ?>
-					<svg title="Card has Comments" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#808890" class="size-6">
-						<path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
-					</svg>
-				<?php endif; ?>
-			</div>
-			<div class="description_svg">
-
-				<?php if ($description): ?>
-
-					<svg title="Card has a Description" width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M13.25 10.875V8.6875C13.25 7.94158 12.9537 7.22621 12.4262 6.69876C11.8988 6.17132 11.1834 5.875 10.4375 5.875H9.1875C8.93886 5.875 8.7004 5.77623 8.52459 5.60041C8.34877 5.4246 8.25 5.18614 8.25 4.9375V3.6875C8.25 2.94158 7.95368 2.22621 7.42624 1.69876C6.89879 1.17132 6.18342 0.875 5.4375 0.875H3.875M3.875 11.5H10.125M3.875 14H7M5.75 0.875H1.6875C1.17 0.875 0.75 1.295 0.75 1.8125V16.1875C0.75 16.705 1.17 17.125 1.6875 17.125H12.3125C12.83 17.125 13.25 16.705 13.25 16.1875V8.375C13.25 6.38588 12.4598 4.47822 11.0533 3.0717C9.64678 1.66518 7.73912 0.875 5.75 0.875Z" stroke="#808890" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-					</svg>
-
-				<?php endif; ?>
-
-			</div>
 		</div>
 	</div>
 </div>

@@ -1,0 +1,61 @@
+.kanban-view {
+	#kanban-board {
+		padding-inline: 0.6vw calc(200px + 2vw);
+	}
+	.kanban-card {
+		.priority-wrap, .status-wrap {
+			width: 48%;
+		}
+	}
+	.card-bottom {
+		margin-top: 8px;
+		.card-bottom_left {
+			width: 55%;
+		}
+		.assign-users {
+			left: -16px;
+		}
+	}
+	.card-mid_left {
+		width: calc(100% - 30px);
+		min-height: 50px;
+	}
+	.card-mid_right {
+		margin-top: 12px;
+		width: 20px;
+		flex-direction: column;
+	}
+
+	&.kanban-modern {
+		.kanban-card {
+			.ce-block__content {
+				margin-top: 12px;
+			}
+		}
+		.card-mid {
+			margin-bottom: 10px;
+		}
+
+	}
+	&.kanban-classic {
+		.add-card-wrap {
+			margin-top: 16px;
+		}
+		.add-card-btn {
+			margin-block: 16px
+		}
+		.card-mid {
+			margin-bottom: 10px;
+		}
+		.kanban-card {
+			.ce-block__content {
+				margin-top: 16px;
+			}
+		}
+	}
+	.kanban-compact {
+		.add-card-wrap {
+			margin-top: 14px;
+		}
+	}
+}
