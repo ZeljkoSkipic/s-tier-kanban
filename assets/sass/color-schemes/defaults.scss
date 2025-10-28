@@ -47,6 +47,7 @@
   align-items: flex-start;
   height: fit-content;
   padding-bottom: 32px;
+  box-sizing: border-box;
 }
 
 body:not(.kanban-modern) {
@@ -74,6 +75,8 @@ body:not(.kanban-modern) {
 	position: relative;
 	width: 100%;
 	padding-block: 8px;
+	margin: 0;
+	font-weight: 500;
 }
 
 .kanban-card {
