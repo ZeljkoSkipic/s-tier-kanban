@@ -159,28 +159,28 @@ $title-color : #686565;
 	--text-color: #fff;
 	.kanban-color-one {
 		&.kanban-classic {
-			--bg-color: rgba(72, 120, 81, 1);
+			--kanban-bg-color: rgba(72, 120, 81, 1);
 		}
 		&:not(.kanban-classic) {
-			--bg-color: linear-gradient(180deg,rgba(72, 120, 81, 1) 0%, rgba(16, 60, 24, 1) 100%);
+			--kanban-bg-color: linear-gradient(180deg,rgba(72, 120, 81, 1) 0%, rgba(16, 60, 24, 1) 100%);
 		}
 	}
 	.kanban-color-two {
-		--bg-color: rgba(24, 105, 134, 1);
+		--kanban-bg-color: rgba(24, 105, 134, 1);
 		&:not(.kanban-classic) {
-			--bg-color: linear-gradient(180deg,rgba(24, 105, 134, 1) 0%, rgba(6, 25, 32, 1) 100%);
+			--kanban-bg-color: linear-gradient(180deg,rgba(24, 105, 134, 1) 0%, rgba(6, 25, 32, 1) 100%);
 		}
 	}
 	.kanban-color-three {
-		--bg-color: rgba(130, 139, 143, 1);
+		--kanban-bg-color: rgba(130, 139, 143, 1);
 		&:not(.kanban-classic) {
-			--bg-color: linear-gradient(180deg,rgba(130, 139, 143, 1) 0%, rgba(38, 41, 42, 1) 100%);
+			--kanban-bg-color: linear-gradient(180deg,rgba(130, 139, 143, 1) 0%, rgba(38, 41, 42, 1) 100%);
 		}
 	}
 	.kanban-color-four {
-		--bg-color: rgba(24, 25, 27, .8);
+		--kanban-bg-color: rgba(24, 25, 27, .8);
 		&:not(.kanban-classic) {
-			--bg-color: linear-gradient(180deg,rgba(24, 25, 27, .8) 0%, rgba(0, 0, 0, 1) 100%);
+			--kanban-bg-color: linear-gradient(180deg,rgba(24, 25, 27, .8) 0%, rgba(0, 0, 0, 1) 100%);
 		}
 	}
 }

@@ -5,7 +5,7 @@
 		position: fixed;
 		width: 100%;
 		height: 100%;
-		background: var(--bg-color);
+		background: var(--kanban-bg-color);
 		opacity: .6;
 	}
 	.board-header {
@@ -16,7 +16,7 @@
 			top: 0;
 			right: 0;
 			&::before {
-				background-color: var(--bg-color);
+				background-color: var(--kanban-bg-color);
 			}
 		}
 	}
@@ -73,14 +73,14 @@
 	.selected-users {
 		svg {
 			width: 20px;
-			stroke: var(--bg-color)
+			stroke: var(--kanban-bg-color)
 		}
 	}
 	.card-svgs {
 		svg {
 			path {
 				stroke-width: 1px;
-				stroke: var(--bg-color)
+				stroke: var(--kanban-bg-color)
 			}
 		}
 	}

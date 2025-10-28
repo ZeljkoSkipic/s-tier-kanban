@@ -136,6 +136,7 @@ $border : .3px solid #7b7b7b;
 		.kp_logo {
 			height: 40px;
 			margin-right: 16px;
+			margin-bottom: 0;
 			img {
 				object-fit: contain;
 				height: 100%;
@@ -145,12 +146,15 @@ $border : .3px solid #7b7b7b;
 		h1 {
 			font-size: 22px;
 			color: $text-color;
+			margin-block: 0 8px;
 		}
 		.kp_details_expander {
 			color: $text-color;
 			display: flex;
 			align-items: center;
 			cursor: pointer;
+			margin: 0;
+			font-size: 14px;
 			svg {
 				margin-left: 10px;
 				@include st;
@@ -304,7 +308,7 @@ $border : .3px solid #7b7b7b;
 		right: 0;
 		z-index: 9;
 		width: 200px;
-				padding: 16px;
+		padding: 16px;
 		transform: translateY(12px);
 		.user_boards {
 			margin-bottom: 50px;
@@ -317,7 +321,7 @@ $border : .3px solid #7b7b7b;
 			color: $text-color;
 			font-weight: 400;
 			border-bottom: .3px solid #7B7B7B;
-			margin-bottom: 8px;
+			margin-block: 0 8px;
 			padding-bottom: 8px;
 		}
 		.edit-project-link {
@@ -346,6 +350,10 @@ $border : .3px solid #7b7b7b;
 			font-weight: 400;
 			border-bottom: 1px solid transparent;
 			@include st;
+			align-items: center;
+			text-decoration: none;
+			font-size: 14px;
+			line-height: 1.4;
 			svg {
 				width: 18px;
 				margin-right: 4px;
@@ -356,6 +364,8 @@ $border : .3px solid #7b7b7b;
 			img {
 				width: 30px;
 				margin-right: 16px;
+				object-fit: contain;
+				height: 30px;
 			}
 		}
 	}

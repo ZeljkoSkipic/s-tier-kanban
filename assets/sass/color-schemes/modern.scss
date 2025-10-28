@@ -1,6 +1,10 @@
 body.kanban-modern {
 	#kanban-board {
-		gap: 12px
+		gap: 12px;
+		.add-item-btn {
+			font-size: 14px;
+			font-weight: 500;
+		}
 	}
 	.kanban-column {
 		background-color: rgba(29, 29, 29, .45);

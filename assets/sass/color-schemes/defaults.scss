@@ -1,7 +1,8 @@
 @import 'vars-mixins';
 
 .single-kanban-project {
-	background: var(--bg-color);
+	background: var(--kanban-bg-color);
+	background-attachment: fixed;
 	position: absolute;
 	overflow: auto;
 	.ast-container {
