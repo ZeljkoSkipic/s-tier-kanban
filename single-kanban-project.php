@@ -29,12 +29,13 @@ while (have_posts()) : the_post(); ?>
 							<p class="kp_details_title">
 								<?php _e('Project Description', 'kanban'); ?>
 							</p>
-							<p>
-								<?php
-								$project_description = get_post_meta(get_the_ID(), '_kanban_project_description', true);
-								echo wp_kses_post($project_description);
-								?>
-							</p>
+							<?php $project_description = get_post_meta(get_the_ID(), '_kanban_project_description', true);
+								if($project_description) { ?>
+
+								<div class="kp_project_description">
+									<?php echo wp_kses_post($project_description); ?>
+								</div>
+							<?php } ?>
 						</div>
 
 						<?php

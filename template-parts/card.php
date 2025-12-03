@@ -12,7 +12,7 @@ $card_users = get_post_meta(get_the_ID(), 'card_users', true);
 	<h4 contenteditable="false" class="card-title"><?php echo $title ? $title : __('Add Title', 'kanban'); ?></h4>
 	<div class="card-mid">
 		<div class="card-mid_left">
-			<div data-description='<?php echo $description ? $description : '{}'; ?>' id="card-description-<?php echo get_the_ID(); ?>" class="card-description" contenteditable="false"></div>
+			<div data-description='<?php echo $description ? esc_attr($description) : '{}'; ?>' id="card-description-<?php echo get_the_ID(); ?>" class="card-description" contenteditable="false"></div>
 		</div>
 		<div class="card-mid_right card-svgs">
 			<div class="comment_svg" title="This card has comments">

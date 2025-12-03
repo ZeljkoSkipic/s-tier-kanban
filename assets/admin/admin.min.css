@@ -64,7 +64,7 @@ div.licence-invalid .pro_overlay{display:-webkit-box;display:-ms-flexbox;display
 #kanban-users-list{display:grid;grid-template-columns:repeat(auto-fill,175px);gap:10px;margin-top:12px}
 #kanban-users-list .kanban-user-item{position:relative}
 #kanban-users-list .kanban-user-item label{cursor:pointer;font-size:14px;font-weight:600}
-#kanban-users-list .kanban-user-item input{background-image:url(../icons/user-x.svg);background-size:contain;background-repeat:no-repeat;background-position:center left;border:0;width:25px;height:25px;-webkit-box-shadow:none;box-shadow:none}
+#kanban-users-list .kanban-user-item input{background-image:url(../icons/user-x.svg);background-size:contain;background-repeat:no-repeat;background-position:center left;border:0;width:25px;height:25px;-webkit-box-shadow:none;box-shadow:none;background-color:transparent}
 #kanban-users-list .kanban-user-item input:checked{background-image:url(../icons/user-check.svg)}
 #kanban-users-list .kanban-user-item input::before{display:none}
 .color-scheme-options{margin-block:16px;border-radius:12px;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;-webkit-box-shadow:0 0 2px 0 rgba(0,0,0,0.5);box-shadow:0 0 2px 0 rgba(0,0,0,0.5);width:100%;display:grid;grid-template-columns:1fr 1fr 1fr;overflow:hidden}

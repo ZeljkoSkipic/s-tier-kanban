@@ -105,7 +105,8 @@ $border : .3px solid #7b7b7b;
 	color: $text-color;
 	font-size: 14px;
 	font-weight: 400;
-	padding-bottom: 8px!important;
+	padding-bottom: 12px!important;
+	margin: 0;
 }
 
 .board-header {
@@ -147,6 +148,7 @@ $border : .3px solid #7b7b7b;
 			font-size: 22px;
 			color: $text-color;
 			margin-block: 0 8px;
+			padding-bottom: 0;
 		}
 		.kp_details_expander {
 			color: $text-color;
@@ -155,6 +157,7 @@ $border : .3px solid #7b7b7b;
 			cursor: pointer;
 			margin: 0;
 			font-size: 14px;
+			font-weight: 500;
 			svg {
 				margin-left: 10px;
 				@include st;
@@ -189,7 +192,7 @@ $border : .3px solid #7b7b7b;
 				border-bottom: $border;
 				margin-bottom: 12px;
 				padding-bottom: 12px;
-				p {
+				.kp_project_description {
 					font-size: 16px;
 					color: $text-color;
 					font-weight: 400;

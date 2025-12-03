@@ -263,7 +263,7 @@ div.licence-invalid {
 			width: 25px;
 			height: 25px;
 			box-shadow: none;
-
+			background-color: transparent;
 			&:checked {
 				background-image: url(../icons/user-check.svg);
 			}

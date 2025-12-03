@@ -515,8 +515,9 @@ function kanban_sidebar_callback()
 ?>
     <h3><?php _e('Thank you for using the Kanban Plugin!', 'kanban'); ?></h3>
     <div class="kanban-settings-sidebar-box">
-        <p>Need a hand getting started? Check out Kanban Plugin documentation articles.</p>
+        <p>Need a hand getting started? Check out Kanban Plugin documentation articles, or watch the video.</p>
         <a href="https://kanbanplugin.com/docs/" target="_blank"><?php _e('Docs', 'kanban'); ?></a>
+		<a href="https://www.youtube.com/watch?v=Zoe8GyzVx2E" target="_blank"><?php _e('Watch Video', 'kanban'); ?></a>
     </div>
     <div class="kanban-settings-sidebar-box">
         <p><?php _e('We would greatly appreciate your feedback. Share with us any issues, bugs, or feature requests you might have.', 'kanban'); ?></p>

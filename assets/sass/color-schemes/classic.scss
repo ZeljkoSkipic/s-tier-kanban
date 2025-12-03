@@ -6,9 +6,6 @@ body.kanban-classic {
 		width: 100%;
 		box-sizing: border-box;
 	}
-	#copyMessage {
-		padding: 5px;
-	}
 	.column-title {
 		padding-inline: 16px 32px;
 		margin-bottom: 16px;
@@ -27,7 +24,7 @@ body.kanban-classic {
 		}
 	 }
 	.kanban-card {
-		margin-top: 12px;
+		margin-block: 12px;
 		padding: 10px 14px;
 		.card-title {
 			font-weight: 600;

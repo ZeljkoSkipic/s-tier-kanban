@@ -178,7 +178,7 @@ $title-color : #686565;
 		}
 	}
 	.kanban-color-four {
-		--kanban-bg-color: rgba(24, 25, 27, .8);
+		--kanban-bg-color: rgba(24, 25, 27, .9);
 		&:not(.kanban-classic) {
 			--kanban-bg-color: linear-gradient(180deg,rgba(24, 25, 27, .8) 0%, rgba(0, 0, 0, 1) 100%);
 		}
